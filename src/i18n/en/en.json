@@ -1,0 +1,43 @@
+{
+  "name": {
+    "text": "DigiCare",
+    "description": ""
+  },
+  "interpolation_pluralization": {
+    "text_one": "There is only one Article on this",
+    "text_other": "There are {{count}} Articles on this"
+  },
+  "registration": {
+    "signin": "Sign In",
+    "signup": "Sign Up",
+    "form": {
+      "name": {
+        "first": "First Name",
+        "last": "Last Name"
+      },
+      "email": "Email Address",
+      "password": "Password",
+      "promotion_permission_text": "I want to receive inspiration, marketing promotions and updates via email.",
+      "already_account": "Already have an account? Sign in",
+      "remember_me": "Remember me",
+      "forget_password": "Forgot password?",
+      "signup_message": "Don't have an account? Sign Up",
+      "copyright": "Copyright © '"
+    }
+  },
+  "hamburger_links": {
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "dashboard": {
+    "name": "dashboard",
+    "domains": {
+      "feed": "feed",
+      "settings": "settings",
+      "notify": "notifications",
+      "profile": "profile"
+    }
+  },
+  "date": "Today is {{date, DATE_HUGE}}"
+}

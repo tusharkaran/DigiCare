@@ -1,0 +1,55 @@
+@import './variable';
+
+:export {
+    // colors with names
+    white: $white;
+    offwhite: $offwhite;
+    lightgrey: $lightgrey;
+    lime: $lime;
+    red: $red;
+    black: $black;
+    darkRedColor: $darkRedColor;
+    lessDarkRedColor: $lessDarkRedColor;
+    blackShadowColor: $blackShadowColor;
+    fontWeight500: $fontWeight500;
+    fontWeight700: $fontWeight700;
+
+    //colors as per modules
+    homePageBackGroundColor: $homePageBackGroundColor;
+    homePageBackgroundLinearGradient: $homePageBackgroundLinearGradient;
+    mainTitleColor: $mainTitleColor;
+    homePageSubTitleColor: $homePageSubTitleColor;
+    hamburgerBackgroundColor: $hamburgerBackgroundColor;
+    hamburgerItemHoverColor: $hamburgerItemHoverColor;
+    generalBoxShadow: $generalBoxShadow;
+    dashboardLeftMenuBgColor: $dashboardLeftMenuBgColor;
+    dashBoardRightMenuBgColor: $dashBoardRightMenuBgColor;
+    dashboardFeedBgColor: $dashboardFeedBgColor;
+
+    // size of an element
+    mainTitleSize: $mainTitleSize;
+    textSize: $textSize;
+    mainTitleAnimationStartPosition: $mainTitleAnimationStartPosition;
+    mainTitleAnimationEndPosition: $mainTitleAnimationEndPosition;
+    hamburgerMenuWidth: $hamburgerMenuWidth;
+    mainImageWidth: $mainImageWidth;
+    mainImageHeight: $mainImageHeight;
+    pageLeftPartitionSize: $pageLeftPartitionSize;
+    pageLeftPartitionOnSmallSccreen: $pageLeftPartitionOnSmallSccreen;
+    dashboardSearchBarHeight: $dashboardSearchBarHeight;
+    smallIconSize: $smallIconSize;
+    mediumIconSize: $mediumIconSize;
+    largeIconSize: $largeIconSize;
+
+    //font-weight
+    mainTitleWeight: $mainTitleWeight;
+    homepageSubTitleWeight: $homepageSubTitleWeight;
+
+    //z-index
+    hamburgerBarZIndex: $hamburgerBarZIndex;
+    mainImageZIndex: $mainImageZIndex;
+
+    //time
+    slideInAnimationTime: $slideInAnimationTime;
+    slideInAnimationTimeMS: $slideInAnimationTimeMS;
+}
