@@ -12,7 +12,7 @@ export const DigiCareIcons = ({
   className,
   style,
 }: DigiCareIconsProps) => {
-  const { classes } = useIconsStyle();
+  const { classes } = useIconsStyle()
 
   const classNames = clsx({
     [classes.defaultIconClass]: true,
