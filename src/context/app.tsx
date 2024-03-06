@@ -12,11 +12,11 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({
   const navigate = useNavigate();
 
   const navigationAsPerSignedStatus = (requestedPage: string) => {
-    // if (isSignedIn) {
-    //   navigate(requestedPage);
-    // } else {
-    navigate(routesName.home);
-    // }
+    if (isSignedIn) {
+      navigate(requestedPage);
+    } else {
+    navigate(routesName.dashboard);
+    }
   };
 
   return (

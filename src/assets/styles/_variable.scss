@@ -13,11 +13,9 @@ $fontWeight700: 700;
 
 //colors as per modules
 $homePageBackGroundColor: #030202;
-$homePageBackgroundLinearGradient: linear-gradient(
-  326deg,
-  rgba(245, 246, 252, 0.52) 0%,
-  rgba(117, 19, 93, 0.73) 74%
-);
+$homePageBackgroundLinearGradient: linear-gradient(326deg,
+    rgba(245, 246, 252, 0.52) 0%,
+    rgba(117, 19, 93, 0.73) 74%);
 $mainTitleColor: $white;
 $homePageSubTitleColor: $lime;
 $hamburgerBackgroundColor: $darkRedColor;
@@ -26,21 +24,21 @@ $generalBoxShadow: 0.5rem 0rem 3rem 1rem $blackShadowColor;
 $dashboardLeftMenuBgColor: $offwhite;
 $dashBoardRightMenuBgColor: $offwhite;
 $dashboardFeedBgColor: $white;
+$realTimeCardColor: #cdeef6;
+$navbarTitleColor: #88b5ea;
+$navbarTitleBackgroundColor: #1976D2;
 
 // size of an element
 $mainTitleSize: 6rem;
 $textSize: 1.5rem;
 $mainTitleAnimationStartPosition: -8rem;
 $mainTitleAnimationEndPosition: 0rem;
-$hamburgerMenuWidth: 35vw;
-$mainImageWidth: 35vw;
-$mainImageHeight: 100vh;
-$pageLeftPartitionSize: 65vw;
-$pageLeftPartitionOnSmallSccreen: 100vw;
-$dashboardSearchBarHeight: 5rem;
 $smallIconSize: 2rem;
 $mediumIconSize: 3rem;
 $largeIconSize: 4rem;
+$realTimeCardWidth: 35rem;
+$realTImeCardHeight: 15rem;
+$navbarWidth: 24rem;
 
 //font-weight
 $mainTitleWeight: $fontWeight700;
@@ -53,4 +51,3 @@ $mainImageZIndex: 1001;
 //time
 $slideInAnimationTime: 2000;
 $slideInAnimationTimeMS: 2000ms;
-

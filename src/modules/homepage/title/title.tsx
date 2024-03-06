@@ -1,11 +1,10 @@
-import { Grid, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import './title.scss';
 
 export const DigiCareTitle = () => {
   const { t } = useTranslation();
   return (
-    <Grid>
-      <Typography variant="h1">{t("name.text")}</Typography>
-    </Grid>
+      <Typography className="digicare-nav-title">{t("name.text")}</Typography>
   );
 };

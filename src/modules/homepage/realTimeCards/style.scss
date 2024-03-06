@@ -1,0 +1,22 @@
+@import '../../../assets/styles/variable';
+
+.real-time-data-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.real-time-card-grid {
+    width: $realTimeCardWidth !important;
+    height: $realTImeCardHeight;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: $realTimeCardColor !important;
+}
+
+.real-time-card-action {
+    display: flex;
+    justify-content: end;
+}

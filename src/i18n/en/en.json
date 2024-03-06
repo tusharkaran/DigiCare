@@ -3,32 +3,21 @@
     "text": "DigiCare",
     "description": ""
   },
-  "interpolation_pluralization": {
-    "text_one": "There is only one Article on this",
-    "text_other": "There are {{count}} Articles on this"
-  },
-  "registration": {
-    "signin": "Sign In",
-    "signup": "Sign Up",
-    "form": {
-      "name": {
-        "first": "First Name",
-        "last": "Last Name"
-      },
-      "email": "Email Address",
-      "password": "Password",
-      "promotion_permission_text": "I want to receive inspiration, marketing promotions and updates via email.",
-      "already_account": "Already have an account? Sign in",
-      "remember_me": "Remember me",
-      "forget_password": "Forgot password?",
-      "signup_message": "Don't have an account? Sign Up",
-      "copyright": "Copyright © '"
-    }
-  },
-  "hamburger_links": {
-    "home": "Home",
-    "about": "About",
-    "contact": "Contact"
+  "real_time_dashboard": {
+    "record": {
+      "name": "Record",
+      "alert": {
+        "title": "Hardware Alert!!",
+        "content": "The real time recording will be evaluated once hardware is ready. For now dummy data is being used.",
+        "okButtonTitle": "Okay"
+      }
+    },
+    "blood_pressure": "Blood Pressure",
+    "heart_rate": "Heart rate",
+    "bmi": "BMI",
+    "weight": "Weight",
+    "o2": "O2",
+    "sugar_level": "Sugar Level"
   },
   "dashboard": {
     "name": "dashboard",
@@ -37,6 +26,18 @@
       "settings": "settings",
       "notify": "notifications",
       "profile": "profile"
+    }
+  },
+  "drawer": {
+    "patientImage": "https://res.cloudinary.com/dqdpwdoxs/image/upload/v1705202195/cld-sample-3.jpg",
+    "patientName": "Patient1",
+    "pageTitle": "Dashboard",
+    "drawerLink": {
+      "home": "Home",
+      "contact": "Contact Us",
+      "about": "About Us",
+      "dashboard": "Dashboard",
+      "history": "History"
     }
   },
   "date": "Today is {{date, DATE_HUGE}}"
