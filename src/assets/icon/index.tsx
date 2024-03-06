@@ -1,9 +1,9 @@
-import { Avatar } from '@mui/material'
-import { DigiCareIconEnum, DigiCareIconsProps, IconSize } from './interface'
-import DynamicFeedIcon from '@mui/icons-material/DynamicFeed'
-import RunningWithErrorsIcon from '@mui/icons-material/RunningWithErrors'
-import { useIconsStyle } from './style'
-import clsx from 'clsx'
+import { DigiCareIconEnum, DigiCareIconsProps, IconSize } from "./interface";
+import DynamicFeedIcon from "@mui/icons-material/DynamicFeed";
+import RunningWithErrorsIcon from "@mui/icons-material/RunningWithErrors";
+import { useIconsStyle } from "./style";
+import clsx from "clsx";
+import { Avatar } from "@mui/material";
 
 export const DigiCareIcons = ({
   title,
@@ -19,13 +19,21 @@ export const DigiCareIcons = ({
     [classes.smallSize]: size && size === IconSize.small,
     [classes.mediumSize]: size && size === IconSize.medium,
     [classes.largeSize]: size && size === IconSize.large,
-    [className || '']: className && className,
-  })
+    [className || ""]: className && className,
+  });
 
   switch (iconFor) {
     case DigiCareIconEnum.feed:
-      return <DynamicFeedIcon className={classNames} style={style} />
+      return (
+        <DynamicFeedIcon
+          titleAccess={title}
+          className={classNames}
+          style={style}
+        />
+      );
+    case DigiCareIconEnum.avatar:
+      return <Avatar className={classNames} style={style} />;
     default:
-      return <RunningWithErrorsIcon />
+      return <RunningWithErrorsIcon />;
   }
-}
+};

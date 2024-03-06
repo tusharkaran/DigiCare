@@ -1,23 +1,43 @@
-import { Homepage } from "../pages/Homepage"
+import { DigicareAbout } from "../pages/About";
+import { DigicareContact } from "../pages/Contact";
+import HistoryPage from "../pages/HistoryPage";
+import { Homepage } from "../pages/Homepage";
 
 export const routesName = {
-  home: '/',
-  signin: '/signin',
-  dashboard: '/dashboard',
-  about: '/about',
-  signup: '/signup',
-  contact: '/contact',
-  profile: '/profile',
-  notify: '/notifications',
-  settings: '/settings',
-}
+  dashboard: "/dashboard",
+  about: "/about",
+  contact: "/contact",
+  history: "/history",
+};
 
 export const RoutesList = [
   {
-    name: 'hamburger_links.home',
-    link: routesName.home,
-    id: 'home',
+    name: "drawer.drawerLink.dashboard",
+    link: routesName.dashboard,
+    id: "dashboard",
     renderHelperComponents: false,
     component: <Homepage />,
   },
-]
+  {
+    name: "drawer.drawerLink.history",
+    link: routesName.history,
+    id: "history",
+    renderHelperComponents: false,
+    component: <HistoryPage />,
+  },
+
+  {
+    name: "drawer.drawerLink.about",
+    link: routesName.about,
+    id: "about",
+    renderHelperComponents: false,
+    component: <DigicareAbout />,
+  },
+  {
+    name: "drawer.drawerLink.contact",
+    link: routesName.contact,
+    id: "contact",
+    renderHelperComponents: false,
+    component: <DigicareContact />,
+  },
+];
