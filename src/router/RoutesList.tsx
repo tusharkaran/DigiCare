@@ -9,6 +9,7 @@ import { PatientsList } from "../pages/PatientsList";
 import { SignIn } from "../pages/SignIn";
 import { SignUp } from "../pages/SignUp";
 import { IRoutesPath } from "./interface";
+import { DigicareProfile } from "../pages/Profile";
 
 export const routesName = {
   signin: "/signin",
@@ -20,6 +21,7 @@ export const routesName = {
   contact: "/contact",
   history: "/history",
   patientDetails: "/patient-details/:patient_id",
+  profile: "/profile",
 };
 
 export const RoutesList: IRoutesPath[] = [
@@ -94,5 +96,13 @@ export const RoutesList: IRoutesPath[] = [
     renderDrawerComponents: false,
     component: <DigicarePatientDetails />,
     valid_role: EUserRole.doctor,
+  },
+  {
+    name: "drawer.drawerLink.profile",
+    link: routesName.profile,
+    id: "profile",
+    renderDrawerComponents: true,
+    component: <DigicareProfile />,
+    valid_role: "all",
   },
 ];
