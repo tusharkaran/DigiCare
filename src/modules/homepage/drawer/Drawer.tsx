@@ -30,7 +30,6 @@ export function DigiCareDrawer({ children }: DigicareDrawerProps) {
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    console.log("bnkzd");
     setAnchorEl(event.currentTarget);
   };
 

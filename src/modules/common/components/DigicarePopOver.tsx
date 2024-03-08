@@ -9,7 +9,6 @@ export const DigicarePopOver = ({
   handleClose,
   children,
 }: DigicarePopOverProps) => {
-  console.log(open);
   return (
     <Popover
       className="digicare-pop-over"
