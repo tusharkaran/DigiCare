@@ -4,6 +4,7 @@ export interface DigiCareIconsProps {
   style?: React.CSSProperties;
   title?: string;
   size?: IconSize;
+  onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 export enum IconSize {

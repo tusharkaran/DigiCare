@@ -2,6 +2,14 @@
 
 .real-time-data-grid {
     display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.real-time-record-grid {
+    display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
 }
@@ -19,4 +27,12 @@
 .real-time-card-action {
     display: flex;
     justify-content: end;
+}
+
+.valid-real-time-data {
+
+}
+
+.invalid-real-time-data {
+    color: $red;
 }

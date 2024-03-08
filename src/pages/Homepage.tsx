@@ -8,13 +8,13 @@ import { RealTimeCards } from "../modules/homepage/realTimeCards";
 import { DigiCareDrawer } from "../modules/homepage/drawer/Drawer";
 
 export const Homepage = () => {
-  const { navigationAsPerSignedStatus } = useContext(
+  const { isSignedIn, navigationAsPerSignedStatus } = useContext(
     AppContext
   ) as ContextProps;
 
   useEffect(() => {
     navigationAsPerSignedStatus(routesName.dashboard);
-  }, []);
+  }, [isSignedIn]);
 
   return (
     <Grid className="homepage-background">
