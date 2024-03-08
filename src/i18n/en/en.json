@@ -49,7 +49,9 @@
       "doctorList": "Doctor History",
       "history": "History",
       "signin": "Sign In",
-      "signup": "Sign Up"
+      "signup": "Sign Up",
+      "patientList": "Patients' List",
+      "patientDetails": "Patient Details"
     }
   },
   "button": {

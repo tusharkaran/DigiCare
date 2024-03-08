@@ -7,4 +7,13 @@ export interface IPatient {
   contact_number: string;
   email: string;
   address: string;
+  role: EUserRole;
+  sex: string;
+}
+
+export enum EUserRole {
+  patient = "patient",
+  doctor = "doctor",
+  nurse = "nurse",
+  admin = "admin"
 }

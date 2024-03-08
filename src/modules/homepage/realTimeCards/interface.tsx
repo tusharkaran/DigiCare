@@ -1,4 +1,9 @@
 export interface RealTimeDataProps {
+    patient_id: string;
+    records: RealTimeRecordProps[];
+}
+
+export interface RealTimeRecordProps {
     _id: string;
     name: string;
     reading: string;

@@ -6,63 +6,57 @@ import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import "./style.scss";
 import { useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { AppContext } from "../../context/app";
 import { ContextProps } from "../../context/interface";
-import { patientData } from "../../dummyData/patientData";
-import { IPatient } from "./interface";
+import { digicareConfig } from "../../assets/constants/config";
 
 export const AvatarPopOverComp = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { setIsSignedIn } = useContext(AppContext) as ContextProps;
-  const [patient, setPatient] = useState<IPatient>();
+  const { user, setIsSignedIn } = useContext(AppContext) as ContextProps;
 
-  useEffect(() => {
-    setPatient(patientData);
-  }, []);
-
-  const getRoutesLink = () => {
-    return RoutesList.map((routes: IRoutesPath) => {
-      return routes.renderDrawerComponents ? (
-        <></>
-      ) : (
-        <Button
-          key={routes.id}
-          variant="text"
-          onClick={() => navigate(routes.link)}
-        >
-          {t(routes.name)}
-        </Button>
-      );
-    });
-  };
+  // const getRoutesLink = () => {
+  //   return RoutesList.map((routes: IRoutesPath) => {
+  //     return routes.renderDrawerComponents ? (
+  //       <></>
+  //     ) : (
+  //       <Button
+  //         key={routes.id}
+  //         variant="text"
+  //         onClick={() => navigate(routes.link)}
+  //       >
+  //         {t(routes.name)}
+  //       </Button>
+  //     );
+  //   });
+  // };
 
   return (
     <Grid>
       <Stack className="avatar-in-pop-over">
         <Avatar
           alt="Remy Sharp"
-          src={patient?.profile_pic}
+          src={digicareConfig.webPort + user?.profile_pic}
           sx={{ width: 100, height: 100 }}
         />
       </Stack>
       <Stack className="avatar-pop-over-details-grid">
         <Typography variant="h5" className="avatar-pop-over-details">
           <p>{"User: "}</p>
-          <p>{patient?.user_name}</p>
+          <p>{user?.user_name}</p>
         </Typography>
         <Typography variant="h5" className="avatar-pop-over-details">
           <p>{"Email: "}</p>
-          <p>{patient?.email}</p>
+          <p>{user?.email}</p>
         </Typography>
         <Typography variant="h5" className="avatar-pop-over-details">
           <p>{"Contact Number: "}</p>
-          <p>{patient?.contact_number}</p>
+          <p>{user?.contact_number}</p>
         </Typography>
       </Stack>
       <Stack className="avatar-pop-over-buttons-grid">
-        {getRoutesLink()}
+        {/* {getRoutesLink()} */}
         <Button variant="text" onClick={() => setIsSignedIn(false)}>
           {t("button.logout")}
         </Button>

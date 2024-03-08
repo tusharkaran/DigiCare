@@ -1,8 +1,11 @@
+import { EUserRole } from "../modules/avatarPopOverContent/interface";
 import { DigicareAbout } from "../pages/About";
 import { DigicareContact } from "../pages/Contact";
 import { DoctorHistory } from "../pages/DoctorHistory";
 import HistoryPage from "../pages/HistoryPage";
 import { Homepage } from "../pages/Homepage";
+import { DigicarePatientDetails } from "../pages/PatientDetails";
+import { PatientsList } from "../pages/PatientsList";
 import { SignIn } from "../pages/SignIn";
 import { SignUp } from "../pages/SignUp";
 import { IRoutesPath } from "./interface";
@@ -12,9 +15,11 @@ export const routesName = {
   signup: "/signup",
   dashboard: "/dashboard",
   doctorList: "/doctor-list",
+  patientList: "/patient-list",
   about: "/about",
   contact: "/contact",
   history: "/history",
+  patientDetails: "/patient-details/:patient_id",
 };
 
 export const RoutesList: IRoutesPath[] = [
@@ -24,6 +29,7 @@ export const RoutesList: IRoutesPath[] = [
     id: "signin",
     renderDrawerComponents: false,
     component: <SignIn />,
+    valid_role: "all",
   },
   {
     name: "drawer.drawerLink.signup",
@@ -31,6 +37,7 @@ export const RoutesList: IRoutesPath[] = [
     id: "signup",
     renderDrawerComponents: false,
     component: <SignUp />,
+    valid_role: "all",
   },
   {
     name: "drawer.drawerLink.dashboard",
@@ -38,6 +45,7 @@ export const RoutesList: IRoutesPath[] = [
     id: "dashboard",
     renderDrawerComponents: true,
     component: <Homepage />,
+    valid_role: "all",
   },
   {
     name: "drawer.drawerLink.history",
@@ -45,6 +53,15 @@ export const RoutesList: IRoutesPath[] = [
     id: "history",
     renderDrawerComponents: true,
     component: <HistoryPage />,
+    valid_role: EUserRole.patient,
+  },
+  {
+    name: "drawer.drawerLink.patientList",
+    link: routesName.patientList,
+    id: "patientList",
+    renderDrawerComponents: true,
+    component: <PatientsList />,
+    valid_role: EUserRole.doctor,
   },
   {
     name: "drawer.drawerLink.doctorList",
@@ -52,6 +69,7 @@ export const RoutesList: IRoutesPath[] = [
     id: "doctorList",
     renderDrawerComponents: true,
     component: <DoctorHistory />,
+    valid_role: EUserRole.patient,
   },
   {
     name: "drawer.drawerLink.about",
@@ -59,6 +77,7 @@ export const RoutesList: IRoutesPath[] = [
     id: "about",
     renderDrawerComponents: true,
     component: <DigicareAbout />,
+    valid_role: "all",
   },
   {
     name: "drawer.drawerLink.contact",
@@ -66,5 +85,14 @@ export const RoutesList: IRoutesPath[] = [
     id: "contact",
     renderDrawerComponents: true,
     component: <DigicareContact />,
+    valid_role: "all",
+  },
+  {
+    name: "drawer.drawerLink.patientDetails",
+    link: routesName.patientDetails,
+    id: "patientDetails",
+    renderDrawerComponents: false,
+    component: <DigicarePatientDetails />,
+    valid_role: EUserRole.doctor,
   },
 ];

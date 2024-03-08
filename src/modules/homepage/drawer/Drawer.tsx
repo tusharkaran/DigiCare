@@ -19,12 +19,14 @@ import { DigiCareTitle } from "../title/title";
 import { DigicarePopOver } from "../../common/components/DigicarePopOver";
 import { AvatarPopOverComp } from "../../avatarPopOverContent";
 import { Avatar as ProfileAvatar } from "@mui/material";
-import { patientData } from "../../../dummyData/patientData";
+import { AppContext } from "../../../context/app";
+import { ContextProps } from "../../../context/interface";
+import { digicareConfig } from "../../../assets/constants/config";
 
 export function DigiCareDrawer({ children }: DigicareDrawerProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
-
+  const { user } = React.useContext(AppContext) as ContextProps;
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -38,10 +40,6 @@ export function DigiCareDrawer({ children }: DigicareDrawerProps) {
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
-
-  const getPatientData = () => {
-    return patientData;
-  };
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -58,7 +56,7 @@ export function DigiCareDrawer({ children }: DigicareDrawerProps) {
             className="avatar-position"
             aria-describedby={id}
             onClick={handleClick}
-            src={getPatientData().profile_pic}
+            src={digicareConfig.webPort + user?.profile_pic}
           />
           <DigicarePopOver
             open={open}
@@ -82,6 +80,7 @@ export function DigiCareDrawer({ children }: DigicareDrawerProps) {
             boxSizing: "border-box",
             backgroundColor: styles.navbarTitleBackgroundColor,
             boxShadow: styles.generalBoxShadow,
+            overflow: "hidden",
           },
         }}
         variant="permanent"
@@ -92,13 +91,19 @@ export function DigiCareDrawer({ children }: DigicareDrawerProps) {
         </Toolbar>
         <Divider />
         <div className="doctor-details" style={{ textAlign: "center" }}>
-          <img src="digicare-logo.png" className="digicare-logo" />
+          <img
+            src={`${digicareConfig.webPort}digicare-logo.png`}
+            className="digicare-logo"
+          />
         </div>
 
         <Divider />
         <List>
           {RoutesList.map((data) => {
-            if (data.renderDrawerComponents)
+            if (
+              data.renderDrawerComponents &&
+              (data.valid_role === "all" || data.valid_role === user?.role)
+            )
               return (
                 <ListItem key={t(data.name)} disablePadding>
                   <ListItemButton onClick={() => navigate(data.link)}>

@@ -1,3 +1,5 @@
+import { EUserRole } from "../modules/avatarPopOverContent/interface";
+
 export interface ContextProps {
   isSignedIn: boolean;
   setIsSignedIn: (newBalue: boolean) => void;
@@ -5,6 +7,8 @@ export interface ContextProps {
   setPatientId: (value: string | null | undefined) => void;
   role: string;
   setRole: (value: string) => void;
+  user: ILoginUser | undefined;
+  setUser: (value: ILoginUser) => void;
   navigationAsPerSignedStatus: (requestedPage: string) => void;
 }
 
@@ -41,3 +45,13 @@ export interface ISettingContext {}
 export interface IAboutContext {}
 
 export interface IContactContext {}
+
+export interface ILoginUser {
+  _id: string;
+  name: string;
+  profile_pic?: string;
+  user_name: string;
+  contact_number: string;
+  email: string;
+  role: EUserRole;
+}

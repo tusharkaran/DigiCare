@@ -1,7 +1,12 @@
 import React, { useState } from "react";
-import { ContextProps } from "./interface";
+import { ContextProps, ILoginUser } from "./interface";
 import { useNavigate } from "react-router-dom";
 import { routesName } from "../router/RoutesList";
+import {
+  LoginDoctorData,
+  LoginPatientData,
+  LoginSecondDoctorData,
+} from "../dummyData/loginUserData";
 
 export const AppContext = React.createContext<ContextProps | null>(null);
 
@@ -9,6 +14,7 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(true);
+  const [user, setUser] = useState<ILoginUser>(LoginSecondDoctorData);
   const [role, setRole] = useState<string>("patient");
   const [patientId, setPatientId] = useState<string | null | undefined>("1");
 
@@ -23,7 +29,9 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({
         navigate(routesName.dashboard);
       else navigate(requestedPage);
     } else {
-      navigate(routesName.signin);
+      navigate(
+        requestedPage === routesName.signup ? requestedPage : routesName.signin
+      );
     }
   };
 
@@ -36,6 +44,8 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({
         setPatientId,
         role,
         setRole,
+        user,
+        setUser,
         navigationAsPerSignedStatus,
       }}
     >

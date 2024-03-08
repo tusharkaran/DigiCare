@@ -1,6 +1,4 @@
 import { Grid } from "@mui/material";
-// import { useContext } from "react"
-// import { AppContext } from "../../context/app"
 import {
   PatientDoctorHistory,
   doctorData,
@@ -85,16 +83,9 @@ const columns: DigiStickyHeaderTableColumnsProps[] = [
     minWidth: 50,
     align: "right",
   },
-//   {
-//     id: "assosiated_with",
-//     label: "Work Type",
-//     minWidth: 170,
-//     align: "right",
-//   },
 ];
 
 export const MDoctorHistory = () => {
-  // const { patientId } = useContext(AppContext);
   const [doctorHistoryData, setDoctorHistoryData] =
     useState<(IDoctorHistory | undefined)[]>();
 

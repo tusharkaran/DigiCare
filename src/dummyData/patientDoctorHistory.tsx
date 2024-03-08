@@ -5,6 +5,7 @@ export const PatientDoctorHistory: Array<string> = ["1d", "2d"];
 export const doctorData: IDoctorHistory[] = [
   {
     _id: "1d",
+    user_name: "arun_tyagi",
     name: "Dr. Arun Tyagi",
     hospital: "Madanta",
     treatments: ["Cardiac Attack"],
@@ -23,10 +24,15 @@ export const doctorData: IDoctorHistory[] = [
       { type: "Full-Time", hospital: "Madanta" },
     ],
     availability_hours: ["9:00 AM -12:00 PM", "7:00 PM - 9:00 PM"],
+    profile_pic: "doctor.jpeg",
+    email: "arun@gmail.com",
+    address: "MNB, Windsor, Canada",
+    role: "doctor",
   },
   {
     _id: "2d",
     name: "Dr. Aasha Negi",
+    user_name: "asha_negi",
     hospital: "AAIMS",
     treatments: ["Fever"],
     registration_date: "12/24/2023, 6:50:47 PM",
@@ -41,5 +47,9 @@ export const doctorData: IDoctorHistory[] = [
     year_of_practice: 5,
     assosiated_with: [{ type: "Full-Time", hospital: "AAIMS" }],
     availability_hours: ["9:00 AM - 6:00 PM"],
+    profile_pic: "doctor.jpeg",
+    email: "aasha@gmail.com",
+    address: "JKL, Windsor, Canada",
+    role: "doctor",
   },
 ];
