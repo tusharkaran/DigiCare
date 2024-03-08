@@ -10,6 +10,7 @@ import { SignIn } from "../pages/SignIn";
 import { SignUp } from "../pages/SignUp";
 import { IRoutesPath } from "./interface";
 import { DigicareProfile } from "../pages/Profile";
+import { CallingRoom } from "../pages/CallingRoom";
 
 export const routesName = {
   signin: "/signin",
@@ -22,6 +23,7 @@ export const routesName = {
   history: "/history",
   patientDetails: "/patient-details/:patient_id",
   profile: "/profile",
+  room: "room/:roomId"
 };
 
 export const RoutesList: IRoutesPath[] = [
@@ -105,4 +107,11 @@ export const RoutesList: IRoutesPath[] = [
     component: <DigicareProfile />,
     valid_role: "all",
   },
+  // {
+  //   name: "",
+  //   link: routesName.room,
+  //   id: "room",
+  //   renderHelperComponents: false,
+  //   component: <CallingRoom />,
+  // },
 ];

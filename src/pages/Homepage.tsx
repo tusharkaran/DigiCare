@@ -6,6 +6,7 @@ import { AppContext } from "../context/app";
 import { ContextProps } from "../context/interface";
 import { RealTimeCards } from "../modules/homepage/realTimeCards";
 import { DigiCareDrawer } from "../modules/homepage/drawer/Drawer";
+import { Calling } from "../modules/calling/Calling";
 
 export const Homepage = () => {
   const { isSignedIn, navigationAsPerSignedStatus } = useContext(
@@ -20,6 +21,7 @@ export const Homepage = () => {
     <Grid className="homepage-background">
       <DigiCareDrawer>
         <RealTimeCards />
+        <Calling />
       </DigiCareDrawer>
     </Grid>
   );
