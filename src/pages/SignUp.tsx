@@ -4,23 +4,20 @@ import { routesName } from "../router/RoutesList";
 import { useContext, useEffect } from "react";
 import { AppContext } from "../context/app";
 import { ContextProps } from "../context/interface";
-import { RealTimeCards } from "../modules/homepage/realTimeCards";
-import { DigiCareDrawer } from "../modules/homepage/drawer/Drawer";
+import { SignUpForm } from "../modules/signup/SignUpForm";
 
-export const Homepage = () => {
+export const SignUp = () => {
   const { isSignedIn, navigationAsPerSignedStatus } = useContext(
     AppContext
   ) as ContextProps;
 
   useEffect(() => {
-    navigationAsPerSignedStatus(routesName.dashboard);
+    navigationAsPerSignedStatus(routesName.signup);
   }, [isSignedIn]);
 
   return (
     <Grid className="homepage-background">
-      <DigiCareDrawer>
-        <RealTimeCards />
-      </DigiCareDrawer>
+      <SignUpForm />
     </Grid>
   );
 };

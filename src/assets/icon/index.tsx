@@ -11,8 +11,9 @@ export const DigiCareIcons = ({
   iconFor,
   className,
   style,
+  onClick,
 }: DigiCareIconsProps) => {
-  const { classes } = useIconsStyle()
+  const { classes } = useIconsStyle();
 
   const classNames = clsx({
     [classes.defaultIconClass]: true,
@@ -32,7 +33,7 @@ export const DigiCareIcons = ({
         />
       );
     case DigiCareIconEnum.avatar:
-      return <Avatar className={classNames} style={style} />;
+      return <Avatar className={classNames} style={style} onClick={onClick} />;
     default:
       return <RunningWithErrorsIcon />;
   }

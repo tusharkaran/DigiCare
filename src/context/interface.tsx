@@ -1,33 +1,37 @@
 export interface ContextProps {
-  isSignedIn: boolean
-  setIsSignedIn: (newBalue: boolean) => void
-  navigationAsPerSignedStatus: (requestedPage: string) => void
+  isSignedIn: boolean;
+  setIsSignedIn: (newBalue: boolean) => void;
+  patientId: string | null | undefined;
+  setPatientId: (value: string | null | undefined) => void;
+  role: string;
+  setRole: (value: string) => void;
+  navigationAsPerSignedStatus: (requestedPage: string) => void;
 }
 
 export interface DashboardContextProps {
-  searchList: Array<DashboardSearchInterface>
-  setSearchList: (newList: Array<DashboardSearchInterface>) => void
-  getSearchListAsPerParam: (paramKey: string) => Array<any>
-  currentPageId: string | undefined | null
-  setCurrentPageId: (value: string | undefined | null) => void
+  searchList: Array<DashboardSearchInterface>;
+  setSearchList: (newList: Array<DashboardSearchInterface>) => void;
+  getSearchListAsPerParam: (paramKey: string) => Array<any>;
+  currentPageId: string | undefined | null;
+  setCurrentPageId: (value: string | undefined | null) => void;
 }
 
 export interface DashboardSearchInterface {
-  name: string
-  userId: string
+  name: string;
+  userId: string;
 }
 
 export interface IProfileContext {
-  user: IUser | null | undefined
-  setUser: (user: IUser | null | undefined) => void
+  user: IUser | null | undefined;
+  setUser: (user: IUser | null | undefined) => void;
 }
 
 export interface IUser {
-  name: string
-  id: string
-  username: string
-  firstName: string
-  lastName: string
+  name: string;
+  id: string;
+  username: string;
+  firstName: string;
+  lastName: string;
 }
 
 export interface INotifyContext {}

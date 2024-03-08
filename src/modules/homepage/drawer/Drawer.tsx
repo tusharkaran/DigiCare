@@ -5,12 +5,10 @@ import CssBaseline from "@mui/material/CssBaseline";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import { Avatar } from "@mui/material";
 import "./Drawer.scss";
 import { useTranslation } from "react-i18next";
 import { DigicareDrawerProps } from "./interface";
@@ -18,12 +16,33 @@ import { useNavigate } from "react-router-dom";
 import { RoutesList } from "../../../router/RoutesList";
 import styles from "../../../assets/styles/_variable.module.scss";
 import { DigiCareTitle } from "../title/title";
-import { DigiCareIcons } from "../../../assets/icon";
-import { DigiCareIconEnum } from "../../../assets/icon/interface";
+import { DigicarePopOver } from "../../common/components/DigicarePopOver";
+import { AvatarPopOverComp } from "../../avatarPopOverContent";
+import { Avatar as ProfileAvatar } from "@mui/material";
+import { patientData } from "../../../dummyData/patientData";
 
 export function DigiCareDrawer({ children }: DigicareDrawerProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
+
+  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    console.log("bnkzd");
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
+
+  const getPatientData = () => {
+    return patientData;
+  };
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -35,7 +54,20 @@ export function DigiCareDrawer({ children }: DigicareDrawerProps) {
         }}
       >
         <Toolbar>
-          <DigiCareIcons  className="avatar-position" iconFor={DigiCareIconEnum.avatar} />
+          <ProfileAvatar
+            className="avatar-position"
+            aria-describedby={id}
+            onClick={handleClick}
+            src={getPatientData().profile_pic}
+          />
+          <DigicarePopOver
+            open={open}
+            anchorEl={anchorEl}
+            id={id}
+            handleClose={handleClose}
+          >
+            <AvatarPopOverComp />
+          </DigicarePopOver>
           {/* <Typography variant="h6" noWrap component="div">
             {t("drawer.pageTitle")}
           </Typography> */}
@@ -49,6 +81,7 @@ export function DigiCareDrawer({ children }: DigicareDrawerProps) {
             width: styles.navbarWidth,
             boxSizing: "border-box",
             backgroundColor: styles.navbarTitleBackgroundColor,
+            boxShadow: styles.generalBoxShadow,
           },
         }}
         variant="permanent"
@@ -59,34 +92,28 @@ export function DigiCareDrawer({ children }: DigicareDrawerProps) {
         </Toolbar>
         <Divider />
         <div className="doctor-details" style={{ textAlign: "center" }}>
-          <Avatar
-            src={t("drawer.patientImage")}
-            alt="name"
-            className="doctor-image"
-            sx={{ width: 100, height: 100 }}
-          />
-          <Typography variant="h6" textAlign="center">
-            {t("drawer.patientName")}
-          </Typography>
+          <img src="digicare-logo.png" className="digicare-logo" />
         </div>
 
         <Divider />
         <List>
           {RoutesList.map((data) => {
-            return (
-              <ListItem key={t(data.name)} disablePadding>
-                <ListItemButton onClick={() => navigate(data.link)}>
-                  <ListItemText
-                    sx={{
-                      "& .MuiListItemText-primary": { fontSize: "1.6rem" },
-                    }}
-                    className="navbar-router-text"
-                  >
-                    {t(data.name)}
-                  </ListItemText>
-                </ListItemButton>
-              </ListItem>
-            );
+            if (data.renderDrawerComponents)
+              return (
+                <ListItem key={t(data.name)} disablePadding>
+                  <ListItemButton onClick={() => navigate(data.link)}>
+                    <ListItemText
+                      sx={{
+                        "& .MuiListItemText-primary": { fontSize: "1.6rem" },
+                      }}
+                      className="navbar-router-text"
+                    >
+                      {t(data.name)}
+                    </ListItemText>
+                  </ListItemButton>
+                </ListItem>
+              );
+            else return <></>;
           })}
         </List>
       </Drawer>

@@ -8,13 +8,13 @@ import { ContextProps } from "../context/interface";
 import { routesName } from "../router/RoutesList";
 
 const HistoryPage = () => {
-  const { navigationAsPerSignedStatus } = useContext(
+  const { isSignedIn, navigationAsPerSignedStatus } = useContext(
     AppContext
   ) as ContextProps;
 
   useEffect(() => {
     navigationAsPerSignedStatus(routesName.history);
-  }, []);
+  }, [isSignedIn]);
 
   return (
     <DigiCareDrawer>

@@ -6,13 +6,13 @@ import { ContextProps } from "../context/interface";
 import { routesName } from "../router/RoutesList";
 
 export const DigicareAbout = () => {
-  const { navigationAsPerSignedStatus } = useContext(
+  const { isSignedIn, navigationAsPerSignedStatus } = useContext(
     AppContext
   ) as ContextProps;
 
   useEffect(() => {
     navigationAsPerSignedStatus(routesName.about);
-  }, []);
+  }, [isSignedIn]);
 
   return (
     <DigiCareDrawer>

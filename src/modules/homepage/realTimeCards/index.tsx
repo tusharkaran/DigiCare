@@ -18,9 +18,30 @@ export const RealTimeCards = () => {
   const { t } = useTranslation();
   const [isAlertOpen, setIsAlertOpen] = React.useState<boolean>(false);
 
+  const validateData = (data: RealTimeDataProps) => {
+    const dataMinMax = data.reading.split('/');
+    if (dataMinMax.length === 1) {
+      if (Number(dataMinMax) > Number(data.min_value) && Number(dataMinMax) < Number(data.max_value)) {
+        return "valid-real-time-data"
+      }
+      else {
+        return "invalid-real-time-data"
+      }
+    }
+    else {
+      if(Number(dataMinMax[0]) > Number(data.min_value) && Number(dataMinMax[1]) < Number(data.max_value)) {
+        return "valid-real-time-data"
+      }
+      else {
+        return "invalid-real-time-data"
+      }
+    }
+  }
+
   return (
     <Grid className="real-time-data-grid">
       {realTimeData?.map((data: RealTimeDataProps) => {
+        const validateClassName = validateData(data);
         return (
           <Card className="real-time-card-grid">
             {digicareConfig.showRealTimeDataImage && (
@@ -32,7 +53,7 @@ export const RealTimeCards = () => {
               />
             )}
             <CardContent>
-              <Typography gutterBottom variant="h4" component="div">
+              <Typography className={validateClassName} gutterBottom variant="h4" component="div">
                 {data.reading ? data.reading : digicareConfig.defaultReading}{" "}
                 {data.unit}
               </Typography>
