@@ -3,7 +3,9 @@ import DynamicFeedIcon from "@mui/icons-material/DynamicFeed";
 import RunningWithErrorsIcon from "@mui/icons-material/RunningWithErrors";
 import { useIconsStyle } from "./style";
 import clsx from "clsx";
-import { Avatar } from "@mui/material";
+import { Avatar, Grid } from "@mui/material";
+import RingVolumeIcon from "@mui/icons-material/RingVolume";
+import SosIcon from "@mui/icons-material/Sos";
 
 export const DigiCareIcons = ({
   title,
@@ -34,6 +36,12 @@ export const DigiCareIcons = ({
       );
     case DigiCareIconEnum.avatar:
       return <Avatar className={classNames} style={style} onClick={onClick} />;
+    case DigiCareIconEnum.sosCall:
+      return (
+        <Grid>
+          <SosIcon /> <RingVolumeIcon />
+        </Grid>
+      );
     default:
       return <RunningWithErrorsIcon />;
   }

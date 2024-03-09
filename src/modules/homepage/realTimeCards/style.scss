@@ -29,10 +29,19 @@
     justify-content: end;
 }
 
-.valid-real-time-data {
-
-}
+.valid-real-time-data {}
 
 .invalid-real-time-data {
     color: $red;
+}
+
+.pateint-records-list-accordian-summary {
+    .MuiAccordionSummary-content {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.pateint-record-danger-accordian {
+    background-color: rgba(255, 0, 0, 0.5) !important;
 }

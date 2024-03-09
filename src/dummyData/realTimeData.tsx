@@ -9,8 +9,8 @@ export const patientRealTimeData: RealTimeDataProps[] = [
         name: "blood_pressure",
         reading: `${Math.floor(Math.random() * 180)}/${Math.floor(Math.random() * 120)}`,
         unit: "mmHg",
-        min_value: "120/80",
-        max_value: "90/60",
+        min_value: "90/60",
+        max_value: "120/80",
       },
       {
         _id: "2r",
@@ -116,15 +116,15 @@ export const realTimeData: RealTimeDataProps[] = [
       {
         _id: "21r",
         name: "blood_pressure",
-        reading: `${Math.floor(Math.random() * 180)}/${Math.floor(Math.random() * 120)}`,
+        reading: `110/70`,
         unit: "mmHg",
-        min_value: "120/80",
-        max_value: "90/60",
+        min_value: "90/60",
+        max_value: "120/80",
       },
       {
         _id: "24r",
         name: "weight",
-        reading: `${Math.floor(Math.random() * 200)}`,
+        reading: `60`,
         unit: "Kg",
         min_value: "40",
         max_value: "100",
@@ -132,7 +132,7 @@ export const realTimeData: RealTimeDataProps[] = [
       {
         _id: "25r",
         name: "o2",
-        reading: `${Math.floor(Math.random() * 100)}`,
+        reading: `93`,
         unit: "%",
         min_value: "90",
         max_value: "100",
@@ -140,7 +140,7 @@ export const realTimeData: RealTimeDataProps[] = [
       {
         _id: "26r",
         name: "sugar_level",
-        reading: `${Math.floor(Math.random() * 300)}`,
+        reading: `90`,
         unit: "mg/dL",
         min_value: "70",
         max_value: "125",

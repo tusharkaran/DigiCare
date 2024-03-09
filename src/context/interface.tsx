@@ -5,8 +5,6 @@ export interface ContextProps {
   setIsSignedIn: (newBalue: boolean) => void;
   patientId: string | null | undefined;
   setPatientId: (value: string | null | undefined) => void;
-  role: string;
-  setRole: (value: string) => void;
   user: ILoginUser | undefined;
   setUser: (value: ILoginUser) => void;
   navigationAsPerSignedStatus: (requestedPage: string) => void;

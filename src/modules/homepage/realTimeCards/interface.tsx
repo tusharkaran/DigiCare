@@ -12,3 +12,10 @@ export interface RealTimeRecordProps {
     min_value?: string;
     max_value?: string;
 }
+
+export interface RealTimeRecordCardProps {
+    data: RealTimeRecordProps;
+    validateClassName: string;
+    setIsAlertOpen: (value: boolean) => void;
+    isRecord?: boolean;
+}

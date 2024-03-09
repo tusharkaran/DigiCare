@@ -12,13 +12,13 @@ import ListItemText from "@mui/material/ListItemText";
 import "./Drawer.scss";
 import { useTranslation } from "react-i18next";
 import { DigicareDrawerProps } from "./interface";
-import { useNavigate } from "react-router-dom";
-import { RoutesList } from "../../../router/RoutesList";
+import { useLocation, useNavigate } from "react-router-dom";
+import { RoutesList, routesName } from "../../../router/RoutesList";
 import styles from "../../../assets/styles/_variable.module.scss";
 import { DigiCareTitle } from "../title/title";
 import { DigicarePopOver } from "../../common/components/DigicarePopOver";
 import { AvatarPopOverComp } from "../../avatarPopOverContent";
-import { Avatar as ProfileAvatar } from "@mui/material";
+import { Avatar as ProfileAvatar, Typography } from "@mui/material";
 import { AppContext } from "../../../context/app";
 import { ContextProps } from "../../../context/interface";
 import { digicareConfig } from "../../../assets/constants/config";
@@ -28,7 +28,7 @@ export function DigiCareDrawer({ children }: DigicareDrawerProps) {
   const navigate = useNavigate();
   const { user } = React.useContext(AppContext) as ContextProps;
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
-
+  const location = useLocation();
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -51,6 +51,12 @@ export function DigiCareDrawer({ children }: DigicareDrawerProps) {
         }}
       >
         <Toolbar>
+          <Typography variant="h6" noWrap component="div">
+            {t(
+              RoutesList.find((route) => route.link === location.pathname)
+                ?.name as string
+            )}
+          </Typography>
           <ProfileAvatar
             className="avatar-position"
             aria-describedby={id}
@@ -65,9 +71,6 @@ export function DigiCareDrawer({ children }: DigicareDrawerProps) {
           >
             <AvatarPopOverComp />
           </DigicarePopOver>
-          {/* <Typography variant="h6" noWrap component="div">
-            {t("drawer.pageTitle")}
-          </Typography> */}
         </Toolbar>
       </AppBar>
       <Drawer
