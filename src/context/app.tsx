@@ -14,8 +14,7 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(true);
-  const [user, setUser] = useState<ILoginUser>(LoginSecondDoctorData);
-  const [role, setRole] = useState<string>("patient");
+  const [user, setUser] = useState<ILoginUser>(LoginPatientData);
   const [patientId, setPatientId] = useState<string | null | undefined>("1");
 
   const navigate = useNavigate();
@@ -42,8 +41,6 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({
         setIsSignedIn,
         patientId,
         setPatientId,
-        role,
-        setRole,
         user,
         setUser,
         navigationAsPerSignedStatus,
