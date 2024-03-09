@@ -51,7 +51,8 @@
       "signin": "Sign In",
       "signup": "Sign Up",
       "patientList": "Patients' List",
-      "patientDetails": "Patient Details"
+      "patientDetails": "Patient Details",
+      "profile": "Profile"
     }
   },
   "button": {
@@ -59,8 +60,7 @@
   },
   "about": {
     "title": "About Us",
-    "content": 
-      "Welcome to DigiCare, a pioneering force in the digital transformation of hospitals. We specialize in revolutionizing healthcare institutions through innovative technological solutions tailored to meet the evolving needs of modern healthcare systems. <br/><br/> At DigiCare, we understand the challenges facing healthcare providers in today's dynamic landscape. Our mission is to empower hospitals with cutting-edge digital tools and strategies that enhance patient care, optimize operational efficiency, and drive positive outcomes. <br/><br/> With a team of experienced professionals and industry experts, we collaborate closely with hospitals to identify their unique requirements and design customized digital solutions. From implementing electronic health records (EHR) systems to integrating telemedicine platforms and leveraging artificial intelligence for predictive analytics, we offer a comprehensive suite of services aimed at transforming traditional healthcare delivery models. <br/><br/> Our commitment to excellence extends beyond implementation. We provide ongoing support and training to ensure seamless integration and maximum utilization of digital solutions. Through continuous innovation and collaboration, we strive to help hospitals stay ahead in an ever-evolving healthcare landscape. <br/><br/> Join us on the journey towards a digitally empowered future for healthcare. Together, we can drive meaningful change and improve patient outcomes through the transformative power of technology."
+    "content": "Welcome to DigiCare, a pioneering force in the digital transformation of hospitals. We specialize in revolutionizing healthcare institutions through innovative technological solutions tailored to meet the evolving needs of modern healthcare systems. <br/><br/> At DigiCare, we understand the challenges facing healthcare providers in today's dynamic landscape. Our mission is to empower hospitals with cutting-edge digital tools and strategies that enhance patient care, optimize operational efficiency, and drive positive outcomes. <br/><br/> With a team of experienced professionals and industry experts, we collaborate closely with hospitals to identify their unique requirements and design customized digital solutions. From implementing electronic health records (EHR) systems to integrating telemedicine platforms and leveraging artificial intelligence for predictive analytics, we offer a comprehensive suite of services aimed at transforming traditional healthcare delivery models. <br/><br/> Our commitment to excellence extends beyond implementation. We provide ongoing support and training to ensure seamless integration and maximum utilization of digital solutions. Through continuous innovation and collaboration, we strive to help hospitals stay ahead in an ever-evolving healthcare landscape. <br/><br/> Join us on the journey towards a digitally empowered future for healthcare. Together, we can drive meaningful change and improve patient outcomes through the transformative power of technology."
   },
   "contact": {
     "title": "Contact Us",

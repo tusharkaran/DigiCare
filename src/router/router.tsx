@@ -4,6 +4,7 @@ import { AppContext } from "../context/app";
 import { Homepage } from "../pages/Homepage";
 import { useContext } from "react";
 import { ContextProps } from "../context/interface";
+import { CallingRoom } from "../pages/CallingRoom"
 
 const Routing = () => {
   const { user } = useContext(AppContext) as ContextProps;
@@ -26,6 +27,7 @@ const Routing = () => {
       }
       count++;
     }
+    routes.push(<Route path="/room/:roomId" element={<CallingRoom />} />);
     routes.push(<Route key="default" path="*" element={<Homepage />} />);
     return routes;
   };
