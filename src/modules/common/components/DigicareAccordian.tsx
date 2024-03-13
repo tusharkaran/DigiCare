@@ -10,7 +10,6 @@ import MuiAccordionDetails from "@mui/material/AccordionDetails";
 export const DigicareAccordion = styled((props: AccordionProps) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(({ theme }) => ({
-  top: 20,
   border: `1px solid ${theme.palette.divider}`,
   "&:not(:last-child)": {
     borderBottom: 0,

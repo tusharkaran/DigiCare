@@ -3,11 +3,12 @@ import { EUserRole } from "../modules/avatarPopOverContent/interface";
 export interface ContextProps {
   isSignedIn: boolean;
   setIsSignedIn: (newBalue: boolean) => void;
-  patientId: string | null | undefined;
-  setPatientId: (value: string | null | undefined) => void;
+  email: string | null | undefined;
+  setEmail: (value: string | null | undefined) => void;
   user: ILoginUser | undefined;
   setUser: (value: ILoginUser) => void;
   navigationAsPerSignedStatus: (requestedPage: string) => void;
+  getAuthenticated: (userEmail: string) => boolean;
 }
 
 export interface DashboardContextProps {
