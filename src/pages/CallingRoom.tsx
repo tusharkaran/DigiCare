@@ -8,13 +8,13 @@ import { RoomData } from "../modules/room/room";
 
 
 export const CallingRoom = () => {
-    const { navigationAsPerSignedStatus } = useContext(
+    const { navigationAsPerSignedStatus, isSignedIn } = useContext(
         AppContext
     ) as ContextProps;
 
-    // useEffect(() => {
-    //     navigationAsPerSignedStatus(routesName.contact);
-    // }, []);
+    useEffect(() => {
+        navigationAsPerSignedStatus(routesName.contact);
+    }, [isSignedIn]);
 
     return (
         <DigiCareDrawer>

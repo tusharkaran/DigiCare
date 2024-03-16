@@ -38,7 +38,7 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({
         requestedPage === routesName.signup
       )
         navigate(routesName.dashboard);
-      else navigate(requestedPage);
+      // else navigate(requestedPage);
     } else {
       navigate(
         requestedPage === routesName.signup ? requestedPage : routesName.signin

@@ -24,12 +24,6 @@ export const historyData: IDigicareHistory[] = [
         unit: "kg/msq",
       },
       {
-        _id: "4r",
-        name: "weight",
-        reading: `${Math.floor(Math.random() * 200)}`,
-        unit: "Kg",
-      },
-      {
         _id: "5r",
         name: "o2",
         reading: `${Math.floor(Math.random() * 100)}`,

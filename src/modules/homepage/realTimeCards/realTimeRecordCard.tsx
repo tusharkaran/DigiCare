@@ -8,7 +8,7 @@ import { digicareConfig } from "../../../assets/constants/config";
 import "./style.scss";
 import { useTranslation } from "react-i18next";
 import { capitalizeSentence } from "../../common/helper/string";
-import { RealTimeRecordCardProps, RealTimeRecordProps } from "./interface";
+import { RealTimeRecordCardProps } from "./interface";
 
 export const RealTimeRecordCard = ({
   data,
