@@ -1,19 +1,12 @@
 import * as React from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import {
   patientRealTimeData,
   realTimeData,
 } from "../../../dummyData/realTimeData";
 import { Grid } from "@mui/material";
-import { digicareConfig } from "../../../assets/constants/config";
 import "./style.scss";
 import { useTranslation } from "react-i18next";
-import { capitalizeSentence } from "../../common/helper/string";
 import DigicareAlertDialog from "../../common/components/DigiCareDialogueBox";
 import { RealTimeDataProps, RealTimeRecordProps } from "./interface";
 import { AppContext } from "../../../context/app";
