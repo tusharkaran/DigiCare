@@ -22,7 +22,7 @@ export const SignInForm = () => {
   const { t } = useTranslation();
   const { classes } = useSignInFormStye();
   const { setIsSignedIn, setEmail, getAuthenticated } = React.useContext(
-    AppContext
+    AppContext,
   ) as ContextProps;
   const [email, updateEmail] = React.useState<string>();
 

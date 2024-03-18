@@ -16,7 +16,7 @@ export enum IconSize {
 export enum DigiCareIconEnum {
   feed = "feed",
   avatar = "avatar",
-  sosCall = "sos"
+  sosCall = "sos",
 }
 
 export interface CustomHamburgerIconProps {

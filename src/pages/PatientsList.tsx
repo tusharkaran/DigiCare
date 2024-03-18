@@ -7,7 +7,7 @@ import { routesName } from "../router/RoutesList";
 
 export const PatientsList = () => {
   const { isSignedIn, navigationAsPerSignedStatus } = useContext(
-    AppContext
+    AppContext,
   ) as ContextProps;
 
   useEffect(() => {

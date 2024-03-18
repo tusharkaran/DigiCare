@@ -1,10 +1,9 @@
-import React, { useContext, useState } from "react";
+import { useState } from "react";
 import "./Profile.scss";
-import { ContextProps } from "../../context/interface";
-import { AppContext } from "../../context/app";
+import { ProfileProps } from "./interface";
+import { digicareConfig } from "../../assets/constants/config";
 
-export const DigiProfile = () => {
-  const { user } = useContext(AppContext) as ContextProps;
+export const DigiProfile = ({ user, isEdit }: ProfileProps) => {
   const [editMode, setEditMode] = useState(false);
   const [name, setName] = useState(user?.name);
   const [age, setAge] = useState(30);
@@ -12,7 +11,7 @@ export const DigiProfile = () => {
   const [address, setAddress] = useState("123 Main St, City, Country");
   const [phoneNumber, setPhoneNumber] = useState(user?.contact_number);
   const [description, setDescription] = useState(
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   );
   const [profilePicture, setProfilePicture] = useState(user?.profile_pic);
 
@@ -52,7 +51,11 @@ export const DigiProfile = () => {
   return (
     <div className="profile-card">
       <div>
-        <img src={profilePicture} alt={name} className="profile-avatar" />
+        <img
+          src={digicareConfig.webPort + profilePicture}
+          alt={name}
+          className="profile-avatar"
+        />
       </div>
       <div className="profile-details">
         <h1 className="profile-name">{name}</h1>
@@ -122,17 +125,19 @@ export const DigiProfile = () => {
           )}
         </div>
       </div>
-      <div className="profile-buttons">
-        {editMode ? (
-          <button className="save-button" onClick={handleSave}>
-            Save
-          </button>
-        ) : (
-          <button className="edit-button" onClick={handleEdit}>
-            Edit Profile
-          </button>
-        )}
-      </div>
+      {isEdit && (
+        <div className="profile-buttons">
+          {editMode ? (
+            <button className="save-button" onClick={handleSave}>
+              Save
+            </button>
+          ) : (
+            <button className="edit-button" onClick={handleEdit}>
+              Edit Profile
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 };

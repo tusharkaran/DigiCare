@@ -16,14 +16,16 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
   const [user, setUser] = useState<ILoginUser>();
-  const [email, setEmail] = useState<string | null | undefined>("1");
+  const [email, setEmail] = useState<string | null | undefined>();
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    email === "ashma@gmail.com"
+    email === "ayushverma@gmail.com"
       ? setUser(LoginPatientData)
-      : setUser(LoginDoctorData);
+      : email === "arun@gmail.com"
+        ? setUser(LoginDoctorData)
+        : setUser(null);
   }, [email]);
 
   const getAuthenticated = (userEmail: string) => {
@@ -41,7 +43,7 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({
       // else navigate(requestedPage);
     } else {
       navigate(
-        requestedPage === routesName.signup ? requestedPage : routesName.signin
+        requestedPage === routesName.signup ? requestedPage : routesName.signin,
       );
     }
   };
@@ -56,7 +58,7 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({
         user,
         setUser,
         navigationAsPerSignedStatus,
-        getAuthenticated
+        getAuthenticated,
       }}
     >
       {children}

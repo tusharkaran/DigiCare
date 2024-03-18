@@ -7,7 +7,7 @@ import { routesName } from "../router/RoutesList";
 
 export const DigicareAbout = () => {
   const { isSignedIn, navigationAsPerSignedStatus } = useContext(
-    AppContext
+    AppContext,
   ) as ContextProps;
 
   useEffect(() => {

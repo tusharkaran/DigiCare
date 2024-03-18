@@ -3,10 +3,10 @@ import { EUserRole } from "../modules/avatarPopOverContent/interface";
 
 export const LoginPatientData: ILoginUser = {
   _id: "1p",
-  name: "ABC",
+  name: "Ayush Verma",
   profile_pic: "profilePic.jpeg",
   user_name: "abc_123",
-  email: "abc@gmail.com",
+  email: "ayushverma@gmail.com",
   contact_number: "+1(382)880-2626",
   role: EUserRole.patient,
 };

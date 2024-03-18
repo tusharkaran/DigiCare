@@ -29,6 +29,7 @@ export function DigiCareDrawer({ children }: DigicareDrawerProps) {
   const { user } = React.useContext(AppContext) as ContextProps;
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
   const location = useLocation();
+
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -54,7 +55,7 @@ export function DigiCareDrawer({ children }: DigicareDrawerProps) {
           <Typography variant="h6" noWrap component="div">
             {t(
               RoutesList.find((route) => route.link === location.pathname)
-                ?.name as string
+                ?.name as string,
             )}
           </Typography>
           <ProfileAvatar

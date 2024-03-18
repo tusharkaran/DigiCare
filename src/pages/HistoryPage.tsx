@@ -9,7 +9,7 @@ import { routesName } from "../router/RoutesList";
 
 const HistoryPage = () => {
   const { isSignedIn, navigationAsPerSignedStatus } = useContext(
-    AppContext
+    AppContext,
   ) as ContextProps;
 
   useEffect(() => {

@@ -1,9 +1,9 @@
-import { makeStyles } from 'tss-react/mui'
-import styles from '../../assets/styles/_variable.module.scss'
+import { makeStyles } from "tss-react/mui";
+import styles from "../../assets/styles/_variable.module.scss";
 
 export const useIconsStyle = makeStyles()(() => ({
   defaultIconClass: {
-    cursor: 'pointer',
+    cursor: "pointer",
   },
   smallSize: {
     width: styles.smallIconSize,
@@ -17,4 +17,4 @@ export const useIconsStyle = makeStyles()(() => ({
     width: styles.largeIconSize,
     height: styles.largeIconSize,
   },
-}))
+}));

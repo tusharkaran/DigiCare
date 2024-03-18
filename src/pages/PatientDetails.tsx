@@ -4,12 +4,13 @@ import { MPatientDetails } from "../modules/patientDetails";
 import { AppContext } from "../context/app";
 import { ContextProps } from "../context/interface";
 import { routesName } from "../router/RoutesList";
-
+import { useParams } from "react-router";
 
 export const DigicarePatientDetails = () => {
   const { isSignedIn, navigationAsPerSignedStatus } = useContext(
-    AppContext
+    AppContext,
   ) as ContextProps;
+  const { patient_id } = useParams();
 
   useEffect(() => {
     navigationAsPerSignedStatus(routesName.patientDetails);
@@ -17,7 +18,7 @@ export const DigicarePatientDetails = () => {
 
   return (
     <DigiCareDrawer>
-      <MPatientDetails />
+      <MPatientDetails patient_id={patient_id} />
     </DigiCareDrawer>
   );
 };

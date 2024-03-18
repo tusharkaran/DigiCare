@@ -8,12 +8,13 @@ export interface IPatient {
   email: string;
   address: string;
   role: EUserRole;
-  sex: string;
+  gender: string;
+  room_id: string;
 }
 
 export enum EUserRole {
   patient = "patient",
   doctor = "doctor",
   nurse = "nurse",
-  admin = "admin"
+  admin = "admin",
 }

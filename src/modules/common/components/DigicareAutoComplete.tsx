@@ -50,7 +50,7 @@ export default function DigiCareAutocomplete({
       renderInput={(params) => <TextField {...params} label={placeHolder} />}
       onChange={(
         event: any,
-        newValue: DigicareAutoCompleteDataProps | null
+        newValue: DigicareAutoCompleteDataProps | null,
       ) => {
         handlePatientSelect(newValue);
       }}

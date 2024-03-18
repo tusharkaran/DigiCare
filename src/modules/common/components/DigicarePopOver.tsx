@@ -1,6 +1,6 @@
 import { Popover } from "@mui/material";
 import { DigicarePopOverProps } from "../interface/DigicarePopOver";
-import '../styles/DigicarePopOver.scss'
+import "../styles/DigicarePopOver.scss";
 
 export const DigicarePopOver = ({
   anchorEl,
@@ -21,7 +21,7 @@ export const DigicarePopOver = ({
         horizontal: "right",
       }}
       classes={{
-        paper: "digicare-pop-over-paper"
+        paper: "digicare-pop-over-paper",
       }}
       transformOrigin={{
         vertical: "top",
