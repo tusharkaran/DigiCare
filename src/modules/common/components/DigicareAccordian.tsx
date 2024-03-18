@@ -25,7 +25,7 @@ export const DigicareAccordionSummary = styled(
       expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: "0.9rem" }} />}
       {...props}
     />
-  )
+  ),
 )(({ theme }) => ({
   backgroundColor:
     theme.palette.mode === "dark"
@@ -47,5 +47,5 @@ export const DigicareAccordionDetails = styled(MuiAccordionDetails)(
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "center",
-  })
+  }),
 );

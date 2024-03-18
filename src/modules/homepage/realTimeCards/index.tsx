@@ -57,7 +57,7 @@ export const RealTimeCards = () => {
 
   const validateData = (
     data: RealTimeRecordProps,
-    realTimePatientId: string
+    realTimePatientId: string,
   ) => {
     const dataMinMax = data.reading.split("/");
     if (dataMinMax.length === 1) {
@@ -76,8 +76,10 @@ export const RealTimeCards = () => {
       }
     } else {
       if (
-        Number(dataMinMax[0]) > Number(data.min_value?.split('/')[0]) && Number(dataMinMax[1]) > Number(data.min_value?.split('/')[1]) &&
-        Number(dataMinMax[0]) < Number(data.max_value?.split('/')[0]) && Number(dataMinMax[1]) < Number(data.max_value?.split('/')[1])
+        Number(dataMinMax[0]) > Number(data.min_value?.split("/")[0]) &&
+        Number(dataMinMax[1]) > Number(data.min_value?.split("/")[1]) &&
+        Number(dataMinMax[0]) < Number(data.max_value?.split("/")[0]) &&
+        Number(dataMinMax[1]) < Number(data.max_value?.split("/")[1])
       ) {
         return "valid-real-time-data";
       } else {
@@ -94,14 +96,8 @@ export const RealTimeCards = () => {
   return (
     <Grid className="real-time-data-grid">
       {realData?.map((rtData) => {
-        return realData.length <= 1 ? (
+        return realData.length <= 1 && user?.role === EUserRole.patient ? (
           <>
-            <Typography>
-              <strong>Patient Id:</strong> {rtData.patient_id}
-              <p>
-                ______________________________________________________________________________
-              </p>
-            </Typography>
             <Grid className="real-time-record-grid">
               {rtData.records?.map((data: RealTimeRecordProps) => {
                 return (

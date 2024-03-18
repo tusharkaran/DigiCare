@@ -8,7 +8,8 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { DigiStickyHeaderTableProps } from "../interface/DigiStickyHeaderTable";
-import style from '../../../assets/styles/_variable.module.scss'
+import style from "../../../assets/styles/_variable.module.scss";
+import { capitalize } from "@mui/material";
 
 export function DigiStickyHeaderTable<T>({
   columns,
@@ -22,7 +23,7 @@ export function DigiStickyHeaderTable<T>({
   };
 
   const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
@@ -58,7 +59,6 @@ export function DigiStickyHeaderTable<T>({
                   >
                     {columns.map((column) => {
                       const value = row[column.id as keyof T];
-                      const objects = column.object_field;
                       return (
                         <TableCell key={column.id} align={column.align}>
                           {/* {column.format && typeof value === "number"
@@ -66,7 +66,7 @@ export function DigiStickyHeaderTable<T>({
                             : value} */}
                           {Array.isArray(value)
                             ? (value.join(", ") as string)
-                            : (value as string)}
+                            : capitalize("" + value)}
                         </TableCell>
                       );
                     })}

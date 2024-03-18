@@ -8,7 +8,7 @@ import { SignInForm } from "../modules/signin";
 
 export const SignIn = () => {
   const { isSignedIn, navigationAsPerSignedStatus } = useContext(
-    AppContext
+    AppContext,
   ) as ContextProps;
 
   useEffect(() => {

@@ -4,7 +4,7 @@ import { AppContext } from "../context/app";
 import { Homepage } from "../pages/Homepage";
 import { useContext } from "react";
 import { ContextProps } from "../context/interface";
-import { CallingRoom } from "../pages/CallingRoom"
+import { CallingRoom } from "../pages/CallingRoom";
 
 const Routing = () => {
   const { user } = useContext(AppContext) as ContextProps;
@@ -22,12 +22,14 @@ const Routing = () => {
             key={RoutesList[count].id}
             path={RoutesList[count].link}
             element={RoutesList[count].component}
-          />
+          />,
         );
       }
       count++;
     }
-    routes.push(<Route path="/room/:roomId" element={<CallingRoom />} />);
+    routes.push(
+      <Route path="/room/:roomId" key="abc" element={<CallingRoom />} />,
+    );
     routes.push(<Route key="default" path="*" element={<Homepage />} />);
     return routes;
   };

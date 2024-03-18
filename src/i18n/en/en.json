@@ -45,13 +45,15 @@
       "contact": "Contact Us",
       "about": "About Us",
       "dashboard": "Dashboard",
-      "doctorList": "Doctor History",
-      "history": "History",
+      "doctorList": "Medical History",
+      "history": "Realtime Constants History",
       "signin": "Sign In",
       "signup": "Sign Up",
       "patientList": "Patients' List",
       "patientDetails": "Patient Details",
-      "profile": "Profile"
+      "profile": "Profile",
+      "bookAppointment": "Book An Appointment",
+      "appointmentList": "Appointments"
     }
   },
   "button": {

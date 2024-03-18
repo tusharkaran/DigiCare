@@ -13,6 +13,12 @@ const columns: DigiStickyHeaderTableColumnsProps[] = [
   { id: "name", label: "Name", minWidth: 100 },
   { id: "treatments", label: "Treatments", minWidth: 100 },
   {
+    id: "ongoing_treatment",
+    label: "On-going Treatment",
+    minWidth: 100,
+    render: (value: boolean) => (value ? "Yes" : "No"),
+  },
+  {
     id: "registration_date",
     label: "Registration Date",
     minWidth: 130,
@@ -40,7 +46,7 @@ const columns: DigiStickyHeaderTableColumnsProps[] = [
     align: "right",
   },
   {
-    id: "sex",
+    id: "gender",
     label: "Gender",
     minWidth: 70,
     align: "right",

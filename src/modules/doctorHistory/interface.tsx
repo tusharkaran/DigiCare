@@ -12,7 +12,7 @@ export interface IDoctorHistory {
   contact_number?: string;
   assistant_id?: string | null;
   age: number;
-  sex: string;
+  gender: string;
   year_of_practice: number;
   assosiated_with: Array<IDoctorAssositedWork>;
   availability_hours: Array<string>;
@@ -20,6 +20,7 @@ export interface IDoctorHistory {
   email: string;
   address: string;
   role: string;
+  ongoing_treatment: boolean;
   // patient age at which the treatment was done
 }
 
@@ -27,8 +28,3 @@ export interface IDoctorAssositedWork {
   type: string;
   hospital: string;
 }
-
-// export interface IDoctorAvailabilityHours {
-//   start_time: string;
-//   end_time: string;
-// }

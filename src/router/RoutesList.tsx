@@ -11,6 +11,8 @@ import { SignUp } from "../pages/SignUp";
 import { IRoutesPath } from "./interface";
 import { DigicareProfile } from "../pages/Profile";
 import { CallingRoom } from "../pages/CallingRoom";
+import { BookAppointemnt } from "../pages/BookAppointment";
+import { AppointmentList } from "../pages/AppointmentList";
 
 export const routesName = {
   signin: "/signin",
@@ -23,7 +25,9 @@ export const routesName = {
   history: "/history",
   patientDetails: "/patient-details/:patient_id",
   profile: "/profile",
-  room: "room/:roomId"
+  room: "room/:roomId",
+  bookAppointment: "/book_appointment",
+  appointmentList: "/appointment/list",
 };
 
 export const RoutesList: IRoutesPath[] = [
@@ -76,6 +80,30 @@ export const RoutesList: IRoutesPath[] = [
     valid_role: EUserRole.patient,
   },
   {
+    name: "drawer.drawerLink.bookAppointment",
+    link: routesName.bookAppointment,
+    id: "bookAppointment",
+    renderDrawerComponents: true,
+    component: <BookAppointemnt />,
+    valid_role: EUserRole.patient,
+  },
+  {
+    name: "drawer.drawerLink.appointmentList",
+    link: routesName.appointmentList,
+    id: "appointmentList",
+    renderDrawerComponents: true,
+    component: <AppointmentList />,
+    valid_role: "all",
+  },
+  {
+    name: "drawer.drawerLink.profile",
+    link: routesName.profile,
+    id: "profile",
+    renderDrawerComponents: true,
+    component: <DigicareProfile />,
+    valid_role: "all",
+  },
+  {
     name: "drawer.drawerLink.about",
     link: routesName.about,
     id: "about",
@@ -99,19 +127,4 @@ export const RoutesList: IRoutesPath[] = [
     component: <DigicarePatientDetails />,
     valid_role: EUserRole.doctor,
   },
-  {
-    name: "drawer.drawerLink.profile",
-    link: routesName.profile,
-    id: "profile",
-    renderDrawerComponents: true,
-    component: <DigicareProfile />,
-    valid_role: "all",
-  },
-  // {
-  //   name: "",
-  //   link: routesName.room,
-  //   id: "room",
-  //   renderHelperComponents: false,
-  //   component: <CallingRoom />,
-  // },
 ];

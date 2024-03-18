@@ -8,7 +8,7 @@ import { SignUpForm } from "../modules/signup/SignUpForm";
 
 export const SignUp = () => {
   const { isSignedIn, navigationAsPerSignedStatus } = useContext(
-    AppContext
+    AppContext,
   ) as ContextProps;
 
   useEffect(() => {
