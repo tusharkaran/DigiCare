@@ -11,6 +11,17 @@ import { DigiStickyHeaderTableProps } from "../interface/DigiStickyHeaderTable";
 import style from "../../../assets/styles/_variable.module.scss";
 import { capitalize } from "@mui/material";
 
+const cellStyles = {
+  backgroundColor: "#f3f3f3", // Light gray background color
+  color: "#333", // Darker text color
+};
+
+const headerCellStyles = {
+  backgroundColor: "#e0e0e0", // Lighter gray background color for header cells
+  color: "#333", // Darker text color
+  fontWeight: "bold", // Bold font weight for header cells
+};
+
 export function DigiStickyHeaderTable<T>({
   columns,
   rows,
@@ -39,7 +50,10 @@ export function DigiStickyHeaderTable<T>({
                 <TableCell
                   key={column.id}
                   align={column.align}
-                  style={{ minWidth: column.minWidth }}
+                  style={{
+                    minWidth: column.minWidth,
+                    ...headerCellStyles, // Apply header cell styles
+                  }}
                 >
                   {column.label}
                 </TableCell>
@@ -60,7 +74,11 @@ export function DigiStickyHeaderTable<T>({
                     {columns.map((column) => {
                       const value = row[column.id as keyof T];
                       return (
-                        <TableCell key={column.id} align={column.align}>
+                        <TableCell
+                          key={column.id}
+                          align={column.align}
+                          style={cellStyles} // Apply cell styles
+                        >
                           {/* {column.format && typeof value === "number"
                             ? column.format(value)
                             : value} */}

@@ -22,6 +22,7 @@ import { Avatar as ProfileAvatar, Typography } from "@mui/material";
 import { AppContext } from "../../../context/app";
 import { ContextProps } from "../../../context/interface";
 import { digicareConfig } from "../../../assets/constants/config";
+import { motion } from "framer-motion"
 
 export function DigiCareDrawer({ children }: DigicareDrawerProps) {
   const { t } = useTranslation();
@@ -108,18 +109,30 @@ export function DigiCareDrawer({ children }: DigicareDrawerProps) {
               (data.valid_role === "all" || data.valid_role === user?.role)
             )
               return (
-                <ListItem key={t(data.name)} disablePadding>
-                  <ListItemButton onClick={() => navigate(data.link)}>
-                    <ListItemText
-                      sx={{
-                        "& .MuiListItemText-primary": { fontSize: "1.6rem" },
-                      }}
-                      className="navbar-router-text"
-                    >
-                      {t(data.name)}
-                    </ListItemText>
-                  </ListItemButton>
-                </ListItem>
+                <motion.div
+                  initial={{ x: -50 }}
+                  animate={{ x: 0 }}
+                  transition={{ ease: "easeOut", duration: 1 }}>
+                  <ListItem key={t(data.name)} disablePadding>
+                    <ListItemButton onClick={() => navigate(data.link)}>
+                      <motion.div
+                        className="animatable"
+                        whileHover={{
+                          scale: 1.1,
+                          transition: { duration: 0.3 }
+                        }}>
+                        <ListItemText
+                          sx={{
+                            "& .MuiListItemText-primary": { fontSize: "1.6rem" },
+                          }}
+                          className="navbar-router-text"
+                        >
+                          {t(data.name)}
+                        </ListItemText>
+                      </motion.div>
+                    </ListItemButton>
+                  </ListItem>
+                </motion.div>
               );
             else return <></>;
           })}

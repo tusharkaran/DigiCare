@@ -118,7 +118,7 @@ export const MBookAPpointment = () => {
   };
 
   return (
-    <Container>
+    <Container className="appointment-container">
       <Typography variant="h4" gutterBottom marginBottom={2}>
         Book an Appointment
       </Typography>
@@ -126,7 +126,7 @@ export const MBookAPpointment = () => {
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth required>
-              <InputLabel>Select Hospital</InputLabel>
+              <InputLabel className="select-label">Select Hospital</InputLabel>
               <Select
                 value={selectedHospital}
                 onChange={handleHospitalChange}
@@ -143,7 +143,7 @@ export const MBookAPpointment = () => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth required>
-              <InputLabel>Select Doctor</InputLabel>
+              <InputLabel className="select-label" >Select Doctor</InputLabel>
               <Select
                 value={selectedDoctor}
                 onChange={handleDoctorChange}
@@ -170,7 +170,7 @@ export const MBookAPpointment = () => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <FormControl required fullWidth>
-              <InputLabel>Select Time</InputLabel>
+              <InputLabel className="select-label" >Select Time</InputLabel>
               <Select value={selectedTime} onChange={handleTimeChange} required>
                 <MenuItem value="">Select Time</MenuItem>
                 {getTimeList()?.map((time) => (
@@ -189,7 +189,7 @@ export const MBookAPpointment = () => {
           <Grid item xs={12}>
             <TextField
               fullWidth
-              rows={12}
+              rows={6}
               multiline
               label="Add Details"
               value={desc}

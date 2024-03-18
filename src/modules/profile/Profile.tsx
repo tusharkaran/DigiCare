@@ -16,10 +16,11 @@ export const DigiProfile = ({ user, isEdit }: ProfileProps) => {
   const [profilePicture, setProfilePicture] = useState(user?.profile_pic);
 
   const handleEdit = () => {
+
     setEditMode(!editMode);
   };
 
-  const getPatientData = () => {};
+  const getPatientData = () => { };
 
   const handleSave = () => {
     setEditMode(false);
@@ -49,7 +50,7 @@ export const DigiProfile = ({ user, isEdit }: ProfileProps) => {
   // }, []);
 
   return (
-    <div className="profile-card">
+    <div className={!editMode ? 'profile-card' : 'profile-card editenable'}>
       <div>
         <img
           src={digicareConfig.webPort + profilePicture}
