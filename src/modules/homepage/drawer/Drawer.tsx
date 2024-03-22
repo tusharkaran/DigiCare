@@ -53,7 +53,7 @@ export function DigiCareDrawer({ children }: DigicareDrawerProps) {
         }}
       >
         <Toolbar>
-          <Typography variant="h6" noWrap component="div">
+          <Typography variant="h4" noWrap component="div">
             {t(
               RoutesList.find((route) => route.link === location.pathname)
                 ?.name as string,

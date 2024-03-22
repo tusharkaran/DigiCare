@@ -15,3 +15,31 @@
     // width: $pageLeftPartitionSize;
   }
 }
+.topicon-digicare {
+  width: 200px;
+  height: 200px;
+
+}
+.sing-button-data {
+  background: -webkit-linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
+  width: 50%;
+}
+
+.signin-form-grid {
+
+  background-image: url("../../../public/background.jpg");
+    background-position: 50%;
+      background-size: cover;
+      height: 100vh;
+
+}
+.signin-box{
+  background: white;
+}
+.sign-tile-data {
+  display: block;
+  font-size: 30px;
+  color: #333;
+  line-height: 1.2;
+  text-align: center;
+}
