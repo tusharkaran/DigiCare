@@ -3,12 +3,12 @@ import { IBookAppointment } from "../modules/appointments/interface";
 export const bookAppointmentDummyData: IBookAppointment[] = [
   {
     _id: "1b",
-    doctor_id: "1d",
+    doctor_username: "arun_tyagi",
     online_availability: {
       timeIntervals: 15,
       days: [
         {
-          _id: "1Day",
+          _id: "arun_tyagiay",
           name: "Mon",
           start_time: "09:00",
           end_time: "11:00",
@@ -17,6 +17,7 @@ export const bookAppointmentDummyData: IBookAppointment[] = [
               _id: "1time",
               start_time: "09:00",
               isBooked: true,
+              booked_by: "tom_cruise",
             },
             {
               _id: "2time",
@@ -56,7 +57,7 @@ export const bookAppointmentDummyData: IBookAppointment[] = [
           ],
         },
         {
-          _id: "2Day",
+          _id: "asha_negiay",
           name: "Tue",
           start_time: "21:00",
           end_time: "23:00",
@@ -308,46 +309,46 @@ export const bookAppointmentDummyData: IBookAppointment[] = [
     appointments: [
       {
         id: "1a",
-        date: new Date("2024-03-20T09:00:00"),
+        date: new Date("2024-03-24T09:00:00"),
         description: "Dentist appointment",
-        patient_id: "1p",
-        doctor_id: "1d",
+        patient_username: "ayush_verma",
+        doctor_username: "arun_tyagi",
         room_id: "1rp",
       },
       {
         id: "2a",
         date: new Date("2024-03-22T14:30:00"),
         description: "To update on heart condition",
-        patient_id: "2p",
-        doctor_id: "1d",
+        patient_username: "tom_cruise",
+        doctor_username: "arun_tyagi",
         room_id: "2rp",
       },
       {
         id: "3a",
         date: new Date("2024-03-25T11:00:00"),
         description: "Follow-up doctor's appointment",
-        patient_id: "1p",
-        doctor_id: "1d",
+        patient_username: "ayush_verma",
+        doctor_username: "arun_tyagi",
         room_id: "1rp",
       },
       {
         id: "4a",
         date: new Date("2024-03-10T16:00:00"),
         description: "Injury healing situation",
-        patient_id: "1p",
-        doctor_id: "1d",
+        patient_username: "ayush_verma",
+        doctor_username: "arun_tyagi",
         room_id: "1rp",
       },
     ],
   },
   {
     _id: "2b",
-    doctor_id: "2d",
+    doctor_username: "asha_negi",
     online_availability: {
       timeIntervals: 15,
       days: [
         {
-          _id: "1Day",
+          _id: "arun_tyagiay",
           name: "Mon",
           start_time: "09:00",
           end_time: "11:00",
@@ -356,7 +357,7 @@ export const bookAppointmentDummyData: IBookAppointment[] = [
               _id: "1time",
               start_time: "09:00",
               isBooked: true,
-              booked_by: "2p",
+              booked_by: "tom_cruise",
             },
             {
               _id: "2time",
@@ -396,7 +397,7 @@ export const bookAppointmentDummyData: IBookAppointment[] = [
           ],
         },
         {
-          _id: "2Day",
+          _id: "asha_negiay",
           name: "Tue",
           start_time: "21:00",
           end_time: "23:00",
@@ -650,24 +651,24 @@ export const bookAppointmentDummyData: IBookAppointment[] = [
         id: "21a",
         date: new Date("2024-03-20T10:00:00"),
         description: "Dentist appointment",
-        patient_id: "1p",
-        doctor_id: "2d",
+        patient_username: "ayush_verma",
+        doctor_username: "asha_negi",
         room_id: "1rp",
       },
       {
         id: "21a",
         date: new Date("2024-03-20T09:00:00"),
         description: "Dentist appointment",
-        patient_id: "2p",
-        doctor_id: "2d",
+        patient_username: "tom_cruise",
+        doctor_username: "asha_negi",
         room_id: "2rp",
       },
       {
         id: "22a",
         date: new Date("2024-03-22T14:30:00"),
         description: "To update on heart condition",
-        patient_id: "3p",
-        doctor_id: "2d",
+        patient_username: "kiya_johnson",
+        doctor_username: "asha_negi",
         room_id: "3rp",
       },
     ],

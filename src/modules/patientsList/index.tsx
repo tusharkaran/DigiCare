@@ -17,8 +17,8 @@ export const MPatientsList = () => {
 
   const getPatientIds = () => {
     return dummyPatientsList.find((dummyDoctor) => {
-      return dummyDoctor.doctor_id === user?._id;
-    })?.patient_ids;
+      return dummyDoctor.doctor_username === user?.user_name;
+    })?.patient_username;
   };
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export const MPatientsList = () => {
   }, []);
 
   const getPatientInfo = (patientId: string) => {
-    return patientData.find((patient) => patient._id === patientId);
+    return patientData.find((patient) => patient.user_name === patientId);
   };
 
   const getAutoComplateFormattedData = () => {
@@ -34,7 +34,7 @@ export const MPatientsList = () => {
       const patient = getPatientInfo(patientId);
       return {
         label: patient?.name,
-        value: patient?._id,
+        value: patient?.user_name,
       } as DigicareAutoCompleteDataProps;
     });
   };
@@ -45,9 +45,10 @@ export const MPatientsList = () => {
         className="patient-list-auto-complete"
         placeHolder="Search Patient"
         data={getAutoComplateFormattedData() || []}
-        handlePatientSelect={(e) =>
+        handleAutocompleteChange={(e: DigicareAutoCompleteDataProps) =>
           setPatientsListIds(e?.value ? [e?.value as string] : getPatientIds())
         }
+        isGroupByFirstLetter={true}
       />
       <Grid className="patient-list-grid">
         {patientListIds?.map((patientId) => {
@@ -56,7 +57,7 @@ export const MPatientsList = () => {
             <Grid
               className="patient-list-detail-grid"
               onClick={() => {
-                navigate(`/patient-details/${patient?._id}`);
+                navigate(`/patient-details/${patient?.user_name}`);
               }}
             >
               <Avatar

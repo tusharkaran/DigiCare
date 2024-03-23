@@ -20,7 +20,6 @@ import { EUserRole, IPatient } from "../../avatarPopOverContent/interface";
 import { digicareConfig } from "../../../assets/constants/config";
 import { IAppointmnets } from "../interface";
 import { IDoctorHistory } from "../../doctorHistory/interface";
-import { useNavigate } from "react-router";
 import "./style.scss";
 import { patientData } from "../../../dummyData/patientData";
 
@@ -29,7 +28,6 @@ export const MAppointmentList = () => {
   const [appointments, setAppointments] = useState<IAppointmnets[]>([]);
   const { user } = useContext(AppContext) as ContextProps;
   const currentDate = new Date();
-  const navigate = useNavigate();
 
   const getPatientsDoctors = () => {
     return PatientDoctorHistory;
@@ -38,12 +36,12 @@ export const MAppointmentList = () => {
   useEffect(() => {
     const dummyAppointment = [];
     if (user?.role === EUserRole.patient) {
-      PatientDoctorHistory?.forEach((linkedDoctor) => {
+      getPatientsDoctors()?.forEach((linkedDoctor) => {
         const appointments = bookAppointmentDummyData?.find((d) => {
-          return d.doctor_id === linkedDoctor;
+          return d.doctor_username === linkedDoctor;
         })?.appointments;
         appointments?.forEach((a) => {
-          if (a.patient_id === user?._id) {
+          if (a.patient_username === user?.user_name) {
             dummyAppointment.push(a);
           }
         });
@@ -53,7 +51,7 @@ export const MAppointmentList = () => {
     } else {
       setAppointments(
         bookAppointmentDummyData?.find((d) => {
-          return d.doctor_id === user?._id;
+          return d.doctor_username === user?.user_name;
         })?.appointments,
       );
     }
@@ -78,15 +76,17 @@ export const MAppointmentList = () => {
     });
 
   const getDoctorInformation = (appointment: IAppointmnets) => {
-    return doctorData.find((d) => d._id === appointment.doctor_id);
+    return doctorData.find((d) => d.user_name === appointment.doctor_username);
   };
 
   const getPatientInformation = (appointment: IAppointmnets) => {
-    return patientData.find((d) => d._id === appointment.patient_id);
+    return patientData.find(
+      (d) => d.user_name === appointment.patient_username,
+    );
   };
 
   const handleJoin = (room_id) => {
-    navigate(`/room/${room_id}`);
+    window.open(`/room/${room_id}`, "_blank", "rel=noopener noreferrer");
   };
 
   return (

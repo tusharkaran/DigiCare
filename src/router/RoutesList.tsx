@@ -13,6 +13,7 @@ import { DigicareProfile } from "../pages/Profile";
 import { CallingRoom } from "../pages/CallingRoom";
 import { BookAppointemnt } from "../pages/BookAppointment";
 import { AppointmentList } from "../pages/AppointmentList";
+import { AddSchedule } from "../pages/AddSchedule";
 
 export const routesName = {
   signin: "/signin",
@@ -28,6 +29,10 @@ export const routesName = {
   room: "room/:roomId",
   bookAppointment: "/book_appointment",
   appointmentList: "/appointment/list",
+  calling: "/room/:roomId",
+  default: "/*",
+  adminHome: "/admin",
+  addSchedule: "/add-schedule",
 };
 
 export const RoutesList: IRoutesPath[] = [
@@ -96,6 +101,14 @@ export const RoutesList: IRoutesPath[] = [
     valid_role: "all",
   },
   {
+    name: "drawer.drawerLink.addSchedule",
+    link: routesName.addSchedule,
+    id: "addSchedule",
+    renderDrawerComponents: true,
+    component: <AddSchedule />,
+    valid_role: EUserRole.doctor,
+  },
+  {
     name: "drawer.drawerLink.profile",
     link: routesName.profile,
     id: "profile",
@@ -126,5 +139,21 @@ export const RoutesList: IRoutesPath[] = [
     renderDrawerComponents: false,
     component: <DigicarePatientDetails />,
     valid_role: EUserRole.doctor,
+  },
+  {
+    name: "drawer.drawerLink.calling",
+    link: routesName.calling,
+    id: "calling",
+    renderDrawerComponents: false,
+    component: <CallingRoom />,
+    valid_role: "all",
+  },
+  {
+    name: "drawer.drawerLink.default",
+    link: routesName.default,
+    id: "default",
+    renderDrawerComponents: false,
+    component: <Homepage />,
+    valid_role: "all",
   },
 ];

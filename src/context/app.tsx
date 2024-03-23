@@ -1,50 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { ContextProps, ILoginUser } from "./interface";
-import { useNavigate } from "react-router-dom";
-import { routesName } from "../router/RoutesList";
-import {
-  LoginDoctorData,
-  LoginPatientData,
-  LoginSecondDoctorData,
-} from "../dummyData/loginUserData";
-import { digicareConfig } from "../assets/constants/config";
+import { EUserRole, IPatient } from "../modules/avatarPopOverContent/interface";
+import { getPatientByUsername } from "../api/patient";
+import { getDoctorByUsername } from "../api/doctor";
+import { IDoctorHistory } from "../modules/doctorHistory/interface";
 
 export const AppContext = React.createContext<ContextProps | null>(null);
 
 const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
-  const [user, setUser] = useState<ILoginUser>();
-  const [email, setEmail] = useState<string | null | undefined>();
-
-  const navigate = useNavigate();
+  const [isSignedIn, setIsSignedIn] = useState<boolean>(
+    !!localStorage.getItem("token"),
+  );
+  const [user, setUser] = useState<ILoginUser | IPatient | IDoctorHistory>();
+  const [userName, setUsername] = useState<string | null | undefined>(
+    localStorage.getItem("userName"),
+  );
+  const [meetingRoomId, setMeetingRoomId] = useState<
+    string | null | undefined
+  >();
 
   useEffect(() => {
-    email === "ayushverma@gmail.com"
-      ? setUser(LoginPatientData)
-      : email === "arun@gmail.com"
-        ? setUser(LoginDoctorData)
-        : setUser(null);
-  }, [email]);
+    getUser();
+  }, []);
 
-  const getAuthenticated = (userEmail: string) => {
-    if (digicareConfig.validEmail.includes(userEmail)) return true;
-    return false;
-  };
-
-  const navigationAsPerSignedStatus = (requestedPage: string) => {
-    if (isSignedIn) {
-      if (
-        requestedPage === routesName.signin ||
-        requestedPage === routesName.signup
-      )
-        navigate(routesName.dashboard);
-      // else navigate(requestedPage);
+  const getUser = () => {
+    if (localStorage.getItem("role") === EUserRole.patient) {
+      getPatientByUsername(userName).then((res) => setUser(res.data.data));
+    } else if (localStorage.getItem("role") === EUserRole.doctor) {
+      getDoctorByUsername(userName).then((res) => setUser(res.data.data));
     } else {
-      navigate(
-        requestedPage === routesName.signup ? requestedPage : routesName.signin,
-      );
+      localStorage.removeItem("token");
+      localStorage.removeItem("username");
+      localStorage.removeItem("role");
+      setUser(undefined);
+      setIsSignedIn(false);
     }
   };
 
@@ -53,12 +44,13 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({
       value={{
         isSignedIn,
         setIsSignedIn,
-        email,
-        setEmail,
+        userName,
+        setUsername,
         user,
         setUser,
-        navigationAsPerSignedStatus,
-        getAuthenticated,
+        meetingRoomId,
+        setMeetingRoomId,
+        getUser,
       }}
     >
       {children}

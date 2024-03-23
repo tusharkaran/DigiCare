@@ -48,13 +48,13 @@ export const RealTimeCards = () => {
   React.useEffect(() => {
     if (user?.role === EUserRole.patient) setRealData(patientRealTimeData);
     else if (user?.role === EUserRole.doctor) {
-      dummyPatientsList.map((dummyDoctor) => {
-        if (dummyDoctor.doctor_id === user._id) {
-          setRealData(getPatientRealTimeDetails(dummyDoctor.patient_ids));
+      dummyPatientsList.forEach((dummyDoctor) => {
+        if (dummyDoctor.doctor_username === user.user_name) {
+          setRealData(getPatientRealTimeDetails(dummyDoctor.patient_username));
         }
       });
     }
-  }, []);
+  }, [user]);
 
   const validateData = (
     data: RealTimeRecordProps,

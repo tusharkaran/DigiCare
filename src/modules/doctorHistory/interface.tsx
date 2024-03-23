@@ -1,8 +1,7 @@
 export interface IDoctorHistory {
-  _id: string;
   name: string;
   user_name: string;
-  hospital: string;
+  Hospital: string;
   treatments: Array<string>;
   registration_date: string;
   start_date: string;
@@ -11,6 +10,7 @@ export interface IDoctorHistory {
   study_history: Array<string>;
   contact_number?: string;
   assistant_id?: string | null;
+  DOB?: string;
   age: number;
   gender: string;
   year_of_practice: number;

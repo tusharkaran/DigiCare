@@ -5,4 +5,5 @@ export interface DigicareDatePickerProps {
   minDate?: number | null;
   maxDate?: number | null;
   className?: string;
+  disabled?: boolean;
 }

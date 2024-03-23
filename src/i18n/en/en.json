@@ -22,10 +22,8 @@
     "signin": "Sign In",
     "signup": "Sign Up",
     "form": {
-      "name": {
-        "first": "First Name",
-        "last": "Last Name"
-      },
+      "name": "Full Name",
+      "username": "User Name",
       "email": "Email Address",
       "password": "Password",
       "promotion_permission_text": "I want to receive inspiration, marketing promotions and updates via email.",
@@ -33,7 +31,12 @@
       "remember_me": "Remember me",
       "forget_password": "Forgot password?",
       "signup_message": "Don't have an account? Sign Up",
-      "copyright": "Copyright © '"
+      "copyright": "Copyright © '",
+      "contact": "Contact Number",
+      "address": "Address",
+      "hospital": "Hospital",
+      "start_year_of_practice": "Started Practicing from: (example: 2000/ 2002)",
+      "specialization": "Specialization"
     }
   },
   "drawer": {
@@ -53,7 +56,9 @@
       "patientDetails": "Patient Details",
       "profile": "Profile",
       "bookAppointment": "Book An Appointment",
-      "appointmentList": "Appointments"
+      "appointmentList": "Appointments",
+      "operations": "Admin Operations",
+      "addSchedule": "Add Availability"
     }
   },
   "button": {

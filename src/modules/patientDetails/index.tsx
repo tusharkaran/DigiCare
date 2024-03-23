@@ -8,7 +8,7 @@ import { useState } from "react";
 import "./style.scss";
 
 export const MPatientDetails = ({ patient_id }: PatientDetailsProps) => {
-  const user = patientData.find((data) => data._id === patient_id);
+  const user = patientData.find((data) => data.user_name === patient_id);
   const [selectedTab, setSelectedTab] = useState<number>(0);
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
