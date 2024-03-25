@@ -27,12 +27,10 @@ export const History = ({ username }: HistoryProps) => {
       });
   }, []);
 
-  const handleChange = (panel: string) => (
-    event: React.SyntheticEvent,
-    newExpanded: boolean
-  ) => {
-    setExpanded(newExpanded ? panel : false);
-  };
+  const handleChange =
+    (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
+      setExpanded(newExpanded ? panel : false);
+    };
 
   const handleClose = () => {
     setApiErrorMessage(undefined);
@@ -40,47 +38,58 @@ export const History = ({ username }: HistoryProps) => {
 
   return (
     <>
-      {history?.map((data: RealTimeDataProps) => {
-        return (
-          <DigicareAccordion
-            expanded={expanded === data.record_id}
-            onChange={handleChange(data.record_id)}
-          >
-            <DigicareAccordionSummary
-              aria-controls={`${data.record_id}-content`}
-              id={`${data.record_id}-header`}
+      <div className="history-container">
+        {history?.map((data: RealTimeDataProps) => {
+          return (
+            <DigicareAccordion
+              expanded={expanded === data.record_id}
+              onChange={handleChange(data.record_id)}
+              key={data.record_id}
             >
-              <Typography className="summary-accoidian-heading">{data.timestamp.toLocaleString()}</Typography>
-            </DigicareAccordionSummary>
-            <DigicareAccordionDetails>
-              <Typography className="history-record-text-wrapper">
-                {Object.keys(data)?.map((readings) => {
-                  if (
-                    Object.keys(digicareConfig.realtimeUnits).includes(readings)
-                  ) {
-                    return (
-                      <Typography variant="body1">
-                        <span className="history-record-text-title">
-                          {capitalizeSentence(readings.split("_").join(" "))}:
-                        </span>{" "}
-                        {data[readings]}
-                        {digicareConfig.realtimeUnits[readings].unit}
-                      </Typography>
-                    );
-                  }
-                })}
-              </Typography>
-            </DigicareAccordionDetails>
-          </DigicareAccordion>
-        );
-      })}
-      <DigicareSnackbar
-        message={apiErrorMessage}
-        autoHideDuration={6000}
-        color="error"
-        variant="filled"
-        handleClose={handleClose}
-      />
+              <DigicareAccordionSummary
+                aria-controls={`${data.record_id}-content`}
+                id={`${data.record_id}-header`}
+              >
+                <Typography className="summary-accoidian-heading">
+                  {data.timestamp.toLocaleString()}
+                </Typography>
+              </DigicareAccordionSummary>
+              <DigicareAccordionDetails>
+                <Typography className="history-record-text-wrapper">
+                  {Object.keys(data)?.map((readings, index) => {
+                    if (
+                      Object.keys(digicareConfig.realtimeUnits).includes(
+                        readings
+                      )
+                    ) {
+                      return (
+                        <Typography
+                          variant="body1"
+                          key={readings + "-" + index}
+                          className="body-data-accordian"
+                        >
+                          <span className="history-record-text-title">
+                            {capitalizeSentence(readings.split("_").join(" "))}:
+                          </span>{" "}
+                          {data[readings]}
+                          {digicareConfig.realtimeUnits[readings].unit}
+                        </Typography>
+                      );
+                    }
+                  })}
+                </Typography>
+              </DigicareAccordionDetails>
+            </DigicareAccordion>
+          );
+        })}
+        <DigicareSnackbar
+          message={apiErrorMessage}
+          autoHideDuration={6000}
+          color="error"
+          variant="filled"
+          handleClose={handleClose}
+        />
+      </div>
     </>
   );
 };

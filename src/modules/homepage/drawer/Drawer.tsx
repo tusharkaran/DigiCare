@@ -187,9 +187,13 @@ export function DigiCareDrawer({ children }: DigicareDrawerProps, props) {
           </Toolbar>
           <Divider />
           <div className="doctor-details" style={{ textAlign: "center" }}>
+            {/* <img
+              alt={"Digicare Logo"}
+              src={"https://ibb.co/BBcC738"}
+            /> */}
             <img
-              alt={`${digicareConfig.webPort}digicare-logo.png`}
-              src={`${digicareConfig.webPort}digicare-logo.png`}
+              src="https://i.ibb.co/SB531yq/digicare-logo.png"
+              alt="digicare-logo"
               className="digicare-logo"
             />
           </div>
@@ -215,8 +219,8 @@ export function DigiCareDrawer({ children }: DigicareDrawerProps, props) {
           <Divider />
           <div className="doctor-details" style={{ textAlign: "center" }}>
             <img
-              alt={`${digicareConfig.webPort}digicare-logo.png`}
-              src={`${digicareConfig.webPort}digicare-logo.png`}
+              src="https://i.ibb.co/SB531yq/digicare-logo.png"
+              alt="digicare-logo"
               className="digicare-logo"
             />
           </div>

@@ -1,7 +1,4 @@
-import { Grid, Typography } from "@mui/material";
-import { useTranslation } from "react-i18next";
 import "./style.scss";
-// import { useLottie } from "lottie-react";
 import Lottie from "lottie-react";
 import address from '../../assets/lottie/Address.json'
 import phone from '../../assets/lottie/phone.json'
@@ -9,7 +6,6 @@ import email from '../../assets/lottie/Email.json'
 import office from '../../assets/lottie/office.json'
 
 export const Contact = () => {
-  const { t } = useTranslation();
 
   return (
     <div className="newChanges Data">
