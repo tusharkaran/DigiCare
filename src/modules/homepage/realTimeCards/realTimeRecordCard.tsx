@@ -43,8 +43,8 @@ export const RealTimeRecordCard = ({
       </CardContent>
       <CardActions className="real-time-card-action">
         {isRecord && (
-          <Button size="medium" onClick={() => setIsAlertOpen(true)}>
-            {t("real_time_dashboard.record.name")}
+          <Button size="medium" className="record-data-button" onClick={() => setIsAlertOpen(true)}>
+            <b>{t("real_time_dashboard.record.name")}</b>
           </Button>
         )}
       </CardActions>

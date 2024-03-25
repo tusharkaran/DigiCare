@@ -21,6 +21,7 @@ import {
 import { DigiCareIcons } from "../../../assets/icon";
 import { DigiCareIconEnum } from "../../../assets/icon/interface";
 import { dummyPatientsList } from "../../../dummyData/patientsList";
+import { motion } from "framer-motion"
 
 export const RealTimeCards = () => {
   const { t } = useTranslation();
@@ -98,18 +99,27 @@ export const RealTimeCards = () => {
       {realData?.map((rtData) => {
         return realData.length <= 1 && user?.role === EUserRole.patient ? (
           <>
-            <Grid className="real-time-record-grid">
-              {rtData.records?.map((data: RealTimeRecordProps) => {
-                return (
-                  <RealTimeRecordCard
-                    data={data}
-                    validateClassName={validateData(data, rtData.patient_id)}
-                    setIsAlertOpen={setIsAlertOpen}
-                    isRecord={user?.role === EUserRole.patient}
-                  />
-                );
-              })}
-            </Grid>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                duration: 1.2,
+                delay: 0.1,
+                ease: [0, 0.71, 0.2, 1.01]
+              }}>
+              <Grid className="real-time-record-grid">
+                {rtData.records?.map((data: RealTimeRecordProps) => {
+                  return (
+                    <RealTimeRecordCard
+                      data={data}
+                      validateClassName={validateData(data, rtData.patient_id)}
+                      setIsAlertOpen={setIsAlertOpen}
+                      isRecord={user?.role === EUserRole.patient}
+                    />
+                  );
+                })}
+              </Grid>
+            </motion.div>
           </>
         ) : (
           <>

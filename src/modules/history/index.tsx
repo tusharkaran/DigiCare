@@ -1,3 +1,4 @@
+// History component
 import Typography from "@mui/material/Typography";
 import {
   DigicareAccordion,
@@ -13,29 +14,32 @@ import "./style.scss";
 export const History = () => {
   const [expanded, setExpanded] = React.useState<string | false>("panel1");
 
-  const handleChange =
-    (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
-      setExpanded(newExpanded ? panel : false);
-    };
+  const handleChange = (panel: string) => (
+    event: React.SyntheticEvent,
+    newExpanded: boolean
+  ) => {
+    setExpanded(newExpanded ? panel : false);
+  };
 
   return (
-    <>
+    <div className="history-container">
       {historyData.map((data: IDigicareHistory) => {
         return (
           <DigicareAccordion
             expanded={expanded === data._id}
             onChange={handleChange(data._id)}
+            key={data._id}
           >
             <DigicareAccordionSummary
               aria-controls={`${data._id}-content`}
               id={`${data._id}-header`}
             >
-              <Typography>{data.timestamp.toLocaleString()}</Typography>
+              <Typography className="summary-accoidian-heading">{data.timestamp.toLocaleString()}</Typography>
             </DigicareAccordionSummary>
             <DigicareAccordionDetails>
-              <Typography className="history-record-text-wrapper">
-                {data.record.map((readings) => (
-                  <Typography variant="body1">
+              <div className="history-record-text-wrapper">
+                {data.record.map((readings, index) => (
+                  <Typography variant="body1" key={index} className="body-data-accordian" >
                     <span className="history-record-text-title">
                       {capitalizeSentence(readings.name.split("_").join(" "))}:
                     </span>{" "}
@@ -43,11 +47,11 @@ export const History = () => {
                     {readings.unit}
                   </Typography>
                 ))}
-              </Typography>
+              </div>
             </DigicareAccordionDetails>
           </DigicareAccordion>
         );
       })}
-    </>
+    </div>
   );
 };

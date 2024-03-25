@@ -18,6 +18,9 @@ import { routesName } from "../../router/RoutesList";
 import { useSignUpFormStye } from "./style";
 import { AppContext } from "../../context/app";
 import { ContextProps } from "../../context/interface";
+import { motion } from "framer-motion";
+import { useLottie } from "lottie-react";
+import hostpitalIcon from "../../assets/lottie/hospitalIcon.json"
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
@@ -26,74 +29,87 @@ export const SignUpForm = () => {
   const { t } = useTranslation();
   const { classes } = useSignUpFormStye();
   const { setIsSignedIn } = React.useContext(AppContext) as ContextProps;
+  const [animationComplete, setAnimationComplete] = React.useState(false);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // const data = new FormData(event.currentTarget)
     setIsSignedIn(true);
   };
+  const options = {
+    animationData: hostpitalIcon,
+    loop: true,
+
+  };
+  const { View } = useLottie(options);
 
   return (
     <Grid className="signup-form-grid">
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box className={classes.signUpFormGrid}>
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            {t("registration.signup")}
-          </Typography>
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
-          >
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label={t("registration.form.name.first")}
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label={t("registration.form.name.last")}
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label={t("registration.form.email")}
-                  name="email"
-                  autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label={t("registration.form.password")}
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
-              </Grid>
-              {/* <Grid item xs={12}>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 2.5 }}
+        onAnimationComplete={() => setAnimationComplete(true)}
+      >
+        <Container component="main" maxWidth="xs" className="signin-box">
+          <CssBaseline />
+          <Box className={classes.signUpFormGrid}>
+            <span className="sign-tile-data">
+              {t("registration.signup")}
+            </span>
+            <div className="topicon-digicare">{View}</div>
+
+
+            <Box
+              component="form"
+              noValidate
+              onSubmit={handleSubmit}
+              sx={{ mt: 3 }}
+            >
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    autoComplete="given-name"
+                    name="firstName"
+                    required
+                    fullWidth
+                    id="firstName"
+                    label={t("registration.form.name.first")}
+                    autoFocus
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="lastName"
+                    label={t("registration.form.name.last")}
+                    name="lastName"
+                    autoComplete="family-name"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="email"
+                    label={t("registration.form.email")}
+                    name="email"
+                    autoComplete="email"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    name="password"
+                    label={t("registration.form.password")}
+                    type="password"
+                    id="password"
+                    autoComplete="new-password"
+                  />
+                </Grid>
+                {/* <Grid item xs={12}>
                 <FormControlLabel
                   control={
                     <Checkbox value="allowExtraEmails" color="primary" />
@@ -101,25 +117,26 @@ export const SignUpForm = () => {
                   label={t('registration.form.promotion_permission_text')}
                 />
               </Grid> */}
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              {t("registration.signup")}
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href={routesName.signin} variant="body2">
-                  {t("registration.form.already_account")}
-                </Link>
               </Grid>
-            </Grid>
+              <Button
+                type="submit"
+                className="sing-button-data"
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                {t("registration.signup")}
+              </Button>
+              <Grid container justifyContent="flex-end">
+                <Grid item>
+                  <Link href={routesName.signin} variant="body2">
+                    {t("registration.form.already_account")}
+                  </Link>
+                </Grid>
+              </Grid>
+            </Box>
           </Box>
-        </Box>
-      </Container>
+        </Container>
+      </motion.div>
     </Grid>
   );
 };

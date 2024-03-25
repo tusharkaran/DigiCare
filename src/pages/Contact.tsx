@@ -5,6 +5,7 @@ import { AppContext } from "../context/app";
 import { ContextProps } from "../context/interface";
 import { routesName } from "../router/RoutesList";
 
+
 export const DigicareContact = () => {
   const { isSignedIn, navigationAsPerSignedStatus } = useContext(
     AppContext,

@@ -1,10 +1,11 @@
+@import "/src/assets/styles/variable";
 .profile-card {
   display: flex;
   flex-direction: column;
   max-width: 80rem;
   margin: 0 auto;
   padding: 1.5rem;
-  background: #fff;
+  background-image: linear-gradient(to bottom right, $componetbackground, white);
   border-radius: 1rem;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
@@ -41,34 +42,31 @@
 .profile-name {
   margin: 0;
   font-size: 3rem;
-  /* Increased font size */
   color: #333;
   margin-bottom: 0.5rem;
 }
 
-.profile-field {
+ .profile-field {
   margin-bottom: 1.5rem;
-  display: flex;
+
   align-items: center;
   font-size: 2rem;
-  /* Align input field vertically */
+
+}
+.editenable  .profile-field{
+  display: flex;
 }
 
 .field-label {
   font-weight: bold;
   margin-right: 1rem;
-  /* Increased margin */
   font-size: 2rem;
-  /* Increased font size */
 }
 
 .field-input {
   flex: 1;
-  /* Take remaining space */
   padding: 1rem;
-  /* Increased padding */
   font-size: 2rem;
-  /* Increased font size */
   border: 0.0625rem solid #ccc;
   border-radius: 0.3125rem;
 }
@@ -81,13 +79,11 @@
 .edit-button,
 .save-button {
   padding: 1rem 2rem;
-  /* Increased padding */
   border: none;
   border-radius: 0.3125rem;
   background-color: #007bff;
   color: #fff;
   font-size: 2rem;
-  /* Increased font size */
   cursor: pointer;
   transition: background-color 0.3s;
 }
@@ -95,4 +91,89 @@
 .edit-button:hover,
 .save-button:hover {
   background-color: #0056b3;
+}
+
+
+///newchages
+/// 
+.profile-card {
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  .profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .profile-details {
+    text-align: center;
+
+    .profile-name {
+      color: #333;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .profile-field {
+      margin-bottom: 10px;
+      align-items: center;
+
+      .field-label {
+        color: #666;
+        font-weight: bold;
+        flex: 1;
+      }
+
+      .field-input,
+      .field-textarea {
+        flex: 2;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+
+      .field-value {
+        flex: 2;
+      }
+    }
+  }
+
+  .profile-buttons {
+    text-align: center;
+    margin-top: 20px;
+
+    .save-button,
+    .edit-button {
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #333;
+        color: #fff;
+      }
+    }
+
+    .save-button {
+      background-color: #4caf50;
+      color: #fff;
+    }
+
+    .edit-button {
+      background-color: #2196f3;
+      color: #fff;
+    }
+  }
 }

@@ -1,10 +1,11 @@
+@import "/src/assets/styles/variable";
 button {
-  padding: 0.625rem 1.25rem; // 10px 20px in rem
+  padding: 0.625rem 1.25rem; 
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 0.3125rem; // 5px in rem
-  font-size: 1rem; // 16px in rem
+  border-radius: 0.3125rem; 
+  font-size: 1rem; 
   cursor: pointer;
   transition: background-color 0.3s ease;
 
@@ -15,4 +16,13 @@ button {
 
 .appointment-list-tab:hover {
   background-color: rgb(221, 234, 239) !important;
+}
+
+li.MuiListItem-root.MuiListItem-gutters.MuiListItem-padding.css-1rki8sg-MuiListItem-root,li.MuiListItem-root.MuiListItem-gutters.MuiListItem-padding.css-1p823my-MuiListItem-root {
+  background-image: linear-gradient(to bottom right, $componetbackground, white);
+  margin-bottom: 1rem;
+  span,p{
+     color: black;
+     font-weight: bold;
+  }
 }

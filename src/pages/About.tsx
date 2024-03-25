@@ -4,6 +4,7 @@ import { useContext, useEffect } from "react";
 import { AppContext } from "../context/app";
 import { ContextProps } from "../context/interface";
 import { routesName } from "../router/RoutesList";
+import { DataContact } from "../modules/DigiDataContact";
 
 export const DigicareAbout = () => {
   const { isSignedIn, navigationAsPerSignedStatus } = useContext(
@@ -16,7 +17,7 @@ export const DigicareAbout = () => {
 
   return (
     <DigiCareDrawer>
-      <About />
+      <DataContact />
     </DigiCareDrawer>
   );
 };
