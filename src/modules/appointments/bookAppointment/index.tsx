@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import {
   Container,
   Typography,
@@ -11,33 +11,35 @@ import {
   TextField,
 } from "@mui/material";
 import { IDoctorHistory } from "../../doctorHistory/interface";
-import {
-  PatientDoctorHistory,
-  doctorData,
-} from "../../../dummyData/patientDoctorHistory";
 import DigicareDatePicker from "../../common/components/DigiDatePicker";
-import dayjs, { Dayjs } from "dayjs";
 import { digicareConfig } from "../../../assets/constants/config";
 import "./style.scss";
 import { bookAppointmentDummyData } from "../../../dummyData/bookAppointment";
 import { IDoctorTimeSlots } from "../interface";
+import { AppContext } from "../../../context/app";
+import { ContextProps } from "../../../context/interface";
+import { IPatient } from "../../avatarPopOverContent/interface";
+import { getDoctorByUsername } from "../../../api/doctor";
 
 export const MBookAPpointment = () => {
+  const { user } = useContext(AppContext) as ContextProps;
   const [selectedDoctor, setSelectedDoctor] = useState<string>("");
   const [selectedHospital, setSelectedHospital] = useState<string>("");
   const [appointmentDate, setAppointmentDate] = useState<Date | null>();
   const [selectedTime, setSelectedTime] = useState<string>("");
   const [desc, setDesc] = useState<string>();
-  const [patientRecord, setPatientRecord] = useState<IDoctorHistory[]>();
+  const [patientRecord, setPatientRecord] = useState<IDoctorHistory[]>([]);
 
-  useEffect(() => {
-    const dummyPatientRecord = PatientDoctorHistory.map((doctorHistory) => {
-      return doctorData.find((doctor) => {
-        return doctor._id === doctorHistory;
+  useMemo(() => {
+    setPatientRecord([]);
+    (user as IPatient).doctors.forEach((doctorUsername) => {
+      getDoctorByUsername(doctorUsername).then((res) => {
+        const patientRecordClone = patientRecord.slice();
+        patientRecordClone.push(res.data.data);
+        setPatientRecord(patientRecordClone);
       });
     });
-    setPatientRecord(dummyPatientRecord);
-  }, []);
+  }, [user.user_name]);
 
   useEffect(() => {
     setSelectedDoctor("");
@@ -51,29 +53,31 @@ export const MBookAPpointment = () => {
     setSelectedTime("");
   }, [appointmentDate]);
 
-  const getHospitalsList = () => {
+  const getHospitalsList = useMemo(() => {
     return patientRecord?.map((data) => {
-      return { id: data._id, name: data.hospital };
+      return { id: data.user_name, name: data.Hospital };
     });
-  };
+  }, [patientRecord]);
 
   const getDoctorList = () => {
     return patientRecord
       ?.filter((data) => {
-        if (selectedHospital) return data.hospital === selectedHospital;
+        if (selectedHospital) return data.Hospital === selectedHospital;
         else return true;
       })
       .map((data) => {
-        return { id: data._id, name: data.name };
+        return { id: data.user_name, name: data.name };
       });
   };
 
   const getTimeList = () => {
     const doctorAppointment = bookAppointmentDummyData?.find((record) => {
-      return record.doctor_id === selectedDoctor;
+      return record.doctor_username === selectedDoctor;
     });
     return doctorAppointment?.online_availability?.days.find((days) => {
-      return days.name === digicareConfig.days[appointmentDate?.getDay()];
+      return (
+        days.name === digicareConfig.days[appointmentDate?.getDay() + 1].value
+      );
     })?.time_slots;
   };
 
@@ -133,7 +137,7 @@ export const MBookAPpointment = () => {
                 required
               >
                 <MenuItem value="">Select Hospital</MenuItem>
-                {getHospitalsList()?.map((hospital) => (
+                {getHospitalsList?.map((hospital) => (
                   <MenuItem key={hospital.id} value={hospital.name}>
                     {hospital.name}
                   </MenuItem>

@@ -1,40 +1,52 @@
-import { Route, Routes } from "react-router-dom";
-import { RoutesList } from "./RoutesList";
+import { Route, Routes, Navigate } from "react-router-dom";
+import { RoutesList, routesName } from "./RoutesList";
 import { AppContext } from "../context/app";
-import { Homepage } from "../pages/Homepage";
 import { useContext } from "react";
 import { ContextProps } from "../context/interface";
-import { CallingRoom } from "../pages/CallingRoom";
 
 const Routing = () => {
-  const { user } = useContext(AppContext) as ContextProps;
+  const { user, isSignedIn } = useContext(AppContext) as ContextProps;
 
-  const getRoutes = () => {
-    var count = 0;
-    const routes = [];
-    while (count < RoutesList.length) {
-      if (
-        RoutesList[count].valid_role === "all" ||
-        RoutesList[count].valid_role === user?.role
-      ) {
-        routes.push(
-          <Route
-            key={RoutesList[count].id}
-            path={RoutesList[count].link}
-            element={RoutesList[count].component}
-          />,
-        );
-      }
-      count++;
-    }
-    routes.push(
-      <Route path="/room/:roomId" key="abc" element={<CallingRoom />} />,
-    );
-    routes.push(<Route key="default" path="*" element={<Homepage />} />);
-    return routes;
-  };
-
-  return <Routes>{getRoutes()}</Routes>;
+  return (
+    <Routes>
+      {RoutesList.map((route, i) => {
+        if (route.valid_role === "all" || route.valid_role === user?.role) {
+          if (route.link === routesName.signin) {
+            return (
+              <Route
+                key={route.id}
+                path={route.link}
+                element={route.component}
+              />
+            );
+          } else {
+            return (
+              <Route
+                path={route.link}
+                key={route.id}
+                element={
+                  isSignedIn || route.link === routesName.signup ? (
+                    route.component
+                  ) : (
+                    <Navigate
+                      to={routesName.signin}
+                      replace
+                      state={{
+                        from:
+                          route.link === routesName.default
+                            ? routesName.dashboard
+                            : route.link,
+                      }}
+                    />
+                  )
+                }
+              />
+            );
+          }
+        }
+      })}
+    </Routes>
+  );
 };
 
 export default Routing;

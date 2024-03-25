@@ -1,11 +1,8 @@
 import { Button, Grid, Typography } from "@mui/material";
-import { RoutesList } from "../../router/RoutesList";
-import { IRoutesPath } from "../../router/interface";
 import { useTranslation } from "react-i18next";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import "./style.scss";
-import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AppContext } from "../../context/app";
 import { ContextProps } from "../../context/interface";
@@ -13,24 +10,9 @@ import { digicareConfig } from "../../assets/constants/config";
 
 export const AvatarPopOverComp = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
-  const { user, setIsSignedIn } = useContext(AppContext) as ContextProps;
-
-  // const getRoutesLink = () => {
-  //   return RoutesList.map((routes: IRoutesPath) => {
-  //     return routes.renderDrawerComponents ? (
-  //       <></>
-  //     ) : (
-  //       <Button
-  //         key={routes.id}
-  //         variant="text"
-  //         onClick={() => navigate(routes.link)}
-  //       >
-  //         {t(routes.name)}
-  //       </Button>
-  //     );
-  //   });
-  // };
+  const { user, setIsSignedIn, setUsername } = useContext(
+    AppContext,
+  ) as ContextProps;
 
   return (
     <Grid>
@@ -57,7 +39,15 @@ export const AvatarPopOverComp = () => {
       </Stack>
       <Stack className="avatar-pop-over-buttons-grid">
         {/* {getRoutesLink()} */}
-        <Button variant="text" onClick={() => setIsSignedIn(false)}>
+        <Button
+          variant="text"
+          onClick={() => {
+            localStorage.removeItem("token");
+            localStorage.removeItem("userName");
+            setIsSignedIn(false);
+            setUsername(null);
+          }}
+        >
           {t("button.logout")}
         </Button>
       </Stack>

@@ -13,7 +13,7 @@ import "./Drawer.scss";
 import { useTranslation } from "react-i18next";
 import { DigicareDrawerProps } from "./interface";
 import { useLocation, useNavigate } from "react-router-dom";
-import { RoutesList, routesName } from "../../../router/RoutesList";
+import { RoutesList } from "../../../router/RoutesList";
 import styles from "../../../assets/styles/_variable.module.scss";
 import { DigiCareTitle } from "../title/title";
 import { DigicarePopOver } from "../../common/components/DigicarePopOver";
@@ -22,10 +22,10 @@ import { Avatar as ProfileAvatar, Typography } from "@mui/material";
 import { AppContext } from "../../../context/app";
 import { ContextProps } from "../../../context/interface";
 import { digicareConfig } from "../../../assets/constants/config";
-import { motion } from "framer-motion"
-import MenuIcon from '@mui/icons-material/Menu';
-import MailIcon from '@mui/icons-material/Mail';
-import IconButton from '@mui/material/IconButton';
+import { motion } from "framer-motion";
+import MenuIcon from "@mui/icons-material/Menu";
+import MailIcon from "@mui/icons-material/Mail";
+import IconButton from "@mui/material/IconButton";
 const drawerWidth = 240;
 interface Props {
   /**
@@ -83,15 +83,17 @@ export function DigiCareDrawer({ children }: DigicareDrawerProps, props) {
               <motion.div
                 initial={{ x: -50 }}
                 animate={{ x: 0 }}
-                transition={{ ease: "easeOut", duration: 1 }}>
+                transition={{ ease: "easeOut", duration: 1 }}
+              >
                 <ListItem key={t(data.name)} disablePadding>
                   <ListItemButton onClick={() => navigate(data.link)}>
                     <motion.div
                       className="animatable"
                       whileHover={{
                         scale: 1.1,
-                        transition: { duration: 0.3 }
-                      }}>
+                        transition: { duration: 0.3 },
+                      }}
+                    >
                       <ListItemText
                         sx={{
                           "& .MuiListItemText-primary": { fontSize: "1.6rem" },
@@ -110,9 +112,10 @@ export function DigiCareDrawer({ children }: DigicareDrawerProps, props) {
       </List>
     </div>
   );
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -127,14 +130,14 @@ export function DigiCareDrawer({ children }: DigicareDrawerProps, props) {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{ mr: 2, display: { sm: "none" } }}
           >
             <MenuIcon />
           </IconButton>
           <Typography variant="h4" noWrap component="div">
             {t(
               RoutesList.find((route) => route.link === location.pathname)
-                ?.name as string,
+                ?.name as string
             )}
           </Typography>
           <ProfileAvatar
@@ -169,8 +172,8 @@ export function DigiCareDrawer({ children }: DigicareDrawerProps, props) {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': {
+            display: { xs: "block", sm: "none" },
+            "& .MuiDrawer-paper": {
               width: styles.navbarWidth,
               boxSizing: "border-box",
               backgroundColor: styles.navbarTitleBackgroundColor,
@@ -184,9 +187,14 @@ export function DigiCareDrawer({ children }: DigicareDrawerProps, props) {
           </Toolbar>
           <Divider />
           <div className="doctor-details" style={{ textAlign: "center" }}>
+            {/* <img
+              alt={"Digicare Logo"}
+              src={"https://ibb.co/BBcC738"}
+            /> */}
             <img
-              src={`${digicareConfig.webPort}digicare-logo.png`}
-              className="digicare-logo" width="styles.navbarWidth"
+              src="https://i.ibb.co/SB531yq/digicare-logo.png"
+              alt="digicare-logo"
+              className="digicare-logo"
             />
           </div>
           {drawer}
@@ -194,8 +202,8 @@ export function DigiCareDrawer({ children }: DigicareDrawerProps, props) {
         <Drawer
           variant="permanent"
           sx={{
-            display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': {
+            display: { xs: "none", sm: "block" },
+            "& .MuiDrawer-paper": {
               width: styles.navbarWidth,
               boxSizing: "border-box",
               backgroundColor: styles.navbarTitleBackgroundColor,
@@ -211,22 +219,25 @@ export function DigiCareDrawer({ children }: DigicareDrawerProps, props) {
           <Divider />
           <div className="doctor-details" style={{ textAlign: "center" }}>
             <img
-              src={`${digicareConfig.webPort}digicare-logo.png`}
-              className="digicare-logo" width="styles.navbarWidth"
+              src="https://i.ibb.co/SB531yq/digicare-logo.png"
+              alt="digicare-logo"
+              className="digicare-logo"
             />
           </div>
-
           {drawer}
         </Drawer>
       </Box>
       <Box
         component="main"
-        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+        }}
       >
         <Toolbar />
         {children}
       </Box>
     </Box>
-
   );
 }

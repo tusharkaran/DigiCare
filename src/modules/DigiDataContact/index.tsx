@@ -2,7 +2,6 @@
 import '../DigiDataContact/style.scss'
 import { motion } from 'framer-motion';
 import { useTranslation } from "react-i18next";
-import React, { useState, useEffect } from 'react';
 
 export const DataContact = () => {
     const { t } = useTranslation();

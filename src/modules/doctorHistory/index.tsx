@@ -9,7 +9,7 @@ import { DigiStickyHeaderTable } from "../common/components/DigiStickyHeaderTabl
 import { DigiStickyHeaderTableColumnsProps } from "../common/interface/DigiStickyHeaderTable";
 
 const columns: DigiStickyHeaderTableColumnsProps[] = [
-  { id: "hospital", label: "Hospital", minWidth: 70 },
+  { id: "Hospital", label: "Hospital", minWidth: 70 },
   { id: "name", label: "Name", minWidth: 100 },
   { id: "treatments", label: "Treatments", minWidth: 100 },
   {
@@ -97,7 +97,7 @@ export const MDoctorHistory = () => {
 
   useEffect(() => {
     const doctorHistoryDataDetails = getDoctorHistory().map((dataId) => {
-      return doctorData.find((data) => data._id === dataId);
+      return doctorData.find((data) => data.user_name === dataId);
     });
     setDoctorHistoryData(doctorHistoryDataDetails);
   }, []);

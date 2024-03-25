@@ -1,14 +1,26 @@
-import { SyntheticEvent } from "react";
+import { CSSProperties, SyntheticEvent } from "react";
 
 export interface DigicareAutoCompleteProps {
   data: DigicareAutoCompleteDataProps[] | undefined;
   className?: string;
   placeHolder?: string;
-  handlePatientSelect: (value: DigicareAutoCompleteDataProps | null) => void;
+  handleAutocompleteChange: (
+    value:
+      | DigicareAutoCompleteDataProps
+      | DigicareAutoCompleteDataProps[]
+      | null,
+  ) => void;
+  isGroupByFirstLetter?: boolean;
+  style?: CSSProperties;
+  unsorted?: boolean;
+  handleFocus?: () => void;
+  isMultiSelect?: boolean;
+  value?: Array<string>;
 }
 
 export interface DigicareAutoCompleteDataProps {
   label: string;
   value: string | number;
   firstLetter?: string;
+  disabled?: boolean;
 }

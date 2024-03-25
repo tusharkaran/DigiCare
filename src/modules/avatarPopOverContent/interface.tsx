@@ -1,14 +1,14 @@
 export interface IPatient {
-  _id: string;
   name: string;
-  age: number;
-  profile_pic?: string;
   user_name: string;
   contact_number: string;
   email: string;
   address: string;
   role: EUserRole;
   gender: string;
+  DOB: string;
+  profile_pic?: string;
+  doctors: Array<string>;
   room_id: string;
 }
 

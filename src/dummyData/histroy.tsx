@@ -1,6 +1,4 @@
-import { IDigicareHistory } from "../modules/history/interface";
-
-export const historyData: IDigicareHistory[] = [
+export const historyData = [
   {
     _id: "1",
     timestamp: new Date(),

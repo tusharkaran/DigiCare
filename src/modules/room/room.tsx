@@ -1,6 +1,5 @@
 import { Grid } from "@mui/material";
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 
 export const RoomData = () => {
@@ -38,7 +37,7 @@ export const RoomData = () => {
   }
   return (
     <Grid>
-      Room{roomId}
+      RoomId: {roomId}
       <div ref={meetingUI}></div>
     </Grid>
   );

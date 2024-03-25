@@ -1,6 +1,8 @@
 import { ILoginUser } from "../../context/interface";
+import { IPatient } from "../avatarPopOverContent/interface";
+import { IDoctorHistory } from "../doctorHistory/interface";
 
 export interface ProfileProps {
-  user: ILoginUser;
+  user: IPatient | IDoctorHistory | ILoginUser;
   isEdit?: boolean;
 }

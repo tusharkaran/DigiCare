@@ -1,13 +1,14 @@
+import { EGender } from "../context/interface";
 import { IDoctorHistory } from "../modules/doctorHistory/interface";
 
-export const PatientDoctorHistory: Array<string> = ["1d", "2d"];
+export const PatientDoctorHistory: Array<string> = ["arun_tyagi", "asha_negi"];
 
 export const doctorData: IDoctorHistory[] = [
   {
-    _id: "1d",
+    patients: [],
     user_name: "arun_tyagi",
     name: "Dr. Arun Tyagi",
-    hospital: "Madanta",
+    Hospital: "Madanta",
     treatments: ["Cardiac Attack"],
     registration_date: "3/6/2024, 6:50:47 PM",
     start_date: "3/6/2024, 6:50:47 PM",
@@ -17,7 +18,7 @@ export const doctorData: IDoctorHistory[] = [
     contact_number: "+1(382)-880-1789",
     assistant_id: "657890",
     age: 60,
-    gender: "male",
+    gender: EGender.male,
     year_of_practice: 20,
     assosiated_with: [
       { type: "On Contract", hospital: "Healthy Hospital" },
@@ -31,10 +32,10 @@ export const doctorData: IDoctorHistory[] = [
     role: "doctor",
   },
   {
-    _id: "2d",
+    patients: [],
     name: "Dr. Aasha Negi",
     user_name: "asha_negi",
-    hospital: "AAIMS",
+    Hospital: "AAIMS",
     treatments: ["Fever"],
     registration_date: "12/24/2023, 6:50:47 PM",
     start_date: "12/24/2023, 6:50:47 PM",
@@ -44,7 +45,7 @@ export const doctorData: IDoctorHistory[] = [
     contact_number: "+1(382)-880-0995",
     assistant_id: null,
     age: 40,
-    gender: "female",
+    gender: EGender.female,
     year_of_practice: 5,
     assosiated_with: [{ type: "Full-Time", hospital: "AAIMS" }],
     availability_hours: ["9:00 AM - 6:00 PM"],
