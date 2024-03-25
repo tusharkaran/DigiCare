@@ -1,10 +1,15 @@
 export interface RealTimeDataProps {
-  patient_id: string;
-  records: RealTimeRecordProps[];
+  o2?: string;
+  blood_pressure?: string;
+  sugar_level?: string;
+  timestamp?: string;
+  record_id?: string;
+  patient_username?: string;
+  heart_rate?: string;
 }
 
 export interface RealTimeRecordProps {
-  _id: string;
+  _id?: string;
   name: string;
   reading: string;
   unit: string;

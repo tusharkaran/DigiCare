@@ -21,6 +21,7 @@ export interface IDoctorHistory {
   address: string;
   role: string;
   ongoing_treatment: boolean;
+  patients: Array<string>
   // patient age at which the treatment was done
 }
 

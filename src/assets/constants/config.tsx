@@ -133,4 +133,10 @@ export const digicareConfig = {
     "study_history",
     "Hospital",
   ],
+  realtimeUnits: {
+    o2: { unit: "%", min: "90", max: "100" },
+    blood_pressure: { unit: "mmHg", min: "90/60", max: "120/80" },
+    sugar_level: { unit: "mg/dL", min: "70", max: "125" },
+    heart_rate: { unit: "bpm", min: "60", max: "100" },
+  },
 };

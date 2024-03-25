@@ -24,7 +24,7 @@ export const routesName = {
   about: "/about",
   contact: "/contact",
   history: "/history",
-  patientDetails: "/patient-details/:patient_id",
+  patientDetails: "/patient-details/:patient_username",
   profile: "/profile",
   room: "room/:roomId",
   bookAppointment: "/book_appointment",

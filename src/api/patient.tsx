@@ -14,10 +14,18 @@ export const getAllPatients = () => {
 
 export const updateProfileDetails = (
   patient_username: string,
-  profileUser: IPatient | ILoginUser | IDoctorHistory,
+  profileUser: IPatient | ILoginUser | IDoctorHistory
 ) => {
   return digiAxios.put(
     `/patient/${patient_username}`,
-    profileUser as PatientSignUpAPIProps,
+    profileUser as PatientSignUpAPIProps
   );
+};
+
+export const getLatestRealTimeData = (patient_username: string) => {
+  return digiAxios.get(`/latest-record/${patient_username}`);
+};
+
+export const getAllRealTimeData = (username: string) => {
+  return digiAxios.get(`/record-data/${username}`);
 };

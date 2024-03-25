@@ -5,14 +5,27 @@ import {
   DigicareAccordionDetails,
   DigicareAccordionSummary,
 } from "../common/components/DigicareAccordian";
-import React from "react";
-import { historyData } from "../../dummyData/histroy";
-import { IDigicareHistory } from "./interface";
+import React, { useEffect, useState } from "react";
+import { HistoryProps } from "./interface";
 import { capitalizeSentence } from "../common/helper/string";
 import "./style.scss";
+import { getAllRealTimeData } from "../../api/patient";
+import { RealTimeDataProps } from "../homepage/realTimeCards/interface";
+import { digicareConfig } from "../../assets/constants/config";
+import { DigicareSnackbar } from "../common/components/DigiSnackbar";
 
-export const History = () => {
-  const [expanded, setExpanded] = React.useState<string | false>("panel1");
+export const History = ({ username }: HistoryProps) => {
+  const [expanded, setExpanded] = useState<string | false>("panel1");
+  const [history, setHistory] = useState<RealTimeDataProps[]>();
+  const [apiErrorMessage, setApiErrorMessage] = useState<string>();
+
+  useEffect(() => {
+    getAllRealTimeData(username)
+      .then((res) => setHistory(res.data.data))
+      .catch(() => {
+        setApiErrorMessage("No history recorded for this user");
+      });
+  }, []);
 
   const handleChange = (panel: string) => (
     event: React.SyntheticEvent,
@@ -21,37 +34,53 @@ export const History = () => {
     setExpanded(newExpanded ? panel : false);
   };
 
+  const handleClose = () => {
+    setApiErrorMessage(undefined);
+  };
+
   return (
-    <div className="history-container">
-      {historyData.map((data: IDigicareHistory) => {
+    <>
+      {history?.map((data: RealTimeDataProps) => {
         return (
           <DigicareAccordion
-            expanded={expanded === data._id}
-            onChange={handleChange(data._id)}
-            key={data._id}
+            expanded={expanded === data.record_id}
+            onChange={handleChange(data.record_id)}
           >
             <DigicareAccordionSummary
-              aria-controls={`${data._id}-content`}
-              id={`${data._id}-header`}
+              aria-controls={`${data.record_id}-content`}
+              id={`${data.record_id}-header`}
             >
               <Typography className="summary-accoidian-heading">{data.timestamp.toLocaleString()}</Typography>
             </DigicareAccordionSummary>
             <DigicareAccordionDetails>
-              <div className="history-record-text-wrapper">
-                {data.record.map((readings, index) => (
-                  <Typography variant="body1" key={index} className="body-data-accordian" >
-                    <span className="history-record-text-title">
-                      {capitalizeSentence(readings.name.split("_").join(" "))}:
-                    </span>{" "}
-                    {readings.reading}
-                    {readings.unit}
-                  </Typography>
-                ))}
-              </div>
+              <Typography className="history-record-text-wrapper">
+                {Object.keys(data)?.map((readings) => {
+                  if (
+                    Object.keys(digicareConfig.realtimeUnits).includes(readings)
+                  ) {
+                    return (
+                      <Typography variant="body1">
+                        <span className="history-record-text-title">
+                          {capitalizeSentence(readings.split("_").join(" "))}:
+                        </span>{" "}
+                        {data[readings]}
+                        {digicareConfig.realtimeUnits[readings].unit}
+                      </Typography>
+                    );
+                  }
+                })}
+              </Typography>
             </DigicareAccordionDetails>
           </DigicareAccordion>
         );
       })}
-    </div>
+      <DigicareSnackbar
+        message={apiErrorMessage}
+        autoHideDuration={6000}
+        color="error"
+        variant="filled"
+        handleClose={handleClose}
+      />
+    </>
   );
 };

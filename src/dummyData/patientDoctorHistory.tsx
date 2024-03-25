@@ -5,6 +5,7 @@ export const PatientDoctorHistory: Array<string> = ["arun_tyagi", "asha_negi"];
 
 export const doctorData: IDoctorHistory[] = [
   {
+    patients: [],
     user_name: "arun_tyagi",
     name: "Dr. Arun Tyagi",
     Hospital: "Madanta",
@@ -31,6 +32,7 @@ export const doctorData: IDoctorHistory[] = [
     role: "doctor",
   },
   {
+    patients: [],
     name: "Dr. Aasha Negi",
     user_name: "asha_negi",
     Hospital: "AAIMS",
