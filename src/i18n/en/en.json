@@ -8,8 +8,9 @@
       "name": "Record",
       "alert": {
         "title": "Hardware Alert!!",
-        "content": "The real time recording will be evaluated once hardware is ready. For now dummy data is being used.",
-        "okButtonTitle": "Okay"
+        "content": "The real time recording will be evaluated once hardware is ready. For now use tkinter to record the real time constants and after recording click Done",
+        "okButtonTitle": "Done",
+        "cancel": "Cancel"
       }
     },
     "blood_pressure": "Blood Pressure",

@@ -14,6 +14,7 @@ export default function DigicareAlertDialog({
   cancelButtonText,
   isOpen,
   handleClose,
+  handleNewRecordings,
 }: DigicareDialogueBoxProps) {
   return (
     <React.Fragment>
@@ -36,7 +37,9 @@ export default function DigicareAlertDialog({
             </Button>
           )}
           {okButtonText && (
-            <Button onClick={handleClose}>{okButtonText}</Button>
+            <Button variant="contained" onClick={handleNewRecordings}>
+              {okButtonText}
+            </Button>
           )}
         </DialogActions>
       </Dialog>

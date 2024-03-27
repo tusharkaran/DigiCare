@@ -7,53 +7,57 @@ import {
   ListItemText,
   ListItemAvatar,
   Avatar,
+  capitalize,
 } from "@mui/material";
-import React, { useState, useEffect, useContext } from "react";
-import {
-  PatientDoctorHistory,
-  doctorData,
-} from "../../../dummyData/patientDoctorHistory";
-import { bookAppointmentDummyData } from "../../../dummyData/bookAppointment";
+import React, { useState, useEffect, useContext, useMemo } from "react";
 import { AppContext } from "../../../context/app";
 import { ContextProps } from "../../../context/interface";
 import { EUserRole, IPatient } from "../../avatarPopOverContent/interface";
-import { digicareConfig } from "../../../assets/constants/config";
 import { IAppointmnets } from "../interface";
 import { IDoctorHistory } from "../../doctorHistory/interface";
 import "./style.scss";
-import { patientData } from "../../../dummyData/patientData";
+import {
+  getAllBookedAppointment,
+  getPatientByUsername,
+} from "../../../api/patient";
+import { DigicareSnackbar } from "../../common/components/DigiSnackbar";
+import {
+  getAllDoctorBookedAppointments,
+  getDoctorByUsername,
+} from "../../../api/doctor";
 
 export const MAppointmentList = () => {
   const [selectedTab, setSelectedTab] = useState<number>(0);
   const [appointments, setAppointments] = useState<IAppointmnets[]>([]);
   const { user } = useContext(AppContext) as ContextProps;
+  const [apiErrorMessage, setApiErrorMessage] = useState<string>();
+  const [uLinkedUserInfo, setULinkedUserInfo] = useState<
+    IDoctorHistory[] | IPatient[]
+  >([]);
+  const [pLinkedUserInfo, setPLinkedUserInfo] = useState<
+    IDoctorHistory[] | IPatient[]
+  >([]);
   const currentDate = new Date();
 
-  const getPatientsDoctors = () => {
-    return PatientDoctorHistory;
-  };
-
   useEffect(() => {
-    const dummyAppointment = [];
-    if (user?.role === EUserRole.patient) {
-      getPatientsDoctors()?.forEach((linkedDoctor) => {
-        const appointments = bookAppointmentDummyData?.find((d) => {
-          return d.doctor_username === linkedDoctor;
-        })?.appointments;
-        appointments?.forEach((a) => {
-          if (a.patient_username === user?.user_name) {
-            dummyAppointment.push(a);
-          }
-        });
-      });
-
-      setAppointments(dummyAppointment);
-    } else {
-      setAppointments(
-        bookAppointmentDummyData?.find((d) => {
-          return d.doctor_username === user?.user_name;
-        })?.appointments,
-      );
+    if (user) {
+      if (user?.role === EUserRole.patient) {
+        getAllBookedAppointment(user.user_name)
+          .then((res) => {
+            setAppointments(res.data);
+          })
+          .catch((e) => {
+            setApiErrorMessage(e.response.data.message);
+          });
+      } else {
+        getAllDoctorBookedAppointments(user?.user_name)
+          .then((res) => {
+            setAppointments(res.data);
+          })
+          .catch((e) => {
+            setApiErrorMessage(e.response.data.message);
+          });
+      }
     }
   }, [user]);
 
@@ -61,72 +65,133 @@ export const MAppointmentList = () => {
     setSelectedTab(newValue);
   };
 
-  const pastAppointments = appointments
-    ?.filter((appointment) => new Date(appointment.date) < currentDate)
-    .sort((a, b) => {
-      if (a.date < b.date) return -1;
-      else return 1;
-    });
+  const pastAppointments = useMemo(() => {
+    return appointments
+      ?.filter((appointment) => new Date(appointment.date) < currentDate)
+      .sort((a, b) => {
+        if (a.date < b.date) return -1;
+        else return 1;
+      });
+  }, [appointments]);
 
-  const upcomingAppointments = appointments
-    ?.filter((appointment) => new Date(appointment.date) >= currentDate)
-    .sort((a, b) => {
-      if (a.date < b.date) return -1;
-      else return 1;
-    });
-
-  const getDoctorInformation = (appointment: IAppointmnets) => {
-    return doctorData.find((d) => d.user_name === appointment.doctor_username);
+  const getDoctorInformation = async (doctor_username: string) => {
+    return await getDoctorByUsername(doctor_username)
+      .then((res) => {
+        return res.data.data;
+      })
+      .catch((e) => {
+        setApiErrorMessage("No doctor found as " + doctor_username);
+        return null;
+      });
   };
 
-  const getPatientInformation = (appointment: IAppointmnets) => {
-    return patientData.find(
-      (d) => d.user_name === appointment.patient_username,
-    );
+  const getPatientInformation = async (patient_username: string) => {
+    return await getPatientByUsername(patient_username)
+      .then((res) => {
+        return res.data.data;
+      })
+      .catch((e) => {
+        setApiErrorMessage("No Patient found as " + patient_username);
+        return null;
+      });
   };
+
+  const upcomingAppointments = useMemo(() => {
+    return appointments
+      ?.filter((appointment) => new Date(appointment.date) >= currentDate)
+      .sort((a, b) => {
+        if (a.date < b.date) return -1;
+        else return 1;
+      });
+  }, [appointments]);
+
+  useMemo(() => {
+    if (appointments?.length) {
+      const fetchDoctorInfo = async () => {
+        const u = appointments
+          ?.filter((appointment) => new Date(appointment.date) >= currentDate)
+          .sort((a, b) => {
+            if (a.date < b.date) return -1;
+            else return 1;
+          });
+
+        const p = appointments
+          ?.filter((appointment) => new Date(appointment.date) < currentDate)
+          .sort((a, b) => {
+            if (a.date < b.date) return -1;
+            else return 1;
+          });
+
+        const UdoctorInfoPromises = u?.map(async (a) => {
+          return user?.role === EUserRole.patient
+            ? await getDoctorInformation(a.doctor_username)
+            : await getPatientInformation(a.patient_username);
+        });
+        const UdoctorInfoResults = await Promise.all(UdoctorInfoPromises);
+        setULinkedUserInfo(UdoctorInfoResults);
+
+        const PdoctorInfoPromises = p?.map(async (a) => {
+          return user?.role === EUserRole.patient
+            ? await getDoctorInformation(a.doctor_username)
+            : await getPatientInformation(a.patient_username);
+        });
+        const PdoctorInfoResults = await Promise.all(PdoctorInfoPromises);
+        setPLinkedUserInfo(PdoctorInfoResults);
+      };
+
+      fetchDoctorInfo();
+    }
+  }, [appointments]);
 
   const handleJoin = (room_id) => {
     window.open(`/room/${room_id}`, "_blank", "rel=noopener noreferrer");
   };
 
+  const handleClose = () => {
+    setApiErrorMessage(undefined);
+  };
+
   return (
-    <Box sx={{ width: "100%" }}>
-      <Tabs value={selectedTab} onChange={handleTabChange}>
-        <Tab className="appointment-list-tab" label="Upcoming Appointments" />
-        <Tab className="appointment-list-tab" label="Past Appointments" />
-      </Tabs>
-      <TabPanel value={selectedTab} index={0}>
-        {upcomingAppointments?.map((appointment) => {
-          const linkedTo =
-            user?.role === EUserRole.patient
-              ? getDoctorInformation(appointment)
-              : getPatientInformation(appointment);
-          return (
-            <TabContent
-              appointment={appointment}
-              linkedTo={linkedTo}
-              isPast={false}
-              handleJoin={() => handleJoin(appointment.room_id)}
-            />
-          );
-        })}
-      </TabPanel>
-      <TabPanel value={selectedTab} index={1}>
-        {pastAppointments?.map((appointment) => {
-          const linkedTo =
-            user?.role === EUserRole.patient
-              ? getDoctorInformation(appointment)
-              : getPatientInformation(appointment);
-          return (
-            <TabContent
-              appointment={appointment}
-              linkedTo={linkedTo}
-              isPast={true}
-            />
-          );
-        })}
-      </TabPanel>
-    </Box>
+    <>
+      <Box sx={{ width: "100%" }}>
+        <Tabs value={selectedTab} onChange={handleTabChange}>
+          <Tab className="appointment-list-tab" label="Upcoming Appointments" />
+          <Tab className="appointment-list-tab" label="Past Appointments" />
+        </Tabs>
+        <TabPanel value={selectedTab} index={0}>
+          {uLinkedUserInfo &&
+            upcomingAppointments?.map((appointment, i) => {
+              return (
+                <TabContent
+                  appointment={appointment}
+                  linkedTo={uLinkedUserInfo[i]}
+                  isPast={false}
+                  handleJoin={() => handleJoin(appointment.room_id)}
+                />
+              );
+            })}
+        </TabPanel>
+        <TabPanel value={selectedTab} index={1}>
+          {pLinkedUserInfo &&
+            pastAppointments?.map((appointment, i) => {
+              return (
+                <TabContent
+                  appointment={appointment}
+                  linkedTo={pLinkedUserInfo[i]}
+                  isPast={true}
+                />
+              );
+            })}
+        </TabPanel>
+      </Box>
+      <DigicareSnackbar
+        message={apiErrorMessage}
+        autoHideDuration={12000}
+        color="error"
+        variant="filled"
+        handleClose={handleClose}
+      />
+    </>
   );
 };
 
@@ -150,7 +215,7 @@ const TabPanel: React.FC<TabPanelProps> = ({ children, value, index }) => {
 
 interface TabContentProps {
   appointment: IAppointmnets;
-  linkedTo: IDoctorHistory | IPatient;
+  linkedTo?: IDoctorHistory | IPatient;
   isPast?: boolean;
   handleJoin?: () => void;
 }
@@ -160,7 +225,7 @@ const TabContent = ({
   isPast,
   handleJoin,
 }: TabContentProps) => {
-  return (
+  return linkedTo ? (
     <ListItem
       key={appointment.id}
       secondaryAction={!isPast && <button onClick={handleJoin}>Join</button>}
@@ -168,11 +233,11 @@ const TabContent = ({
       <ListItemAvatar>
         <Avatar
           alt={linkedTo.name}
-          src={digicareConfig.webPort + linkedTo.profile_pic}
+          src={process.env.REACT_APP_FRONTEND_HOST + linkedTo.profile_pic}
         />
       </ListItemAvatar>
       <ListItemText
-        primary={linkedTo.name}
+        primary={capitalize(linkedTo.name)}
         secondary={
           <React.Fragment>
             <Typography
@@ -188,5 +253,7 @@ const TabContent = ({
         }
       />
     </ListItem>
+  ) : (
+    <></>
   );
 };

@@ -1,29 +1,29 @@
 import { Avatar, Grid, Typography } from "@mui/material";
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { AppContext } from "../../context/app";
 import { ContextProps } from "../../context/interface";
 import "./style.scss";
 import { useNavigate } from "react-router-dom";
-import { digicareConfig } from "../../assets/constants/config";
 import DigiCareAutocomplete from "../common/components/DigicareAutoComplete";
 import { DigicareAutoCompleteDataProps } from "../common/interface/DigicareAutoComplete";
 import { IDoctorHistory } from "../doctorHistory/interface";
 import { getPatientByUsername } from "../../api/patient";
+import { DigicareCircularLoader } from "../common/components/DigicareCircularLoader";
 
 export const MPatientsList = () => {
   const { user } = useContext(AppContext) as ContextProps;
-  const [patientListIds, setPatientsListIds] = useState<
-    DigicareAutoCompleteDataProps[]
-  >([]);
   const [patientsInfo, setPatientsInfo] = useState<
     DigicareAutoCompleteDataProps[]
   >([]);
-  const [patientList, setPatientList] = useState<Array<string>>();
-  const navigate = useNavigate();
+  const [patientList, setPatientList] = useState<Array<string>>(
+    (user as IDoctorHistory).patients || []
+  );
+  const [patientListIds, setPatientsListIds] = useState<
+    DigicareAutoCompleteDataProps[]
+  >([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  useMemo(() => {
-    setPatientList((user as IDoctorHistory).patients);
-  }, [user]);
+  const navigate = useNavigate();
 
   const renderPatientInfo = async () => {
     const dummyInfoData = [];
@@ -43,7 +43,7 @@ export const MPatientsList = () => {
     return { dummyInfoData: dummyInfoData, dummyIdsData: dummyIdsData };
   };
 
-  useEffect(() => {
+  const getPatientsListIds = useCallback(() => {
     renderPatientInfo().then((res) => {
       const dummyIdsData = res.dummyIdsData;
       const dummyInfoData = res.dummyInfoData;
@@ -59,8 +59,14 @@ export const MPatientsList = () => {
 
       setPatientsListIds(filtered);
       setPatientsInfo(filteredInfo);
+      setIsLoading(false);
     });
   }, [patientList]);
+
+  useMemo(() => {
+    setPatientList((user as IDoctorHistory).patients || []);
+    getPatientsListIds();
+  }, [user]);
 
   return (
     <Grid className="patient-list-parent">
@@ -74,25 +80,40 @@ export const MPatientsList = () => {
         isGroupByFirstLetter={true}
       />
       <Grid className="patient-list-grid">
-        {patientListIds?.map((patientId) => {
-          return (
-            <Grid
-              className="patient-list-detail-grid"
-              onClick={() => {
-                navigate(`/patient-details/${patientId?.value}`);
-              }}
-            >
-              <Avatar
-                alt="Remy Sharp"
-                src={digicareConfig.webPort + patientId.value}
-                sx={{ width: 150, height: 150 }}
-              />
-              <Typography className="patient-list-patient-name">
-                {patientId?.label}
-              </Typography>
-            </Grid>
-          );
-        })}
+        {!isLoading && patientListIds.length ? (
+          patientListIds?.map((patientId) => {
+            return (
+              <Grid
+                className="patient-list-detail-grid"
+                onClick={() => {
+                  navigate(`/patient-details/${patientId?.value}`);
+                }}
+              >
+                <Avatar
+                  alt={patientId?.label}
+                  src={process.env.REACT_APP_FRONTEND_HOST + patientId.value}
+                  sx={{ width: 150, height: 150 }}
+                />
+                <Typography className="patient-list-patient-name">
+                  {patientId?.label}
+                </Typography>
+              </Grid>
+            );
+          })
+        ) : isLoading ? (
+          <DigicareCircularLoader
+            props={{
+              className: "digicare-loader-patient-list",
+            }}
+            loading={isLoading}
+          />
+        ) : (
+          <Grid className="patient-no-list-grid">
+            <Typography variant="h5">
+              No Patients has been assigned to {user?.name}
+            </Typography>
+          </Grid>
+        )}
       </Grid>
     </Grid>
   );

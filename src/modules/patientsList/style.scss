@@ -1,6 +1,7 @@
 .patient-list-grid {
   display: flex;
   flex-direction: row;
+  width: 100%;
 }
 
 .patient-list-detail-grid {
@@ -16,4 +17,17 @@
 
 .patient-list-auto-complete {
   margin-left: auto;
+}
+
+.patient-no-list-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding-top: 3rem;
+}
+
+.digicare-loader-patient-list {
+  margin: auto;
+  margin-top: 3rem;
 }

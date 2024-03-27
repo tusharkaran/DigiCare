@@ -25,9 +25,11 @@ export default function DigiCareAutocomplete({
     };
   });
 
-  const objectValues = value?.map((v) => {
-    return data.find((d) => d.value === v);
-  });
+  const objectValues: any = isMultiSelect
+    ? (value as string[])?.map((v) => {
+        return data.find((d) => d.value === v);
+      })
+    : data.find((d) => d.value === value);
 
   return (
     <Autocomplete
@@ -37,7 +39,7 @@ export default function DigiCareAutocomplete({
         unsorted
           ? options
           : options?.sort(
-              (a, b) => -b.firstLetter.localeCompare(a.firstLetter),
+              (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
             ) || []
       }
       multiple={isMultiSelect}
@@ -47,7 +49,7 @@ export default function DigiCareAutocomplete({
       renderInput={(params) => <TextField {...params} label={placeHolder} />}
       onChange={(
         event: any,
-        newValue: DigicareAutoCompleteDataProps | null,
+        newValue: DigicareAutoCompleteDataProps | null
       ) => {
         handleAutocompleteChange(newValue);
       }}

@@ -6,7 +6,6 @@ import "./style.scss";
 import { useContext } from "react";
 import { AppContext } from "../../context/app";
 import { ContextProps } from "../../context/interface";
-import { digicareConfig } from "../../assets/constants/config";
 
 export const AvatarPopOverComp = () => {
   const { t } = useTranslation();
@@ -19,7 +18,7 @@ export const AvatarPopOverComp = () => {
       <Stack className="avatar-in-pop-over">
         <Avatar
           alt="Remy Sharp"
-          src={digicareConfig.webPort + user?.profile_pic}
+          src={process.env.REACT_APP_FRONTEND_HOST + user?.profile_pic}
           sx={{ width: 100, height: 100 }}
         />
       </Stack>

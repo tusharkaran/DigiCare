@@ -7,4 +7,5 @@ export interface DigicareTimePickerProps {
   className?: string;
   disabled?: boolean;
   minTime?: Dayjs;
+  defaultValue?: any;
 }

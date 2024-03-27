@@ -39,3 +39,16 @@ export interface LinkDoctorPatientProps {
   patient_username: string;
   doctor_username: string;
 }
+
+export interface IMakeAnAppointmentAPI {
+  date: string;
+  doctor_username: string;
+  day: string;
+  time: string;
+  description: string;
+}
+
+export interface IAPIMessage {
+  message: string;
+  variant?: "success" | "info" | "warning" | "error";
+}

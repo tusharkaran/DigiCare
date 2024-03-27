@@ -2,14 +2,17 @@ export const digicareConfig = {
   webPort: "http://localhost:3000/",
   showRealTimeDataImage: false,
   defaultReading: 0,
-  validEmail: ["ayush_verma", "arun_tyagi", "ashma_garg"],
   days: [
+    {
+      value: "Sun",
+      label: "Sunday",
+    },
     {
       value: "Mon",
       label: "Monday",
     },
     {
-      value: "Tues",
+      value: "Tue",
       label: "Tuesday",
     },
     {
@@ -28,13 +31,7 @@ export const digicareConfig = {
       value: "Sat",
       label: "Saturday",
     },
-    {
-      value: "Sun",
-      label: "Sunday",
-    },
   ],
-  backendWebPport: "http://127.0.0.1:5000/api",
-  dates: [],
   specialization: [
     { label: "Internal medicine", value: "Internal medicine" },
     { label: "Pediatrics", value: "Pediatrics" },

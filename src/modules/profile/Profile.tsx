@@ -57,7 +57,7 @@ export const DigiProfile = ({ user, isEdit }: ProfileProps) => {
     <div className={!editMode ? 'profile-card' : 'profile-card editenable'}>
       <div>
         <img
-          src={digicareConfig.webPort + profilePicture}
+          src={process.env.REACT_APP_FRONTEND_HOST + profilePicture}
           alt={name}
           className="profile-avatar"
         />

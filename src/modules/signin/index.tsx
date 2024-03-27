@@ -30,6 +30,7 @@ import { UserSignInAPIProps } from "../../api/interface";
 import { getPatientByUsername } from "../../api/patient";
 import { getDoctorByUsername } from "../../api/doctor";
 import { adminUser } from "../../dummyData/admin";
+import { DigicareSnackbar } from "../common/components/DigiSnackbar";
 
 export const SignInForm = () => {
   const { t } = useTranslation();
@@ -40,6 +41,7 @@ export const SignInForm = () => {
     AppContext
   ) as ContextProps;
   const [animationComplete, setAnimationComplete] = React.useState(false);
+  const [apiErrorMessage, setApiErrorMessage] = React.useState<string>();
   const [role, setRole] = React.useState<string>();
 
   const handleRoleChange = (e) => {
@@ -53,19 +55,27 @@ export const SignInForm = () => {
     ) as unknown as UserSignInAPIProps;
     if (role) {
       if (role === EUserRole.patient) {
-        patientSignIn(data).then((res) => {
-          generateLocalStorage(data, res.data.access_token);
-          getPatientByUsername(data.user_name).then((res) => {
-            setUser(res.data.data);
+        patientSignIn(data)
+          .then((res) => {
+            generateLocalStorage(data, res.data.access_token);
+            getPatientByUsername(data.user_name).then((res) => {
+              setUser(res.data.data);
+            });
+          })
+          .catch((e) => {
+            setApiErrorMessage(e.response.data.message);
           });
-        });
       } else if (role === EUserRole.doctor) {
-        doctorSignIn(data).then((res) => {
-          generateLocalStorage(data, res.data.access_token);
-        });
-        getDoctorByUsername(data.user_name).then((res) => {
-          setUser(res.data.data);
-        });
+        doctorSignIn(data)
+          .then((res) => {
+            generateLocalStorage(data, res.data.access_token);
+            getDoctorByUsername(data.user_name).then((res) => {
+              setUser(res.data.data);
+            });
+          })
+          .catch((e) => {
+            setApiErrorMessage(e.response.data.message);
+          });
       } else {
         generateLocalStorage(data, adminSignIn(data)?.data.access_token);
         setUser(adminUser);
@@ -186,6 +196,14 @@ export const SignInForm = () => {
           </Box>
         </motion.div>
       </Container>
+
+      <DigicareSnackbar
+        message={apiErrorMessage}
+        autoHideDuration={12000}
+        color="error"
+        variant="filled"
+        handleClose={() => setApiErrorMessage(undefined)}
+      />
     </Grid>
   );
 };

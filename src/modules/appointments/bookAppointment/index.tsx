@@ -20,6 +20,13 @@ import { AppContext } from "../../../context/app";
 import { ContextProps } from "../../../context/interface";
 import { IPatient } from "../../avatarPopOverContent/interface";
 import { getDoctorByUsername } from "../../../api/doctor";
+import {
+  getAllTimeSlotsForDoctor,
+  makeAnAppointment,
+} from "../../../api/patient";
+import { IAPIMessage, IMakeAnAppointmentAPI } from "../../../api/interface";
+import { DigicareSnackbar } from "../../common/components/DigiSnackbar";
+import dayjs from "dayjs";
 
 export const MBookAPpointment = () => {
   const { user } = useContext(AppContext) as ContextProps;
@@ -29,6 +36,8 @@ export const MBookAPpointment = () => {
   const [selectedTime, setSelectedTime] = useState<string>("");
   const [desc, setDesc] = useState<string>();
   const [patientRecord, setPatientRecord] = useState<IDoctorHistory[]>([]);
+  const [timeSlots, setTimeSlots] = useState<Array<IDoctorTimeSlots>>([]);
+  const [apiMessage, setApiMessage] = useState<IAPIMessage>();
 
   useMemo(() => {
     setPatientRecord([]);
@@ -70,16 +79,36 @@ export const MBookAPpointment = () => {
       });
   };
 
-  const getTimeList = () => {
-    const doctorAppointment = bookAppointmentDummyData?.find((record) => {
-      return record.doctor_username === selectedDoctor;
-    });
-    return doctorAppointment?.online_availability?.days.find((days) => {
-      return (
-        days.name === digicareConfig.days[appointmentDate?.getDay() + 1].value
-      );
-    })?.time_slots;
-  };
+  useMemo(() => {
+    if (selectedDoctor && appointmentDate) {
+      getAllTimeSlotsForDoctor(
+        selectedDoctor,
+        digicareConfig.days[appointmentDate?.getDay()]?.value
+      )
+        .then((res) => {
+          setTimeSlots(
+            res.data?.data
+              ?.sort((a, b) => {
+                if (a.start_time > b.start_time) return 1;
+                else return -1;
+              })
+              // .filter((r) => {
+              //   let value = new Date();
+              //   value.setHours(r.start_time.split(":")[0]);
+              //   value.setMinutes(r.start_timeF.split(":")[1]);
+              //   return dayjs(value) > dayjs(new Date())
+              // })
+          );
+        })
+        .catch((e) => {
+          setTimeSlots([]);
+          setApiMessage({
+            message: e.response.data.message,
+            variant: "error",
+          });
+        });
+    }
+  }, [selectedDoctor, appointmentDate]);
 
   const handleHospitalChange = (event: any) => {
     setSelectedHospital(event.target.value);
@@ -111,14 +140,31 @@ export const MBookAPpointment = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (selectedDoctor && appointmentDate && selectedTime && selectedHospital) {
+      const appointmentDetails: IMakeAnAppointmentAPI = {
+        date: appointmentDate.toString(),
+        doctor_username: selectedDoctor,
+        day: digicareConfig.days[appointmentDate?.getDay()]?.value,
+        time: selectedTime,
+        description: desc,
+      };
       setSelectedHospital("");
       setSelectedDoctor("");
       setAppointmentDate(null);
       setSelectedTime("");
       setDesc("");
+      makeAnAppointment(user.user_name, appointmentDetails).then((res) => {
+        setApiMessage({
+          message: "Appointment Booked Successfully!",
+          variant: "success",
+        });
+      });
     } else {
       alert("Please select hospital, doctor, appointment date, and time.");
     }
+  };
+
+  const handleClose = () => {
+    setApiMessage(undefined);
   };
 
   return (
@@ -147,7 +193,7 @@ export const MBookAPpointment = () => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth required>
-              <InputLabel className="select-label" >Select Doctor</InputLabel>
+              <InputLabel className="select-label">Select Doctor</InputLabel>
               <Select
                 value={selectedDoctor}
                 onChange={handleDoctorChange}
@@ -168,20 +214,20 @@ export const MBookAPpointment = () => {
               handleDateChange={handleDateChange}
               value={appointmentDate}
               minDate={0}
-              maxDate={7}
+              maxDate={6}
               className="book-an-appointment-date-picker"
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <FormControl required fullWidth>
-              <InputLabel className="select-label" >Select Time</InputLabel>
+              <InputLabel className="select-label">Select Time</InputLabel>
               <Select value={selectedTime} onChange={handleTimeChange} required>
                 <MenuItem value="">Select Time</MenuItem>
-                {getTimeList()?.map((time) => (
+                {timeSlots?.map((time) => (
                   <MenuItem
-                    key={time._id}
-                    value={time._id}
-                    disabled={time.isBooked}
+                    key={time.start_time}
+                    value={time.start_time}
+                    disabled={time.is_booked}
                     onClick={() => handleMenuItemTimeClick(time)}
                   >
                     {time.start_time}
@@ -208,6 +254,13 @@ export const MBookAPpointment = () => {
           </Grid>
         </Grid>
       </form>
+      <DigicareSnackbar
+        message={apiMessage?.message}
+        autoHideDuration={12000}
+        color={apiMessage?.variant || "error"}
+        variant="filled"
+        handleClose={handleClose}
+      />
     </Container>
   );
 };
