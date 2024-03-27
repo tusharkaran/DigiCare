@@ -41,13 +41,7 @@ export const RealTimeRecordCard = ({
           {t(capitalizeSentence(data.name.split("_").join(" ")))}
         </Typography>
       </CardContent>
-      <CardActions className="real-time-card-action">
-        {isRecord && (
-          <Button size="medium" className="record-data-button" onClick={() => setIsAlertOpen(true)}>
-            <b>{t("real_time_dashboard.record.name")}</b>
-          </Button>
-        )}
-      </CardActions>
+      <CardActions className="real-time-card-action"></CardActions>
     </Card>
   );
 };

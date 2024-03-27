@@ -21,19 +21,11 @@ import { AvatarPopOverComp } from "../../avatarPopOverContent";
 import { Avatar as ProfileAvatar, Typography } from "@mui/material";
 import { AppContext } from "../../../context/app";
 import { ContextProps } from "../../../context/interface";
-import { digicareConfig } from "../../../assets/constants/config";
 import { motion } from "framer-motion";
 import MenuIcon from "@mui/icons-material/Menu";
-import MailIcon from "@mui/icons-material/Mail";
 import IconButton from "@mui/material/IconButton";
 const drawerWidth = 240;
-interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * Remove this when copying and pasting into your project.
-   */
-  window?: () => Window;
-}
+
 export function DigiCareDrawer({ children }: DigicareDrawerProps, props) {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -144,7 +136,7 @@ export function DigiCareDrawer({ children }: DigicareDrawerProps, props) {
             className="avatar-position"
             aria-describedby={id}
             onClick={handleClick}
-            src={digicareConfig.webPort + user?.profile_pic}
+            src={process.env.REACT_APP_FRONTEND_HOST + user?.profile_pic}
           />
           <DigicarePopOver
             open={open}

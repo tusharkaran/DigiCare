@@ -15,7 +15,7 @@ export interface DigicareAutoCompleteProps {
   unsorted?: boolean;
   handleFocus?: () => void;
   isMultiSelect?: boolean;
-  value?: Array<string>;
+  value?: Array<string> | string;
 }
 
 export interface DigicareAutoCompleteDataProps {

@@ -4,5 +4,6 @@ export interface DigicareDialogueBoxProps {
   okButtonText?: string;
   cancelButtonText?: string;
   isOpen: boolean;
-  handleClose: () => void;
+  handleClose?: () => void;
+  handleNewRecordings?: () => void;
 }

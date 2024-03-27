@@ -1,5 +1,5 @@
 export interface IBookAppointment {
-  _id: string;
+  id: string;
   doctor_username: string;
   online_availability?: IDoctorOnlineAvailability;
   appointments?: IAppointmnets[];
@@ -11,7 +11,7 @@ export interface IDoctorOnlineAvailability {
 }
 
 export interface IDoctorOnlineAvailabilityDays {
-  _id: string;
+  id: string;
   name: string;
   start_time: string;
   end_time: string;
@@ -19,10 +19,10 @@ export interface IDoctorOnlineAvailabilityDays {
 }
 
 export interface IDoctorTimeSlots {
-  _id: string;
+  id: string;
+  day_name?: string;
   start_time: string;
-  isBooked: boolean;
-  booked_by?: string;
+  is_booked: boolean;
 }
 
 export interface IAppointmnets {
@@ -35,7 +35,7 @@ export interface IAppointmnets {
 }
 
 export interface IAppointmentSchedule {
-  name: string;
+  day_name: string;
   start_time: string;
   end_time: string;
 }
