@@ -1,30 +1,51 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { RoutesList } from "./RoutesList";
-import AppContextProvider from "../context/app";
+import { Route, Routes, Navigate } from "react-router-dom";
+import { RoutesList, routesName } from "./RoutesList";
+import { AppContext } from "../context/app";
+import { useContext } from "react";
+import { ContextProps } from "../context/interface";
 
 const Routing = () => {
-  const getRoutes = () => {
-    var count = 0;
-    const routes = [];
-    while (count < RoutesList.length) {
-      routes.push(
-        <Route
-          key={RoutesList[count].id}
-          path={RoutesList[count].link}
-          element={RoutesList[count].component}
-        />
-      );
-      count++;
-    }
-    return routes;
-  };
+  const { user, isSignedIn } = useContext(AppContext) as ContextProps;
 
   return (
-    <Router>
-      <AppContextProvider>
-        <Routes>{getRoutes()}</Routes>
-      </AppContextProvider>
-    </Router>
+    <Routes>
+      {RoutesList.map((route, i) => {
+        if (route.valid_role === "all" || route.valid_role === user?.role) {
+          if (route.link === routesName.signin) {
+            return (
+              <Route
+                key={route.id}
+                path={route.link}
+                element={route.component}
+              />
+            );
+          } else {
+            return (
+              <Route
+                path={route.link}
+                key={route.id}
+                element={
+                  isSignedIn || route.link === routesName.signup ? (
+                    route.component
+                  ) : (
+                    <Navigate
+                      to={routesName.signin}
+                      replace
+                      state={{
+                        from:
+                          route.link === routesName.default
+                            ? routesName.dashboard
+                            : route.link,
+                      }}
+                    />
+                  )
+                }
+              />
+            );
+          }
+        }
+      })}
+    </Routes>
   );
 };
 

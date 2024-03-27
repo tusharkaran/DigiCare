@@ -1,23 +1,24 @@
 import { Grid } from "@mui/material";
 import "./style.scss";
-import { routesName } from "../router/RoutesList";
-import { useContext, useEffect } from "react";
+import { RealTimeCards } from "../modules/homepage/realTimeCards";
+import { DigiCareDrawer } from "../modules/homepage/drawer/Drawer";
+import { useContext } from "react";
 import { AppContext } from "../context/app";
 import { ContextProps } from "../context/interface";
-import { DigiCareTitle } from "../modules/homepage/title/title";
+import { EUserRole } from "../modules/avatarPopOverContent/interface";
+import { AdminOperations } from "./AdminOperations";
 
 export const Homepage = () => {
-  const { navigationAsPerSignedStatus } = useContext(
-    AppContext
-  ) as ContextProps;
-
-  useEffect(() => {
-    navigationAsPerSignedStatus(routesName.dashboard);
-  }, []);
-
+  const { user } = useContext(AppContext) as ContextProps;
   return (
     <Grid className="homepage-background">
-      <DigiCareTitle />
+      <DigiCareDrawer>
+        {user?.role === EUserRole.admin ? (
+          <AdminOperations />
+        ) : (
+          <RealTimeCards />
+        )}
+      </DigiCareDrawer>
     </Grid>
   );
 };
