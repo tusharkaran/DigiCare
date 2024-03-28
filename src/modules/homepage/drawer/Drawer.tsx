@@ -69,7 +69,8 @@ export function DigiCareDrawer({ children }: DigicareDrawerProps, props) {
         {RoutesList.map((data) => {
           if (
             data.renderDrawerComponents &&
-            (data.valid_role === "all" || data.valid_role === user?.role)
+            (data.valid_role.includes("all") ||
+              data.valid_role.includes(user?.role))
           )
             return (
               <motion.div

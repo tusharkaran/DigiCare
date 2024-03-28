@@ -1,9 +1,16 @@
 @import "../../../assets/styles/variable";
+
 .real-time-data-grid {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.latest-record-sos-call {
+  // width: inherit;
+  cursor: pointer;
+  margin-left: auto;
 }
 
 .real-time-record-grid {
@@ -44,13 +51,22 @@
 }
 
 .pateint-record-danger-accordian {
-  background-color: rgba(255, 0, 0, 0.5) !important;
+  width: -webkit-fill-available;
+  background-image: linear-gradient(to bottom right, $red, white);
 }
 
-.pateint-record-accordian {
+.patient-record-accordian {
   width: -webkit-fill-available;
 }
 
+.according-latest-data {
+  display: flex;
+  flex-wrap: wrap;
+  width: inherit;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
 //// new changes 
 /// 

@@ -5,13 +5,13 @@ import {
   FormControl,
   Button,
   Grid,
-  TextField,
-  FormControlLabel,
-  Checkbox,
+  // TextField,
+  // FormControlLabel,
+  // Checkbox,
 } from "@mui/material";
 import DigiCareAutocomplete from "../common/components/DigicareAutoComplete";
 import { DigicareAutoCompleteDataProps } from "../common/interface/DigicareAutoComplete";
-import DigicareDateTimePicker from "../common/components/DigicareDateTimePicker";
+// import DigicareDateTimePicker from "../common/components/DigicareDateTimePicker";
 import { getAllPatients } from "../../api/patient";
 import { getAllDoctors } from "../../api/doctor";
 import { linkDoctorPatient } from "../../api/admin";
@@ -21,10 +21,10 @@ import { DigicareSnackbar } from "../common/components/DigiSnackbar";
 export const AdminTasks = () => {
   const [selectedDoctor, setSelectedDoctor] = useState<string>("");
   const [selectedPatient, setSelectedPatient] = useState<string>("");
-  const [registrationDate, setRegistrationDate] = useState<Date | null>();
-  const [admitDate, setAdmitDate] = useState<Date | null>();
-  const [dischargeDate, setDischargeDate] = useState<Date | null>();
-  const [treatment, setTreatment] = useState<string>();
+  // const [registrationDate, setRegistrationDate] = useState<Date | null>();
+  // const [admitDate, setAdmitDate] = useState<Date | null>();
+  // const [dischargeDate, setDischargeDate] = useState<Date | null>();
+  // const [treatment, setTreatment] = useState<string>();
   const [isOngoing, setIsOngoing] = useState<boolean>(false);
   const [patientsList, setPatientsList] = useState<
     Array<DigicareAutoCompleteDataProps>
@@ -45,6 +45,9 @@ export const AdminTasks = () => {
           message: "Linking Successful!",
           variant: "success",
         });
+
+        setSelectedDoctor("");
+        setSelectedPatient("");
       })
       .catch((e) => {
         setApiMessage({
@@ -52,8 +55,6 @@ export const AdminTasks = () => {
           variant: "error",
         });
       });
-    setSelectedDoctor("");
-    setSelectedPatient("");
     //return
     // console.log({
     //   patient: selectedPatient,

@@ -22,6 +22,7 @@ import { IDoctorHistory } from "../../doctorHistory/interface";
 import { motion } from "framer-motion";
 import { DigicareCircularLoader } from "../../common/components/DigicareCircularLoader";
 import { Button } from "@mui/material";
+import { makeSOSCall } from "../../../api/doctor";
 
 export const RealTimeCards = () => {
   const { t } = useTranslation();
@@ -31,7 +32,7 @@ export const RealTimeCards = () => {
     Array<RealTimeDataProps | undefined>
   >([]);
   const [expanded, setExpanded] = React.useState<string | false>(false);
-  const [dangerRealTimeData, setDamgerRealTimeData] = React.useState<
+  const [dangerRealTimeData, setDangerRealTimeData] = React.useState<
     Array<string>
   >([]);
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
@@ -42,6 +43,14 @@ export const RealTimeCards = () => {
     };
 
   React.useEffect(() => {
+    getData();
+  }, []);
+
+  React.useEffect(() => {
+    getData();
+  }, [user?.user_name]);
+
+  const getData = () => {
     if (user?.role === EUserRole.patient) {
       getLatestRealTimeData(user.user_name).then((res) => {
         setRealData([res.data.data]);
@@ -54,7 +63,8 @@ export const RealTimeCards = () => {
         getLatestRealTimeData(p)
           .then((res) => {
             if (res.data.data) realDataDummy.push(res.data.data);
-            else realDataDummy.push({ patient_username: p });
+            else
+              realDataDummy.push({ patient_username: p } as RealTimeDataProps);
           })
           .catch((e) => {
             realDataDummy.push({ patient_username: p });
@@ -65,7 +75,7 @@ export const RealTimeCards = () => {
         setIsLoading(false);
       }, 1000);
     }
-  }, [user?.user_name]);
+  };
 
   const handleNewRecordings = () => {
     setIsLoading(true);
@@ -92,7 +102,7 @@ export const RealTimeCards = () => {
           return "valid-real-time-data";
         } else {
           dangerRealTimeData.indexOf(realTimePatientId) < 0 &&
-            setDamgerRealTimeData((prevState) => {
+            setDangerRealTimeData((prevState) => {
               prevState.push(realTimePatientId);
               return prevState;
             });
@@ -108,7 +118,7 @@ export const RealTimeCards = () => {
           return "valid-real-time-data";
         } else {
           dangerRealTimeData.indexOf(realTimePatientId) < 0 &&
-            setDamgerRealTimeData((prevState) => {
+            setDangerRealTimeData((prevState) => {
               prevState.push(realTimePatientId);
               return prevState;
             });
@@ -118,7 +128,7 @@ export const RealTimeCards = () => {
     }
   };
 
-  const traverseDataToCard = (data: RealTimeDataProps) => {
+  const traverseDataToCard = (data?: RealTimeDataProps) => {
     if (data) {
       return (
         <>
@@ -138,7 +148,7 @@ export const RealTimeCards = () => {
                   data={dataAsRealTimeRecordProps}
                   validateClassName={validateData(
                     dataAsRealTimeRecordProps,
-                    user.user_name
+                    data.patient_username
                   )}
                   setIsAlertOpen={setIsAlertOpen}
                   isRecord={user?.role === EUserRole.patient}
@@ -166,7 +176,7 @@ export const RealTimeCards = () => {
                   (user as IDoctorHistory).patients[index]
                 ) >= 0
                   ? "pateint-record-danger-accordian"
-                  : "pateint-record-accordian"
+                  : "patient-record-accordian"
               }
             >
               <DigicareAccordionSummary
@@ -177,10 +187,18 @@ export const RealTimeCards = () => {
                 <Typography>
                   {(user as IDoctorHistory).patients[index]}
                 </Typography>
-                <DigiCareIcons iconFor={DigiCareIconEnum.sosCall} />
               </DigicareAccordionSummary>
               <DigicareAccordionDetails>
-                {rtData ? traverseDataToCard(rtData) : <>No Data Found</>}
+                <Grid className="according-latest-data">
+                  {traverseDataToCard(rtData)}
+                </Grid>
+                <DigiCareIcons
+                  iconFor={DigiCareIconEnum.sosCall}
+                  className="latest-record-sos-call"
+                  onClick={() =>
+                    makeSOSCall((user as IDoctorHistory).patients[index])
+                  }
+                />
               </DigicareAccordionDetails>
             </DigicareAccordion>
           );
@@ -198,50 +216,54 @@ export const RealTimeCards = () => {
   }, [user, realData, expanded]);
 
   return (
-    <Grid className="real-time-data-grid">
-      {isLoading ? (
-        <DigicareCircularLoader loading={isLoading} />
-      ) : user?.role === EUserRole.patient ? (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{
-            duration: 1.2,
-            delay: 0.1,
-            ease: [0, 0.71, 0.2, 1.01],
-          }}
-        >
-          <Grid className="real-time-record-grid">
-            {realData?.map((data) => {
-              return traverseDataToCard(data);
-            })}
-          </Grid>
-        </motion.div>
-      ) : (
-        user?.role === EUserRole.doctor && traverseAccordian
-      )}
-      {user?.role === EUserRole.patient && (
-        <Button
-          size="medium"
-          variant="contained"
-          color="warning"
-          className="record-data-button"
-          onClick={() => setIsAlertOpen(true)}
-        >
-          <b>{t("real_time_dashboard.record.name")}</b>
-        </Button>
-      )}
-      {isAlertOpen && (
-        <DigicareAlertDialog
-          isOpen={isAlertOpen}
-          handleClose={() => setIsAlertOpen(false)}
-          handleNewRecordings={handleNewRecordings}
-          title={t("real_time_dashboard.record.alert.title")}
-          okButtonText={t("real_time_dashboard.record.alert.okButtonTitle")}
-          content={t("real_time_dashboard.record.alert.content")}
-          cancelButtonText={t("real_time_dashboard.record.alert.cancel")}
-        />
-      )}
-    </Grid>
+    <>
+      <Grid>
+        <Grid className="real-time-data-grid">
+          {isLoading ? (
+            <DigicareCircularLoader loading={isLoading} />
+          ) : user?.role === EUserRole.patient ? (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                duration: 1.2,
+                delay: 0.1,
+                ease: [0, 0.71, 0.2, 1.01],
+              }}
+            >
+              <Grid className="real-time-record-grid">
+                {realData?.map((data) => {
+                  return traverseDataToCard(data);
+                })}
+              </Grid>
+            </motion.div>
+          ) : (
+            user?.role === EUserRole.doctor && traverseAccordian
+          )}
+        </Grid>
+        {user?.role === EUserRole.patient && (
+          <Button
+            size="medium"
+            variant="contained"
+            color="warning"
+            className="record-data-button"
+            onClick={() => setIsAlertOpen(true)}
+          >
+            <b>{t("real_time_dashboard.record.name")}</b>
+          </Button>
+        )}
+        {isAlertOpen && (
+          <DigicareAlertDialog
+            isOpen={isAlertOpen}
+            handleClose={() => setIsAlertOpen(false)}
+            handleNewRecordings={handleNewRecordings}
+            title={t("real_time_dashboard.record.alert.title")}
+            okButtonText={t("real_time_dashboard.record.alert.okButtonTitle")}
+            content={t("real_time_dashboard.record.alert.content")}
+            cancelButtonText={t("real_time_dashboard.record.alert.cancel")}
+          />
+        )}
+      </Grid>
+    </>
   );
 };

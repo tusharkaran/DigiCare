@@ -10,7 +10,10 @@ const Routing = () => {
   return (
     <Routes>
       {RoutesList.map((route, i) => {
-        if (route.valid_role === "all" || route.valid_role === user?.role) {
+        if (
+          route.valid_role.includes("all") ||
+          route.valid_role.includes(user?.role)
+        ) {
           if (route.link === routesName.signin) {
             return (
               <Route
