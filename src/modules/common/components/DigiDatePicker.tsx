@@ -12,6 +12,7 @@ export default function DigicareDatePicker({
   maxDate,
   className,
   disabled,
+  disableFuture
 }: DigicareDatePickerProps) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -23,6 +24,7 @@ export default function DigicareDatePicker({
         value={value}
         minDate={dayjs().subtract(minDate, "days")}
         maxDate={dayjs().add(maxDate, "days")}
+        disableFuture={disableFuture}
       />
     </LocalizationProvider>
   );

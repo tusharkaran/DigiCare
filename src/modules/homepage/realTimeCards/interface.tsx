@@ -5,6 +5,7 @@ export interface RealTimeDataProps {
   o2?: string;
   blood_pressure?: string;
   sugar_level?: string;
+  temperature?: string;
   heart_rate?: string;
 }
 
