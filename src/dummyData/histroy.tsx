@@ -29,7 +29,7 @@ export const historyData = [
       },
       {
         _id: "6r",
-        name: "sugar_level",
+        name: "temperature",
         reading: `${Math.floor(Math.random() * 300)}`,
         unit: "mg/dL",
       },
@@ -107,7 +107,7 @@ export const historyData = [
       },
       {
         _id: "1avde",
-        name: "sugar_level",
+        name: "temperature",
         reading: `${Math.floor(Math.random() * 300)}`,
         unit: "mg/dL",
       },

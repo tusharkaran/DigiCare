@@ -123,7 +123,7 @@ export const AdminTasks = () => {
               />
             </FormControl>
           </Grid>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <TextField
               fullWidth
               label="Treatment"
@@ -170,7 +170,7 @@ export const AdminTasks = () => {
               value={isOngoing ? null : dischargeDate}
               className="book-an-appointment-date-picker"
             />
-          </Grid>
+          </Grid> */}
 
           <Grid item xs={12}>
             <Button
