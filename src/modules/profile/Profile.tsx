@@ -12,6 +12,7 @@ import { updateDoctorProfileDetails } from "../../api/doctor";
 import DigiCareAutocomplete from "../common/components/DigicareAutoComplete";
 import { DigicareAutoCompleteDataProps } from "../common/interface/DigicareAutoComplete";
 import { DigicareSnackbar } from "../common/components/DigiSnackbar";
+import { isValidDate } from "../common/helper/string";
 
 export const DigiProfile = ({ user, isEdit }: ProfileProps) => {
   const { getUser } = useContext(AppContext) as ContextProps;
@@ -54,7 +55,7 @@ export const DigiProfile = ({ user, isEdit }: ProfileProps) => {
   };
 
   return (
-    <div className={!editMode ? 'profile-card' : 'profile-card editenable'}>
+    <div className={!editMode ? "profile-card" : "profile-card editenable"}>
       <div>
         <img
           src={process.env.REACT_APP_FRONTEND_HOST + profilePicture}
@@ -83,7 +84,7 @@ export const DigiProfile = ({ user, isEdit }: ProfileProps) => {
                       <DigiCareAutocomplete
                         data={digicareConfig[userKey]}
                         handleAutocompleteChange={(
-                          v: DigicareAutoCompleteDataProps[],
+                          v: DigicareAutoCompleteDataProps[]
                         ) => {
                           const values = v.map((val) => {
                             return val.value;
@@ -105,7 +106,9 @@ export const DigiProfile = ({ user, isEdit }: ProfileProps) => {
                     <span className="field-value">
                       {Array.isArray(userKeyValue)
                         ? userKeyValue.join(", ")
-                        : capitalize(userKeyValue)}
+                        : isValidDate(userKeyValue)
+                          ? new Date(userKeyValue).toDateString()
+                          : capitalize(userKeyValue)}
                     </span>
                   )}
                 </div>

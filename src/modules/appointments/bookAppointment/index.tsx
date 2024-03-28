@@ -87,17 +87,16 @@ export const MBookAPpointment = () => {
       )
         .then((res) => {
           setTimeSlots(
-            res.data?.data
-              ?.sort((a, b) => {
-                if (a.start_time > b.start_time) return 1;
-                else return -1;
-              })
-              // .filter((r) => {
-              //   let value = new Date();
-              //   value.setHours(r.start_time.split(":")[0]);
-              //   value.setMinutes(r.start_timeF.split(":")[1]);
-              //   return dayjs(value) > dayjs(new Date())
-              // })
+            res.data.sort((a, b) => {
+              if (a.start_time > b.start_time) return 1;
+              else return -1;
+            })
+            // .filter((r) => {
+            //   let value = new Date();
+            //   value.setHours(r.start_time.split(":")[0]);
+            //   value.setMinutes(r.start_timeF.split(":")[1]);
+            //   return dayjs(value) > dayjs(new Date())
+            // })
           );
         })
         .catch((e) => {

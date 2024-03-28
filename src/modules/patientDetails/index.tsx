@@ -3,16 +3,19 @@ import { History } from "../history";
 import { DigiProfile } from "../profile/Profile";
 import { PatientDetailsProps } from "./interface";
 import { MDoctorHistory } from "../doctorHistory";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./style.scss";
 import { getPatientByUsername } from "../../api/patient";
 import { IPatient } from "../avatarPopOverContent/interface";
 
 export const MPatientDetails = ({ patient_username }: PatientDetailsProps) => {
   const [patientInfo, setPatientInfo] = useState<IPatient>();
-  getPatientByUsername(patient_username).then((res) => {
-    setPatientInfo(res.data.data);
-  });
+
+  useEffect(() => {
+    getPatientByUsername(patient_username).then((res) => {
+      setPatientInfo(res.data.data);
+    });
+  }, [patient_username]);
 
   const [selectedTab, setSelectedTab] = useState<number>(0);
 
@@ -23,23 +26,27 @@ export const MPatientDetails = ({ patient_username }: PatientDetailsProps) => {
   return (
     <Grid>
       <Tabs value={selectedTab} onChange={handleTabChange}>
-        <Tab
+        {/* <Tab
           className="patient-details-tab"
           label="Patient's Medical History"
-        />
+        /> */}
         <Tab
           className="patient-details-tab"
           label="Realtime constant's History"
         />
         <Tab className="patient-details-tab" label="Patient's Profile" />
       </Tabs>
-      <TabPanel value={selectedTab} index={0}>
+      {/* <TabPanel value={selectedTab} index={0}>
         <MDoctorHistory />
+      </TabPanel> */}
+      <TabPanel value={selectedTab} index={0}>
+        {patientInfo?.user_name ? (
+          <History username={patientInfo?.user_name} />
+        ) : (
+          <></>
+        )}
       </TabPanel>
       <TabPanel value={selectedTab} index={1}>
-        <History username={patientInfo?.user_name} />
-      </TabPanel>
-      <TabPanel value={selectedTab} index={2}>
         <DigiProfile user={patientInfo} isEdit={false} />
       </TabPanel>
     </Grid>
