@@ -1,4 +1,5 @@
 import { digiAxios } from ".";
+
 import {
   DoctorSignUpApiProps,
   PatientSignUpAPIProps,
