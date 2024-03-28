@@ -1,9 +1,29 @@
 import { Grid } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
+import { useContext, useEffect } from "react";
+import { AppContext } from "../../context/app";
+import { ContextProps } from "../../context/interface";
+import { getPatientByUsername } from "../../api/patient";
+import { getDoctorByUsername } from "../../api/doctor";
+import { EUserRole } from "../avatarPopOverContent/interface";
 
-export const RoomData = () => {
-  const { roomId } = useParams();
+export const RoomData = ({}) => {
+  const { user_role, roomId } = useParams();
+  const { user, setUser } = useContext(AppContext) as ContextProps;
+
+  useEffect(() => {
+    if (user_role === EUserRole.patient) {
+      getPatientByUsername(localStorage.getItem("userName")).then((res) => {
+        setUser(res.data.data);
+      });
+    } else if (user_role === EUserRole.doctor) {
+      getDoctorByUsername(localStorage.getItem("userName")).then((res) => {
+        setUser(res.data.data);
+      });
+    }
+  }, []);
+
   function makeid(length) {
     let result = "";
     const characters =
@@ -25,7 +45,7 @@ export const RoomData = () => {
       ServerSecret,
       roomId,
       makeid(10),
-      "ASEProject",
+      user.name
     );
     const ui = ZegoUIKitPrebuilt.create(kitToken);
     ui.joinRoom({
@@ -35,10 +55,6 @@ export const RoomData = () => {
       },
     });
   }
-  return (
-    <Grid>
-      RoomId: {roomId}
-      <div ref={meetingUI}></div>
-    </Grid>
-  );
+
+  return <Grid>{user && <div ref={meetingUI}></div>}</Grid>;
 };

@@ -6,4 +6,5 @@ export interface DigicareDatePickerProps {
   maxDate?: number | null;
   className?: string;
   disabled?: boolean;
+  disableFuture?: boolean;
 }

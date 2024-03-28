@@ -5,7 +5,9 @@ export const useSignUpFormStye = makeStyles()(() => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: "1rem 2rem 2rem",
+    padding: "1rem 7rem 2rem 7rem",
     borderRadius: "1rem",
+    backgroundColor: "white",
+    width: "50rem"
   },
 }));
