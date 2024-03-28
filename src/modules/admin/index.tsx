@@ -15,6 +15,8 @@ import DigicareDateTimePicker from "../common/components/DigicareDateTimePicker"
 import { getAllPatients } from "../../api/patient";
 import { getAllDoctors } from "../../api/doctor";
 import { linkDoctorPatient } from "../../api/admin";
+import { IAPIMessage } from "../../api/interface";
+import { DigicareSnackbar } from "../common/components/DigiSnackbar";
 
 export const AdminTasks = () => {
   const [selectedDoctor, setSelectedDoctor] = useState<string>("");
@@ -30,13 +32,28 @@ export const AdminTasks = () => {
   const [doctorsList, setDoctorsList] = useState<
     Array<DigicareAutoCompleteDataProps>
   >([]);
+  const [apiMessage, setApiMessage] = useState<IAPIMessage>();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     linkDoctorPatient({
       patient_username: selectedPatient,
       doctor_username: selectedDoctor,
-    });
+    })
+      .then((res) => {
+        setApiMessage({
+          message: "Linking Successful!",
+          variant: "success",
+        });
+      })
+      .catch((e) => {
+        setApiMessage({
+          message: "Linking Unsuccessful!",
+          variant: "error",
+        });
+      });
+    setSelectedDoctor("");
+    setSelectedPatient("");
     //return
     // console.log({
     //   patient: selectedPatient,
@@ -172,6 +189,13 @@ export const AdminTasks = () => {
           </Grid>
         </Grid>
       </form>
+      <DigicareSnackbar
+        message={apiMessage?.message}
+        autoHideDuration={12000}
+        color={apiMessage?.variant}
+        variant="filled"
+        handleClose={() => setApiMessage(undefined)}
+      />
     </Container>
   );
 };
