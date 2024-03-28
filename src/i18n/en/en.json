@@ -17,6 +17,7 @@
     "heart_rate": "Heart rate",
     "bmi": "BMI",
     "o2": "O2",
+    "temperature": "temperature",
     "sugar_level": "Sugar Level"
   },
   "registration": {
