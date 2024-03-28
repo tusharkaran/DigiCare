@@ -2,7 +2,7 @@ import "./i18n/i18n";
 import "./App.css";
 import Routing from "./router/router";
 import AppContextProvider from "./context/app";
-import { HashRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
 function App() {
   return (
