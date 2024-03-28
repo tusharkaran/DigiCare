@@ -128,7 +128,7 @@ export const SignUpForm = () => {
           <Box className={classes.signUpFormGrid}>
             <span className="sign-tile-data">{t("registration.signup")}</span>
             <div className="topicon-digicare">{View}</div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="digicare-signup-form">
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
@@ -182,6 +182,7 @@ export const SignUpForm = () => {
                     handleDateChange={handleDateChange}
                     value={birthDate}
                     className="book-an-appointment-date-picker"
+                    disableFuture={true}
                   />
                 </FormControl>
                 <Grid item xs={12}>
@@ -280,8 +281,13 @@ export const SignUpForm = () => {
                         fullWidth
                         name="start_year_of_practice"
                         label={t("registration.form.start_year_of_practice")}
-                        type="text"
+                        type="number"
                         id="start_year_of_practice"
+                        inputProps={{
+                          inputMode: "numeric",
+                          min: 1950, // Minimum value
+                          max: 2024, // Maximum value
+                        }}
                         autoComplete="start_year_of_practice"
                       />
                     </Grid>

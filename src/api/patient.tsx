@@ -34,7 +34,7 @@ export const getAllTimeSlotsForDoctor = (
   doctor_username: string,
   day_name: string
 ) => {
-  return digiAxios.get(`/time-slots/${doctor_username}`, {
+  return digiAxios.get(`/avail-doc-appointment/${doctor_username}`, {
     params: {
       day_name: day_name,
     },

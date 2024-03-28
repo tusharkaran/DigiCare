@@ -144,7 +144,11 @@ export const MAppointmentList = () => {
   }, [appointments]);
 
   const handleJoin = (room_id) => {
-    window.open(`/room/${room_id}`, "_blank", "rel=noopener noreferrer");
+    window.open(
+      `/room/${user.role}/${room_id}`,
+      "_blank",
+      "rel=noopener noreferrer"
+    );
   };
 
   const handleClose = () => {

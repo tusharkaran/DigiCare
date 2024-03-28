@@ -132,8 +132,9 @@ export const digicareConfig = {
   ],
   realtimeUnits: {
     o2: { unit: "%", min: "90", max: "100" },
-    blood_pressure: { unit: "mmHg", min: "90/60", max: "120/80" },
+    blood_pressure: { unit: "mmHg", min: "90/60", max: "130/90" },
     sugar_level: { unit: "mg/dL", min: "70", max: "125" },
+    temperature: { unit: "°F", min: "97", max: "98.6" },
     heart_rate: { unit: "bpm", min: "60", max: "100" },
   },
 };

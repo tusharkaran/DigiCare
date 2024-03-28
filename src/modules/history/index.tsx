@@ -31,7 +31,7 @@ export const History = ({ username }: HistoryProps) => {
       .catch(() => {
         setApiErrorMessage("No history recorded for this user");
       });
-  }, []);
+  }, [username]);
 
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {

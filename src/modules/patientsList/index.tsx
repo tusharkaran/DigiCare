@@ -30,14 +30,16 @@ export const MPatientsList = () => {
     const dummyIdsData = [];
     for (let i = 0; i < patientList.length; i++) {
       await getPatientByUsername(patientList[i]).then(async (res) => {
-        dummyIdsData.push({
-          label: res.data.data.name,
-          value: res.data.data.user_name,
-        });
-        dummyInfoData.push({
-          label: res.data.data.name,
-          value: res.data.data.user_name,
-        });
+        if (res.data.data) {
+          dummyIdsData.push({
+            label: res.data.data.name,
+            value: res.data.data.user_name,
+          });
+          dummyInfoData.push({
+            label: res.data.data.name,
+            value: res.data.data.user_name,
+          });
+        }
       });
     }
     return { dummyInfoData: dummyInfoData, dummyIdsData: dummyIdsData };
