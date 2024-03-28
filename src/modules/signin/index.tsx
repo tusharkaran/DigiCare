@@ -10,7 +10,7 @@ import "./style.scss";
 import { useTranslation } from "react-i18next";
 import { routesName } from "../../router/RoutesList";
 import { AppContext } from "../../context/app";
-import { ContextProps } from "../../context/interface";
+import { ContextProps, ILoginUser } from "../../context/interface";
 import { useSignInFormStye } from "./style";
 import { motion } from "framer-motion";
 import { useLottie } from "lottie-react";
@@ -29,7 +29,6 @@ import { adminSignIn, doctorSignIn, patientSignIn } from "../../api/sign";
 import { UserSignInAPIProps } from "../../api/interface";
 import { getPatientByUsername } from "../../api/patient";
 import { getDoctorByUsername } from "../../api/doctor";
-import { adminUser } from "../../dummyData/admin";
 import { DigicareSnackbar } from "../common/components/DigiSnackbar";
 
 export const SignInForm = () => {
@@ -77,8 +76,19 @@ export const SignInForm = () => {
             setApiErrorMessage(e.response.data.message);
           });
       } else {
-        generateLocalStorage(data, adminSignIn(data)?.data.access_token);
-        setUser(adminUser);
+        adminSignIn(data)
+          .then((res) => {
+            generateLocalStorage(data, res.data.access_token);
+            setUser({
+              user_name: data.user_name,
+              name: data.user_name,
+              password: data.password,
+              role: EUserRole.admin,
+            } as ILoginUser);
+          })
+          .catch((e) => {
+            setApiErrorMessage(e.response.data.message);
+          });
       }
     }
   };
