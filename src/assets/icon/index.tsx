@@ -38,7 +38,7 @@ export const DigiCareIcons = ({
       return <Avatar className={classNames} style={style} onClick={onClick} />;
     case DigiCareIconEnum.sosCall:
       return (
-        <Grid>
+        <Grid onClick={onClick} className={className}>
           <SosIcon /> <RingVolumeIcon />
         </Grid>
       );

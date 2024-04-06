@@ -42,7 +42,7 @@ export const RoutesList: IRoutesPath[] = [
     id: "signin",
     renderDrawerComponents: false,
     component: <SignIn />,
-    valid_role: "all",
+    valid_role: ["all"],
   },
   {
     name: "drawer.drawerLink.signup",
@@ -50,7 +50,7 @@ export const RoutesList: IRoutesPath[] = [
     id: "signup",
     renderDrawerComponents: false,
     component: <SignUp />,
-    valid_role: "all",
+    valid_role: ["all"],
   },
   {
     name: "drawer.drawerLink.dashboard",
@@ -58,7 +58,7 @@ export const RoutesList: IRoutesPath[] = [
     id: "dashboard",
     renderDrawerComponents: true,
     component: <Homepage />,
-    valid_role: "all",
+    valid_role: ["all"],
   },
   {
     name: "drawer.drawerLink.history",
@@ -66,7 +66,7 @@ export const RoutesList: IRoutesPath[] = [
     id: "history",
     renderDrawerComponents: true,
     component: <HistoryPage />,
-    valid_role: EUserRole.patient,
+    valid_role: [EUserRole.patient],
   },
   {
     name: "drawer.drawerLink.patientList",
@@ -74,7 +74,7 @@ export const RoutesList: IRoutesPath[] = [
     id: "patientList",
     renderDrawerComponents: true,
     component: <PatientsList />,
-    valid_role: EUserRole.doctor,
+    valid_role: [EUserRole.doctor],
   },
   {
     name: "drawer.drawerLink.doctorList",
@@ -82,7 +82,7 @@ export const RoutesList: IRoutesPath[] = [
     id: "doctorList",
     renderDrawerComponents: false,
     component: <DoctorHistory />,
-    valid_role: EUserRole.patient,
+    valid_role: [EUserRole.patient],
   },
   {
     name: "drawer.drawerLink.bookAppointment",
@@ -90,7 +90,7 @@ export const RoutesList: IRoutesPath[] = [
     id: "bookAppointment",
     renderDrawerComponents: true,
     component: <BookAppointemnt />,
-    valid_role: EUserRole.patient,
+    valid_role: [EUserRole.patient],
   },
   {
     name: "drawer.drawerLink.appointmentList",
@@ -98,7 +98,7 @@ export const RoutesList: IRoutesPath[] = [
     id: "appointmentList",
     renderDrawerComponents: true,
     component: <AppointmentList />,
-    valid_role: "all",
+    valid_role: [EUserRole.doctor, EUserRole.patient],
   },
   {
     name: "drawer.drawerLink.addSchedule",
@@ -106,7 +106,7 @@ export const RoutesList: IRoutesPath[] = [
     id: "addSchedule",
     renderDrawerComponents: true,
     component: <AddSchedule />,
-    valid_role: EUserRole.doctor,
+    valid_role: [EUserRole.doctor],
   },
   {
     name: "drawer.drawerLink.profile",
@@ -114,7 +114,7 @@ export const RoutesList: IRoutesPath[] = [
     id: "profile",
     renderDrawerComponents: true,
     component: <DigicareProfile />,
-    valid_role: "all",
+    valid_role: [EUserRole.patient, EUserRole.doctor, EUserRole.nurse],
   },
   {
     name: "drawer.drawerLink.about",
@@ -122,7 +122,7 @@ export const RoutesList: IRoutesPath[] = [
     id: "about",
     renderDrawerComponents: true,
     component: <DigicareAbout />,
-    valid_role: "all",
+    valid_role: ["all"],
   },
   {
     name: "drawer.drawerLink.contact",
@@ -130,7 +130,7 @@ export const RoutesList: IRoutesPath[] = [
     id: "contact",
     renderDrawerComponents: true,
     component: <DigicareContact />,
-    valid_role: "all",
+    valid_role: ["all"],
   },
   {
     name: "drawer.drawerLink.patientDetails",
@@ -138,7 +138,7 @@ export const RoutesList: IRoutesPath[] = [
     id: "patientDetails",
     renderDrawerComponents: false,
     component: <DigicarePatientDetails />,
-    valid_role: EUserRole.doctor,
+    valid_role: [EUserRole.doctor],
   },
   {
     name: "drawer.drawerLink.calling",
@@ -146,7 +146,7 @@ export const RoutesList: IRoutesPath[] = [
     id: "calling",
     renderDrawerComponents: false,
     component: <CallingRoom />,
-    valid_role: "all",
+    valid_role: ["all"],
   },
   {
     name: "drawer.drawerLink.default",
@@ -154,6 +154,6 @@ export const RoutesList: IRoutesPath[] = [
     id: "default",
     renderDrawerComponents: false,
     component: <Homepage />,
-    valid_role: "all",
+    valid_role: ["all"],
   },
 ];

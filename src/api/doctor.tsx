@@ -44,3 +44,7 @@ export const getAllDoctorBookedAppointments = (username: string) => {
 export const getAllTimeSlots = (username: string) => {
   return digiAxios.get(`/time-slots/${username}`);
 };
+
+export const makeSOSCall = (patient_username: string) => {
+  return digiAxios.post(`/send-sos/${patient_username}`);
+};

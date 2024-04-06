@@ -6,5 +6,5 @@ export interface IRoutesPath {
   id: string;
   renderDrawerComponents: boolean;
   component: React.ReactNode;
-  valid_role: string;
+  valid_role: Array<string>;
 }
