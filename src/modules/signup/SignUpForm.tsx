@@ -44,6 +44,9 @@ export const SignUpForm = () => {
   const [specialization, setSpecialization] = React.useState<Array<string>>();
   const [doctorStudy, setDoctorStudy] = React.useState<Array<string>>();
   const [apiMessage, setApiMessage] = React.useState<string>();
+  const [contactError, setContactError] = React.useState<boolean>(false);
+  const [emailError, setEmailError] = React.useState<boolean>(false);
+  const [passwordError, setPasswordError] = React.useState<boolean>(false);
 
   const handleDateChange = (value: Date | null) => {
     setBirthDate(new Date(value));
@@ -115,6 +118,22 @@ export const SignUpForm = () => {
   };
   const { View } = useLottie(options);
 
+  const handleChange = (e: any) => {
+    const regex = /^(\d{3}[-\s]?){2}\d{4}$/i;
+    setContactError(!regex.test(String(e.target.value)));
+  };
+
+  const handleEmailChange = (e: any) => {
+    const regex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/i;
+    setEmailError(!regex.test(String(e.target.value)));
+  };
+
+  const handlePasswordChange = (e: any) => {
+    const regex =
+      /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]{8,}$/i;
+    setPasswordError(!regex.test(String(e.target.value)));
+  };
+
   return (
     <Grid className="signup-form-grid">
       <motion.div
@@ -159,6 +178,8 @@ export const SignUpForm = () => {
                     label={t("registration.form.email")}
                     name="email"
                     autoComplete="email"
+                    onBlur={(e) => handleEmailChange(e)}
+                    error={emailError}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -169,7 +190,9 @@ export const SignUpForm = () => {
                     label={t("registration.form.password")}
                     type="password"
                     id="password"
-                    autoComplete="new-password"
+                    autoComplete="password"
+                    error={passwordError}
+                    onBlur={(e) => handlePasswordChange(e)}
                   />
                 </Grid>
                 <FormControl
@@ -194,6 +217,8 @@ export const SignUpForm = () => {
                     type="contact_number"
                     id="contact_number"
                     autoComplete="contact_number-number"
+                    onBlur={(e) => handleChange(e)}
+                    error={contactError}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -286,7 +311,7 @@ export const SignUpForm = () => {
                         inputProps={{
                           inputMode: "numeric",
                           min: 1950, // Minimum value
-                          max: 2024, // Maximum value
+                          max: new Date().getFullYear(), // Maximum value
                         }}
                         autoComplete="start_year_of_practice"
                       />
@@ -311,6 +336,7 @@ export const SignUpForm = () => {
                 )}
               </Grid>
               <Button
+                disabled={emailError || passwordError || contactError || !gender}
                 type="submit"
                 className="sing-button-data"
                 variant="contained"
